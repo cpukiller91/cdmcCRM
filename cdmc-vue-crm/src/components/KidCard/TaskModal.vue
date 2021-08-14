@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#large-Modal"><i class="icofont icofont-info-square"></i>{{titleWindow}}</button>
+        <button  @click="openModal" type="button" class="btn btn-info" data-toggle="modal" data-target="#large-Modal"><i class="icofont icofont-info-square"></i>{{titleWindow}}</button>
         <!-- Modal large-->
 
         <div class="modal fade" id="large-Modal" tabindex="-1" role="dialog">
@@ -8,82 +8,118 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">{{titleWindow}}</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" @click="closeModal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="j-pro/php/action.php" method="post" class="j-pro" id="j-pro" novalidate="">
-                            <div class="j-content">
-                                <!-- start name -->
-                                <div class="j-row">
-                                    <div class="j-span6 j-unit">
-                                        <div class="j-input">
+                        <div class="row m-b-20">
+                            <div class="col-md-4">
+                                <v-select
+                                        v-model="doctor"
+                                        :rules="requiredF"
+                                        :items="userList"
+                                        item-text="username"
+                                        item-value="id"
+                                        label="Специалист"
+                                        persistent-hint
+                                        return-object
+                                        single-line
+                                ></v-select>
+                            </div>
+                            <div class="col-md-4">
+                                <v-select
+                                        v-model="kid"
+                                        :rules="requiredF"
+                                        :items="cartList"
+                                        item-text="title"
+                                        item-value="id"
+                                        label="Ребенок"
+                                        persistent-hint
+                                        return-object
+                                        single-line
+                                ></v-select>
+                            </div>
+                            <div class="col-md-4">
+                                <v-select
+                                        v-model="typeCurent"
+                                        :rules="requiredF"
+                                        :items="typeList"
 
-                                            <select class="js-example-disabled-results" v-model="userPostanov" style="width: 190px !important;">
-                                                <option :value="user.id" v-for="user in userList" :key="user.id">{{user.username}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="j-span6 j-unit">
-                                        <div class="j-input">
+                                        label="Тип приема"
+                                        persistent-hint
+                                        return-object
+                                        single-line
+                                ></v-select>
+                            </div>
+                        </div>
 
-                                            <select class="js-example-disabled-results" v-model="cartCurent" style="width: 190px !important;">
-                                                <option :value="cart.id" v-for="cart in cartList" :key="cart.id">{{cart.kidf}} {{cart.kidi}} {{cart.kido}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end name -->
-                                <!-- start email url -->
-                                <div class="j-row">
-                                    <div class="j-span4 j-unit">
-                                        <div class="j-input">
+                        <div class="row m-b-20">
+                            <div class="col-md-4">
+                                <input type="datetime-local" :rules="requiredF" v-model="timeS">
+                            </div>
+                            <!--div class="col-md-4">
+                                <v-select
+                                        v-model="timeS"
 
-                                            <select class="js-example-disabled-results" v-model="typeCurent" style="width: 190px !important;">
-                                                <option :value="typeL" v-for="typeL in typeList" :key="typeL">{{typeL}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="j-span4 j-unit">
-                                        <div class="j-input">
+                                        :items="timeStart"
+                                        item-text="title"
+                                        item-value="id"
+                                        label="Начало приема"
+                                        persistent-hint
+                                        return-object
+                                        single-line
+                                ></v-select>
+                            </div-->
+                            <div class="col-md-4">
+                                <v-select
+                                        v-model="durationSelectRange"
 
-                                            <input type="datetime-local">
-                                        </div>
-                                    </div>
-                                    <div class="j-span4 j-unit">
-                                        <div class="j-input">
-                                            <input type="time">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end email url -->
-
-
-                                <!-- end notify me -->
-                                <!-- start response from server -->
-                                <div class="j-response"></div>
-                                <!-- end response from server -->
+                                        :items="timerDurationRange"
+                                        :rules="requiredF"
+                                        label="Длительность приема"
+                                        persistent-hint
+                                        return-object
+                                        single-line
+                                ></v-select>
                             </div>
 
-                        </form>
+
+                        </div>
+
+                        <tab-task-modal v-if="accessTab"></tab-task-modal>
+
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Закрыть</button>
-                        <button type="button" @click="saveTask" class="btn btn-primary waves-effect waves-light ">Сохранить</button>
+                        <button type="button" @click="closeModal" ref="closeModal" class="btn btn-default waves-effect " data-dismiss="modal">Закрыть</button>
+                        <button type="button" ref="openModal" @click="saveTask" class="btn btn-primary waves-effect waves-light ">Сохранить</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
 <script>
     export default {
+        // props: {
+        //     // title: String,
+        //     // likes: Number,
+        //     // isPublished: Boolean,
+        //     editEvent: Array
+        //     // author: Object,
+        //     // callback: Function,
+        //     // contactsPromise: Promise // или любой другой конструктор
+        // },
         data: () => ({
+            requiredF:[
+                value => !!value || 'Обязательное поле.'
+            ],
+            accessTab:false,
             titleWindow: "Записать пациента",
-            userList:[],
-            typeCurent:"Диагностика",
+            idRecord:null,
+            startDATE:"",
             typeList:[
                 "Диагностика",
                 "Консультация",
@@ -93,82 +129,141 @@
                 "Прием КДЦ",
                 "Мониторинг"
             ],
-            userPostanov:1,
-            cartCurent:1,
-            menu:false,
-            cartList:[],
-            userId:null,
-            babycard:null
+            timerDurationRange:[30,60],
+            durationSelectRange:"",
+            timeStart:[
+                "9:00",
+                "9:30",
+                "10:00",
+                "10:30",
+                "11:00",
+                "11:30",
+                "12:00",
+                "12:30",
+                "13:00",
+                "13:30",
+                "14:00",
+                "14:30",
+                "15:00",
+                "15:30",
+                "16:00",
+                "16:30",
+                "17:00",
+                "17:30",
+                "18:00",
+                "18:30",
+                "19:00",
+            ],
+            typeCurent:"Диагностика",
+            doctor:null,
+            kid:null,
+            timeS:null,
+            modal:false,
+            editArray:null
 
         }),
         mounted(){
-            this.openModal()
+            // this.openModal()
+            //
+            var curent_date = new Date();
+            this.startDATE = dayjs(curent_date).format('YYYY-MM-DD H:m')
+
+
+        },
+        computed: {
+
+            cartList(){
+                return this.$store.getters.BABYCARDS_LIST_SELECT_OPTION;
+            },
+            userList(){
+                return this.$store.getters.USERS_LIST;
+            },
+            EVENT() {
+                return this.$store.getters.EVENT;
+            },
+        },
+        watch:{
+            EVENT(newValue,oldValue){
+               if(newValue.id) {
+
+                   this.idRecord = newValue.id;
+                   this.durationSelectRange = newValue.duration
+                   this.timeS = newValue.strtime
+                   this.$store.dispatch("GET_AXIOS_BABYCARD",{id:newValue.babycard.id})
+                   this.kid = newValue.babycard.id
+                   this.doctor = newValue.doctor.id
+                   this.typeCurent = newValue.typeEvent
+                   //console.log("watch-TaskModal-EVENT",newValue,this.idRecord)
+                   this.accessTab = true
+                }
+
+            }
         },
         methods:{
-            openModal(){
-                console.log("openModal")
-                this.$http.get('/users')
-                .then( (response) => {
-                    // handle success
-                    //this.message = response.message[0].message;
-                    this.userList = response.data;
-                    // this.src.forEach(element => {
-                    //   //console.log("Home list Layouts",element);
-                    //   //this.createElement(element)
-                    // })
-                    console.log("Task list Server",response);
-                })
-                .catch( (error) => {
-                    console.log("Login error",error);
-                    // handle error
-                    console.log(error);
-                });
-                ///babycards
+            closeModal(){
+                this.idRecord = null;
+                this.durationSelectRange = null;
+                this.timeS = null;
+                this.typeCurent = null;
 
-                this.$http.get('/babycards')
-                .then( (response) => {
-                    // handle success
-                    //this.message = response.message[0].message;
-                    this.cartList = response.data;
-                    // this.src.forEach(element => {
-                    //   //console.log("Home list Layouts",element);
-                    //   //this.createElement(element)
-                    // })
-                    console.log("Task list Server",response);
-                })
-                .catch( (error) => {
-                    console.log("Login error",error);
-                    // handle error
-                    console.log(error);
-                });
+                this.doctor = null;
+                this.kid = null;
+                this.accessTab = false
+                //this.$store.dispatch("OPEN_EVENT_MODAL",false)
+
+            },
+            openModal(){
+                this.$store.dispatch("GET_EVENT")
+                this.$store.dispatch("GET_AXIOS_USERS")
+                this.$store.dispatch("GET_AXIOS_BABYCARDS")
+
             },
             saveTask(){
+                var dodID,kidID
+                console.log(this.idRecord)
+                if(this.doctor == null && this.kid == null){
+                    return false;
+                }
+
+                if(this.idRecord == null){
+                    dodID = this.doctor.id
+                    kidID = this.kid.id
+                }else{
+                    dodID = this.doctor
+                    kidID = this.kid
+                }
+                //
+                //
                 var data = {
-                    // durationUnit:this.durationUnit,
-                    // duration:this.duration,
+                    id:this.idRecord,
+                    duration:this.durationSelectRange,
                     // times:this.times,
-                    // strtime: this.durationSelect,
-                    // typeEvent:this.typeEvent,
-                    // title:this.title,
-                    doctor:this.userId,
+                    strtime: this.timeS,
+                    typeEvent:this.typeCurent,
+                    //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
+                    doctor:dodID,
                     // month:this.month,
                     // dayOfMonth:this.dayOfMonth,
                     // color:this.details.color,
-                    babycard:this.babycard,
+                    babycard:kidID,
 
                 }
-                //console.log(this);
-                this.$http.post('/eventlists', data)
-                    .then(response => {
-                        // console.log("eventlists save",response);
-                        // window.location.href = '/'
 
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-                //console.log("dss")
+                if(this.idRecord == null){
+                    //console.log("new",data)
+                    this.$store.dispatch("POST_AXIOS_EVENTS",data)
+                }else{
+                    //console.log("edit",data)
+                    this.$store.dispatch("PUT_AXIOS_EVENTS",data)
+                }
+
+
+                const elem = this.$refs.closeModal
+                elem.click()
+
+
             }
+
         }
     };
 </script>

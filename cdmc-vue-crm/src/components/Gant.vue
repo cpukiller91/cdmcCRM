@@ -1,48 +1,56 @@
 <template>
     <div>
-        <gantt-elastic :tasks="tasks" :options="options" ></gantt-elastic>
+        <gantt-elastic :tasks="tasks" :options="options" >
+            <gantt-elastic-header slot="header" :options="options"></gantt-elastic-header>
+        </gantt-elastic>
     </div>
 </template>
 <script>
     import GanttElastic from "gantt-elastic";
+    import Header from "../components/HeaderCunt";
 
     export default {
 
         name:"Gunt",
         components: {
-            ganttElastic: GanttElastic
+            ganttElastic: GanttElastic,
+            'gantt-elastic-header': Header,
         },
+        //inject: ["GanttElastic"],
         data() {
             return {
-                tasks: [
-                    {
-                        id: 1,
-                        label: 'Make some noise',
-                        user:
-                            '<a href="https://www.google.com/search?q=John+Doe" target="_blank" style="color:#0077c0;">John Doe</a>',
-                        start: this.getDate(-24 * 5),
-                        duration: 15 * 24 * 60 * 60 * 1000,
-                        progress: 85,
-                        type: 'project',
-                        collapsed: false,
-                    }
-                ],
+                props: {
+                    tasksInput:Array
+                        // title: String,
+                        // likes: Number,
+                        // isPublished: Boolean,
+                        //editEvent: Array
+                        // author: Object,
+                        // callback: Function,
+                        // contactsPromise: Promise // или любой другой конструктор
+                },
+                tasks: [],
                 options: {
-                    maxRows: 100,
-                    maxHeight: 300,
+                    // times:{
+                    //     timeZoom:10
+                    // },
+                    maxRows: 300,
+                    maxHeight: 600,
                     title: {
-                        label: 'Your project title as html (link or whatever...)',
+                        label: 'CDMC ',
                         html: false
                     },
                     row: {
-                        height: 24
+                        height: 20
                     },
                     calendar: {
+
                         hour: {
-                            display: false
+                            display: true
                         }
                     },
                     chart: {
+
                         progress: {
                             bar: false
                         },
@@ -51,6 +59,7 @@
                         }
                     },
                     taskList: {
+
                         expander: {
                             straight: false
                         },
@@ -68,11 +77,11 @@
                                 width: 200,
                                 expander: true,
                                 html: true,
-                                events: {
-                                    click({ data, column }) {
-                                        alert('description clicked!\n' + data.label);
-                                    }
-                                }
+                                // events: {
+                                //     click({ data, column }) {
+                                //         alert('description clicked!\n' + data.label);
+                                //     }
+                                // }
                             },
                             {
                                 id: 3,
@@ -87,12 +96,12 @@
                                 value: task => dayjs(task.start).format('YYYY-MM-DD'),
                                 width: 78
                             },
-                            {
-                                id: 4,
-                                label: 'Тип',
-                                value: 'type',
-                                width: 68
-                            },
+                            // {
+                            //     id: 4,
+                            //     label: 'Тип',
+                            //     value: 'type',
+                            //     width: 68
+                            // },
                             {
                                 id: 5,
                                 label: '%',
@@ -113,6 +122,12 @@
                     },
                     locale: {
                         name: "ru",
+                        Now: 'Сейчас',
+                        'X-Scale': 'Зумировать по ширине ',
+                        'Y-Scale': 'по высоте  ',
+                        'Task list width': 'Список задач',
+                        'Before/After': 'Expand',
+                        'Display task list': 'Список задач',
                         weekdays: 'Понедельник_Вторник_Среда_Четверг_Пятница_Суббота_Воскресенье'.split('_'), // weekdays Array
                         weekdaysShort: 'Pon_Wto_Śro_Czw_Pią_Sob_Nie'.split('_'), // OPTIONAL, short weekdays Array, use first three letters if not provided
                         weekdaysMin: 'Pn_Wt_Śr_Cz_Pt_So_Ni'.split('_'), // OPTIONAL, min weekdays Array, use first two letters if not provided
@@ -142,8 +157,25 @@
 
             }
         },
+        computed: {
+            Task() {
+                return this.$store.getters.GUNT_EVENT_LIST;
+            },
+        },
+        watch:{
+            Task(newVal,oldVal){
+                this.tasks = newVal
+                console.log("watch-gunt",newVal)
+            }
+        },
         mounted(){
-            this.loadTask();
+            //this.GanttElastic.$emit("recenterPosition");
+            this.$children[0].$emit("recenterPosition");
+            console.log("root",this)
+            //this.loadTask();
+            this.$store.dispatch("GET_GUNT_EVENT_LIST")
+            //this.tasks = this.kidTask;
+            //console.log("tasksInput-->",this.$store.getters.GUNT_KID_EVENT_LIST)
         },
         methods:{
             getDate(hours) {
@@ -154,98 +186,7 @@
                 const timeStamp = new Date(currentYear, currentMonth, currentDay, 0, 0, 0).getTime();
                 return new Date(timeStamp + hours * 60 * 60 * 1000).getTime();
             },
-            loadTask(){
-                this.$http.get('/task-boards?_limit=100')
-                    .then( (response) => {
-                        console.log(response.data)
 
-                        response.data.forEach(element => {
-                            this.tasks.push({
-                                id: element.id,
-                                label: element.title,
-                                user:
-                                    '<a href="https://www.google.com/search?q=John+Doe" target="_blank" style="color:#0077c0;">John Doe</a>',
-                                start: this.getDate(-24 * 5),
-                                duration: 15 * 24 * 60 * 60 * 1000,
-                                progress: 85,
-                                type: 'project',
-                                collapsed: false,
-                            })
-                            console.log(element.id)
-                        })
-
-                        // this.tasks = [
-                        //     // {
-                        //     //     id: 1,
-                        //     //     label: 'Make some noise',
-                        //     //     user:
-                        //     //         '<a href="https://www.google.com/search?q=John+Doe" target="_blank" style="color:#0077c0;">John Doe</a>',
-                        //     //     start: this.getDate(-24 * 5),
-                        //     //     duration: 15 * 24 * 60 * 60 * 1000,
-                        //     //     progress: 85,
-                        //     //     type: 'project',
-                        //     //     collapsed: false,
-                        //     // },
-                        //     // {
-                        //     //     id: 2,
-                        //     //     label: 'With great power comes great responsibility',
-                        //     //     user:
-                        //     //         '<a href="https://www.google.com/search?q=Peter+Parker" target="_blank" style="color:#0077c0;">Peter Parker</a>',
-                        //     //     parentId: 1,
-                        //     //     start: this.getDate(-24 * 4),
-                        //     //     duration: 4 * 24 * 60 * 60 * 1000,
-                        //     //     progress: 50,
-                        //     //     type: 'milestone',
-                        //     //     collapsed: true,
-                        //     //     style: {
-                        //     //         base: {
-                        //     //             fill: '#1EBC61',
-                        //     //             stroke: '#0EAC51'
-                        //     //         }
-                        //     //         /*'tree-row-bar': {
-                        //     //           fill: '#1EBC61',
-                        //     //           stroke: '#0EAC51'
-                        //     //         },
-                        //     //         'tree-row-bar-polygon': {
-                        //     //           stroke: '#0EAC51'
-                        //     //         }*/
-                        //     //     }
-                        //     // },
-                        //     // {
-                        //     //     id: 3,
-                        //     //     label: 'Courage is being scared to death, but saddling up anyway.',
-                        //     //     user:
-                        //     //         '<a href="https://www.google.com/search?q=John+Wayne" target="_blank" style="color:#0077c0;">John Wayne</a>',
-                        //     //     parentId: 2,
-                        //     //     start: this.getDate(-24 * 3),
-                        //     //     duration: 2 * 24 * 60 * 60 * 1000,
-                        //     //     progress: 100,
-                        //     //     type: 'task'
-                        //     // },
-                        //     // {
-                        //     //     id: 4,
-                        //     //     label: 'Put that toy AWAY!',
-                        //     //     user:
-                        //     //         '<a href="https://www.google.com/search?q=Clark+Kent" target="_blank" style="color:#0077c0;">Clark Kent</a>',
-                        //     //     start: this.getDate(-24 * 2),
-                        //     //     duration: 2 * 24 * 60 * 60 * 1000,
-                        //     //     progress: 50,
-                        //     //     type: 'task',
-                        //     //     dependentOn: [3]
-                        //     // }
-                        // ]
-                        this.src.forEach(element => {
-                            console.log("Gunt Component",element);
-                            this.createElement(element)
-                        })
-                    })
-                    .catch( (error) => {
-                        console.log("Login error",error);
-                        // handle error
-                        console.log(error);
-                    });
-
-            }
         }
     }
 </script>

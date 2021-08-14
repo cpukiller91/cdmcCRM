@@ -14,6 +14,7 @@ import Gunt from "./components/Gant";
 import KidCardModal from "./components/KidCard/KidCardModal";
 import AllKidCardModal from "./components/KidCard/AllKidCardModal";
 import TaskModal from "./components/KidCard/TaskModal";
+import TabTaskModal from "./components/KidCard/TabTaskModal";
 
 Vue.component('default-layout', Deault)
 Vue.component('task-list', TaskList)
@@ -24,8 +25,10 @@ Vue.component('gunt', Gunt)
 Vue.component('kid-card-modal', KidCardModal)
 Vue.component('all-kid-card-modal', AllKidCardModal)
 Vue.component('kid-task-modal', TaskModal)
+Vue.component('tab-task-modal', TabTaskModal)
 
 Axios.defaults.baseURL = "https://admin.cdcmc.ru";
+//Axios.defaults.baseURL = "http://localhost:1338";
 Vue.prototype.$http = Axios;
 
 Vue.config.productionTip = false

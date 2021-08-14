@@ -904,6 +904,8 @@
   export default {
     name: 'Home',
     data: () => ({
+
+
       projectTask:1,
       titleTask:"",
       descTask:"",

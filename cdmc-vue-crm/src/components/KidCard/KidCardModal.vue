@@ -736,18 +736,18 @@
 
 
                 }
-
-                axios.post('/babycards/', data)
-                    .then(response => {
-                        this.dialog=false;
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
-                    .then(function () {
-                        // always executed
-                    });
+                this.$store.dispatch("POST_AXIOS_BABYCARDS",data)
+                // axios.post('/babycards/', data)
+                //     .then(response => {
+                //         this.dialog=false;
+                //         console.log(response);
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //     })
+                //     .then(function () {
+                //         // always executed
+                //     });
 
 
             },

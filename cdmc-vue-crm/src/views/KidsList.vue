@@ -49,32 +49,28 @@
                                 <th>Специалист</th>
                                 <th>Тип приема</th>
                                 <th>Начало</th>
-                                <th>Окончание</th>
+                                <th>Длительность</th>
                                 <th><i class="fa fa-gears"></i></th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Тест Тест Тест</td>
-                                <td>Павлова Н. Н.</td>
-                                <td>Консультация</td>
-                                <td>19:00</td>
-                                <td>19:30</td>
-                                <td><div class="dropdown-primary dropdown open">
-                                    <button class="btn btn-outline-primary dropdown-toggle waves-effect waves-light " type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <i class="fa fa-bars"></i>
+                            <tr v-for="Event in EventList" :key="Event.id"  >
+                                <th scope="row">{{Event.id}}</th>
+                                <td>{{Event.babycard.kidf}} {{Event.babycard.kidi}} {{Event.babycard.kido}}</td>
+                                <td>{{Event.doctor.username}}</td>
+                                <td>{{Event.typeEvent}}</td>
+                                <td>{{Event.strtime}}</td>
+                                <td>{{Event.duration}}</td>
+                                <td>
+
+                                    <button @click="openModal(Event.id)" data-toggle="modal" data-target="#large-Modal" class="btn btn-success btn-outline-success">
+                                        <i class="fa fa-edit"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                        <!--a class="dropdown-item waves-light waves-effect" >Action</a>
-                                        <a class="dropdown-item waves-light waves-effect" >Another action</a>
-                                        <a class="dropdown-item waves-light waves-effect" >Something else here</a-->
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item waves-light waves-effect" >Редактировать</a>
-                                        <a class="dropdown-item waves-light waves-effect" >Удалить</a>
-                                    </div>
-                                </div></td>
+                                    <button @click="deleteTask(Event.id)" class="btn btn-danger btn-outline-danger">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </td>
                             </tr>
 
                             </tbody>
@@ -94,11 +90,117 @@
     export default {
         data: () => ({
             titleWindow: "Записать пациента",
-
+            //EventList:[],
+            modal:false,
+            taskKid: []
         }),
         mounted(){
+            this.$store.dispatch("GET_AXIOS_EVENTS")
+
+        // var kT = [{
+        //     id: 1,
+        //     label: 'Make some noise',
+        //     user:
+        //         '<a href="https://www.google.com/search?q=John+Doe" target="_blank" style="color:#0077c0;">John Doe</a>',
+        //     start: this.getDate(-24 * 5),
+        //     duration: 15 * 24 * 60 * 60 * 1000,
+        //     progress: 85,
+        //     type: 'project',
+        //     collapsed: false,
+        // },
+        //     {
+        //         id: 2,
+        //         label: 'Make some noise2',
+        //         user:
+        //             '<a href="https://www.google.com/search?q=John+Doe" target="_blank" style="color:#0077c0;">John Doe</a>',
+        //         start: this.getDate(-24 * 5),
+        //         duration: 15 * 24 * 60 * 60 * 1000,
+        //         progress: 100,
+        //         type: 'project',
+        //         collapsed: false,
+        //     }]
+            //this.$store.dispatch("SET_KID_EVENT_LIST")
 
         },
+        computed: {
+
+            Event() {
+                return this.$store.getters.EVENT;
+            },
+            EventList() {
+                return this.$store.getters.EVENT_LIST;
+            },
+        },
+        methods:{
+            getDate(hours) {
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                const currentMonth = currentDate.getMonth();
+                const currentDay = currentDate.getDate();
+                const timeStamp = new Date(currentYear, currentMonth, currentDay, 0, 0, 0).getTime();
+                return new Date(timeStamp + hours * 60 * 60 * 1000).getTime();
+            },
+            openModal(id){
+
+                //console.log("--11--",this.eventID)
+                // var data = {
+                //     params: {
+                //         id: id
+                //     }
+                // }
+                this.$store.dispatch("GET_AXIOS_EVENT",{id:id})
+                this.$store.dispatch("GET_AXIOS_USERS")
+                this.$store.dispatch("GET_AXIOS_BABYCARDS")
+                //
+                // console.log("--modal-edit--",this.eventID)
+                //console.log("----",this.eventID)
+                // console.log("--TaskModal-->>",this.todoList)
+                // //this.question;
+                // console.log("openModal")
+                // this.$http.get('/users')
+                // .then( (response) => {
+                //     // handle success
+                //     //this.message = response.message[0].message;
+                //     this.userList = response.data;
+                //     // this.src.forEach(element => {
+                //     //   //console.log("Home list Layouts",element);
+                //     //   //this.createElement(element)
+                //     // })
+                //     console.log("Task list Server",response);
+                // })
+                // .catch( (error) => {
+                //     console.log("Login error",error);
+                //     // handle error
+                //     console.log(error);
+                // });
+                // ///babycards
+                //
+                // this.$http.get('/babycards')
+                // .then( (response) => {
+                //     // handle success
+                //     //this.message = response.message[0].message;
+                //     this.cartList = []
+                //     //
+                //     response.data.forEach(element => {
+                //         this.cartList.push({
+                //             title:element.kidf+" "+element.kidi+" "+element.kido,
+                //             id:element.id
+                //         });
+                //       //console.log("babycards",element.id,element.kidf);
+                //       //this.createElement(element)
+                //     })
+                //     console.log("babycards",response);
+                // })
+                // .catch( (error) => {
+                //     console.log("Login error",error);
+                //     // handle error
+                //     console.log(error);
+                // });
+            },
+            deleteTask(id){
+                this.$store.dispatch("DELETE_AXIOS_EVENTS",{id:id})
+            }
+        }
 
     };
 </script>

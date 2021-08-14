@@ -2085,7 +2085,7 @@
         }),
         mounted() {
             this.src.forEach(element => {
-                console.log("Home list Layouts",element);
+                //console.log("Home list Layouts",element);
                 this.createElement(element)
             })
 

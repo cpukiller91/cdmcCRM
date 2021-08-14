@@ -142,18 +142,24 @@
                             >
                                 <v-expansion-panel-header>
                                     {{item.kidf}} {{item.kidi}} {{item.kido}}
+
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
+                                    <button class="btn btn-info btn-outline-success" @click="editCart(item)">
+                                        <i class="icofont icofont-info-square"></i>Сохранить</button>
+                                    <button class="btn btn-info btn-outline-danger" @click="dropCart(item.id)">
+                                        <i class="icofont icofont-info-square"></i>Удалить</button>
                                     <v-row>
                                         <v-col
                                                 cols="12"
                                                 md="4"
                                         >
+
                                             <v-text-field
                                                     v-model="item.kidf"
-                                                    readonly
+
                                                     label="Фамилия ребенка"
-                                                    required
+
                                             ></v-text-field>
                                         </v-col>
 
@@ -164,9 +170,9 @@
 
                                             <v-text-field
                                                     v-model="item.kidi"
-                                                    readonly
+
                                                     label="Имя ребенка"
-                                                    required
+
                                             ></v-text-field>
                                         </v-col>
 
@@ -175,10 +181,10 @@
                                                 md="4"
                                         >
                                             <v-text-field
-                                                    readonly
+
                                                     v-model="item.kido"
                                                     label="Отчество ребенка"
-                                                    required
+
                                             ></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -192,7 +198,7 @@
                                                     v-model="item.date"
                                                     label="Дата Рождения"
                                                     prepend-icon="mdi-calendar"
-                                                    readonly
+
 
                                             ></v-text-field>
 
@@ -204,7 +210,7 @@
                                         >
                                             <v-text-field
                                                     v-model="item.momtel"
-                                                    readonly
+
                                                     label="Телефон Мамы"
 
                                             ></v-text-field>
@@ -217,7 +223,7 @@
                                             <v-text-field
                                                     v-model="item.age"
                                                     label="Возраст"
-                                                    readonly
+
                                             ></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -228,10 +234,10 @@
                                                 md="4"
                                         >
                                             <v-select
-                                                    :items="item.cityList"
+                                                    :items="cityList"
                                                     label="Город"
-                                                    v-model="city"
-                                                    readonly
+                                                    v-model="item.city"
+
                                             ></v-select>
 
                                         </v-col>
@@ -243,8 +249,8 @@
                                             <v-select
                                                     :items="OtdelenijeList"
                                                     label="Отделение"
-                                                    v-model="item.Otdelenije"
-                                                    readonly
+                                                    v-model="item.otdelenije"
+
                                             ></v-select>
 
                                         </v-col>
@@ -257,7 +263,7 @@
                                                     v-model="item.ibn"
 
                                                     label="№ и/б"
-                                                    readonly
+
                                             ></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -271,7 +277,7 @@
                                                     :items="finsrcList"
                                                     label="Источн финансирования"
                                                     v-model="item.finsrc"
-                                                    readonly
+
                                             ></v-select>
 
                                         </v-col>
@@ -284,7 +290,7 @@
                                                     :items="ServiceList"
                                                     label="Вид услуги"
                                                     v-model="item.servicetype"
-                                                    readonly
+
                                             ></v-select>
 
                                         </v-col>
@@ -296,7 +302,7 @@
                                             <v-text-field
                                                     v-model="item.consaltfio"
                                                     label="ФИО консультанта"
-                                                    readonly
+
                                             ></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -310,7 +316,7 @@
                                                     label="Примечание (неявка или др.)"
                                                     v-model="item.desc"
                                                     hint="Hint text"
-                                                    readonly
+
                                             ></v-textarea>
 
                                         </v-col>
@@ -330,7 +336,7 @@
                                             <v-text-field
                                                     v-model="item.dadtel"
                                                     label="Телефон Папы"
-                                                    readonly
+
                                             ></v-text-field>
 
                                         </v-col>
@@ -342,7 +348,7 @@
                                             <v-text-field
                                                     v-model="item.firstdiagnoz"
                                                     label="Клинический диагноз"
-                                                    readonly
+
                                             ></v-text-field>
 
                                         </v-col>
@@ -355,7 +361,7 @@
                                                     v-model="item.lastdiagnoz"
 
                                                     label="Сопутствующий диагноз (данные анамнеза, заключение спец-та, результ. инструмен. обслед. оперативные вмеш.)"
-                                                    readonly
+
                                             ></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -370,7 +376,7 @@
 
                                                     :counter="10"
                                                     label="дл-ть бол-ни"
-                                                    readonly
+
                                             ></v-text-field>
                                         </v-col>
 
@@ -382,7 +388,7 @@
                                                     :items="drList"
                                                     label="Д или Р"
                                                     v-model="item.dr"
-                                                    readonly
+
                                             ></v-select>
                                         </v-col>
 
@@ -394,7 +400,7 @@
                                                     :items="dnList"
                                                     label="Заб.н.с. (ЦНС)"
                                                     v-model="item.zapnsdn"
-                                                    readonly
+
                                             ></v-select>
                                         </v-col>
                                     </v-row>
@@ -408,7 +414,7 @@
                                                     :items="dnList"
                                                     label="Врожд пороки развития"
                                                     v-model="item.porkdn"
-                                                    readonly
+
                                             ></v-select>
                                         </v-col>
 
@@ -420,7 +426,7 @@
                                                     :items="dnList"
                                                     label="Генет и наслед б-ни "
                                                     v-model="item.genetnasdn"
-                                                    readonly
+
                                             ></v-select>
                                         </v-col>
 
@@ -432,7 +438,7 @@
                                                     :items="dnList"
                                                     label="Нарушение слуха"
                                                     v-model="item.narsluhdn"
-                                                    readonly
+
                                             ></v-select>
                                         </v-col>
                                     </v-row>
@@ -446,7 +452,7 @@
                                                     :items="dnList"
                                                     label="Нарушение зрения"
                                                     v-model="item.narzrendn"
-                                                    readonly
+
                                             ></v-select>
                                         </v-col>
 
@@ -458,7 +464,7 @@
                                                     :items="tiajestList"
                                                     label="Тяжесть б-ни"
                                                     v-model="item.tiajest"
-                                                    readonly
+
                                             ></v-select>
                                         </v-col>
 
@@ -470,7 +476,7 @@
                                                     :items="stadijaList"
                                                     label="Стадия б-ни"
                                                     v-model="item.stadija"
-                                                    readonly
+
                                             ></v-select>
                                         </v-col>
                                         <v-col
@@ -481,7 +487,7 @@
                                                     :items="dnList"
                                                     label="Заб-я ОДА"
                                                     v-model="item.zabjadn"
-                                                    readonly
+
                                             ></v-select>
                                         </v-col>
 
@@ -495,9 +501,12 @@
                                                     label="Психолого-педагогическое заключение"
                                                     v-model="item.psihozak"
                                                     hint="Hint text"
-                                                    readonly
-                                            ></v-textarea>
 
+                                            ></v-textarea>
+                                            <button class="btn btn-info btn-outline-success" @click="editCart(item)">
+                                                <i class="icofont icofont-info-square"></i>Сохранить</button>
+                                            <button class="btn btn-info btn-outline-danger" @click="dropCart(item.id)">
+                                                <i class="icofont icofont-info-square"></i>Удалить</button>
                                         </v-col>
 
                                     </v-row>
@@ -524,7 +533,7 @@
             AddCard: true,
             AllCard: false,
             menu:null,
-            babycardsList:[],
+            //babycardsList:[],
             dialog: false,
             username:"",
             drawer: false,
@@ -633,8 +642,8 @@
             finsrc:"",
             ibn:"",
             city:"",
-            Otdelenije:"",
-            age:"",
+            otdelenije:"",
+
 
             mamf:"",
             mami:"",
@@ -685,8 +694,26 @@
             emotionalCondition: ["норма", "относительно стабильное", "нестабильное", "нарушенное подавленное ", "нарушенное возбужденное"],
 
         }),
-        methods:{
+        computed: {
 
+            babycardsList(){
+                return this.$store.getters.BABYCARDS_LIST_FILTER;
+            }
+        },
+        watch:{
+            babycardsList(vn,vo){
+                console.log("babycardsList",vn)
+            }
+        },
+        methods:{
+            dropCart(id){
+                this.$store.dispatch("DELETE_AXIOS_BABYCARDS",{id:id })
+                console.log("dropCart",id)
+            },
+            editCart(item){
+                this.$store.dispatch("PUT_AXIOS_BABYCARDS",item)
+                console.log("editCart",item)
+            },
             monthDiff(dateFrom, dateTo) {
                 //console.log(new Date(this.date));
                 dateFrom = new Date(this.date);
@@ -712,17 +739,9 @@
                     date_contains:this.datebf
 
                 }
-                console.log(this.datebf);
 
-                this.$http.get('/babycards/',{params: data})
-                    .then(response => {
-                        //this.dialog=false;
-                        this.babycardsList = response.data;
+                this.$store.dispatch("GET_AXIOS_BABYCARDS_LIST_FILTER",data)
 
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
             },
         }
     }
