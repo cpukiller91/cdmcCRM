@@ -72,7 +72,7 @@ export default{
             // console.log("POST_AXIOS_DEFECTOLOG_STORE-->",eventlists.data)
             context.dispatch("GET_AXIOS_DEFECTOLOG")
             //
-            //context.dispatch("GET_AXIOS_BABYCARD",{id:eventlists.data.babycard.id})
+            context.dispatch("GET_AXIOS_BABYCARD",{id:eventlists.data.babycard.id})
 
         },
         PUT_AXIOS_DEFECTOLOG: async (context, filter) => {
