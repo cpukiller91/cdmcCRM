@@ -100,36 +100,56 @@
       message:"",
       overlay: true
     }),
+    watch:{
+      LOGIN_USER(newVal){
+          if(newVal){
+            this.$router.push({ name: 'Home' })
+          }
+        // console.log("LOGIN_USER",newVal)
+      }
+    },
+    computed:{
+      LOGIN_USER(){
+        return this.$store.getters.LOGIN_USER
+      }
+    },
     mounted() {
-
+      this.$store.dispatch("LOGIN_USER_STORAGE")
     },
     methods: {
       logIn(){
-        // Make a request for a user with a given ID
-        this.$http.post('/auth/local', {
+        var data = {
+            identifier: this.login,
+            password: this.password,
+        }
 
-          identifier: this.login,
-          password: this.password,
-        })
-        .then( (response) => {
-          // handle success
-          //this.message = response.message[0].message;
-          if(response.data.jwt){
-            let json = JSON.stringify(response.data)
-            this.logIn = true;
-            localStorage.setItem("login", json)
-            this.$router.push({ name: 'Home' })
-          }
-          console.log("Login",response.jwt);
-        })
-        .catch( (error) => {
-          console.log("Login error",error);
-          // handle error
-          console.log(error);
-        })
-        .then(function () {
-          // always executed
-        });
+        this.$store.dispatch("GET_AXIOS_LOGIN_USER",data)
+        //this.$router.push({ name: 'Home' })
+        // Make a request for a user with a given ID
+        // this.$http.post('/auth/local', {
+        //
+        //   identifier: this.login,
+        //   password: this.password,
+        // })
+        // .then( (response) => {
+        //   // handle success
+        //   //this.message = response.message[0].message;
+        //   if(response.data.jwt){
+        //     let json = JSON.stringify(response.data)
+        //     this.logIn = true;
+        //     localStorage.setItem("login", json)
+        //     this.$router.push({ name: 'Home' })
+        //   }
+        //   console.log("Login",response.jwt);
+        // })
+        // .catch( (error) => {
+        //   console.log("Login error",error);
+        //   // handle error
+        //   console.log(error);
+        // })
+        // .then(function () {
+        //   // always executed
+        // });
       },
       logout(){
 

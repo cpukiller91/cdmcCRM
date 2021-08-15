@@ -1,4 +1,5 @@
 import Axios from "axios";
+import router from '../router';
 //console.log("GET_AXIOS_DEFECTOLOG_Component",this.$store.dispatch("GET_AXIOS_DEFECTOLOG",{id:4}))
 //console.log("DELETE_AXIOS_DEFECTOLOG_Component",this.$store.dispatch("DELETE_AXIOS_DEFECTOLOG",{id:13}))
 // console.log("POST_AXIOS_DEFECTOLOG_Component",this.$store.dispatch("POST_AXIOS_DEFECTOLOG",{
@@ -19,9 +20,13 @@ import Axios from "axios";
 export default{
     state: {
         url: '/users/',
-        USERS_LIST:[]
+        USERS_LIST:[],
+        LOGIN_USER:[]
     },
     mutations: {
+        LOGIN_USER(state, payload){
+            state.LOGIN_USER = payload
+        },
 
         USERS_LIST(state, payload){
             state.USERS_LIST = payload
@@ -51,6 +56,40 @@ export default{
                 url : url,
                 data:DATA
             }
+        },
+
+        LOGOUT_USER: async (context, filter) => {
+            localStorage.removeItem('login');
+            context.commit('LOGIN_USER', []);
+            //return router.push({ name: 'Login' })
+        },
+        LOGIN_USER_STORAGE: async (context, filter) => {
+            var currentColor = localStorage.getItem('login');
+            context.commit('LOGIN_USER', JSON.parse(currentColor) );
+
+        },
+
+        GET_AXIOS_LOGIN_USER: async (context, filter) => {
+            //context.state.url+filter.id
+            //var data = await context.dispatch("URL_CONSTRUCT_USERS",filter,true)
+
+            //console.log("GET_AXIOS_DEFECTOLOG_STORE",filter,typeof filter)
+            let eventlists =  await Axios.post("/auth/local",filter);
+
+            if(eventlists.data.jwt){
+                console.log("--GET_AXIOS_LOGIN_USER--",eventlists.data)
+                let json = JSON.stringify(eventlists.data)
+                //this.logIn = true;
+                localStorage.setItem("login", json)
+                context.commit('LOGIN_USER', eventlists.data);
+                //router.push({ name: 'Home' })
+            }else{
+                context.dispatch("LOGOUT_USER")
+
+            }
+
+
+
         },
 
         GET_AXIOS_USERS: async (context, filter) => {
@@ -94,6 +133,9 @@ export default{
         }
     },
     getters: {
+        LOGIN_USER: state => {
+            return state.LOGIN_USER;
+        },
         USERS_LIST: state => {
             return state.USERS_LIST;
         },

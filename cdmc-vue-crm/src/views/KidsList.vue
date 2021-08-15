@@ -3,15 +3,17 @@
     <div>
 
     <!-- Basic table card start -->
-    <div class="card">
+    <div class="card" v-if="login">
         <div class="card-header">
 
             <div data-app style="z-index: 100">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <kid-task-modal></kid-task-modal>
                     </div>
-
+                    <div class="col-md-3">
+                        <button class="btn btn-danger btn-outline-danger" @click="logout"><i class="icofont icofont-eye-alt"></i>Выход</button>
+                    </div>
                     <div class="col-md-3">
                         <all-kid-card-modal style="float: right"></all-kid-card-modal>
                     </div>
@@ -92,11 +94,12 @@
             titleWindow: "Записать пациента",
             //EventList:[],
             modal:false,
+            login:true,
             taskKid: []
         }),
         mounted(){
             this.$store.dispatch("GET_AXIOS_EVENTS")
-
+            //this.$store.dispatch("LOGIN_USER_STORAGE")
         // var kT = [{
         //     id: 1,
         //     label: 'Make some noise',
@@ -123,7 +126,9 @@
 
         },
         computed: {
-
+            // LOGIN_USER(){
+            //     return this.$store.getters.LOGIN_USER;
+            // },
             Event() {
                 return this.$store.getters.EVENT;
             },
@@ -131,7 +136,24 @@
                 return this.$store.getters.EVENT_LIST;
             },
         },
+        watch:{
+            // LOGIN_USER(newValue){
+            //     console.log("LOGIN_USER",newValue)
+            //     // if(newValue == null){
+            //     //
+            //     //     this.$router.push({ name: 'Login' })
+            //     // }else{
+            //     //     this.login = true
+            //     //     this.$router.push({ name: 'Home' })
+            //     // }
+            // }
+        },
         methods:{
+            logout(){
+
+                this.$store.dispatch("LOGOUT_USER")
+                this.$router.push({ name: 'Login' }).catch(()=>{})
+            },
             getDate(hours) {
                 const currentDate = new Date();
                 const currentYear = currentDate.getFullYear();

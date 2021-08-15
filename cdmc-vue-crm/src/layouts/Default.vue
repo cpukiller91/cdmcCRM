@@ -2083,6 +2083,7 @@
                 
             ]
         }),
+        
         mounted() {
             this.src.forEach(element => {
                 //console.log("Home list Layouts",element);

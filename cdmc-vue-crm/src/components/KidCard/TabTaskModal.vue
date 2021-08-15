@@ -609,7 +609,8 @@
                             required
                     ></v-select>
 
-
+                    <button class="btn btn-info btn-outline-success" @click.stop="psihologSave()">
+                        <i class="icofont icofont-info-square"></i>Создать пометку психолога</button>
                 </v-form>
                 <template>
                     <v-expansion-panels focusable>
@@ -620,6 +621,8 @@
                             <v-expansion-panel-header>{{item.id}} - Комментарий специалиста ({{item.created_at}})</v-expansion-panel-header>
 
                             <v-expansion-panel-content>
+                                <button class="btn btn-info btn-outline-danger" @click="psihologDelete(item)">
+                                    <i class="icofont icofont-info-square"></i>Удалить</button>
                                 <v-select
                                         :items="emotionalCondition"
                                         v-model="item.emotionalcondition"
@@ -788,7 +791,8 @@
                             v-model="directionsrehabilit"
                             required
                     ></v-select>
-
+                    <button class="btn btn-info btn-outline-success" @click.stop="simpsihologSave()">
+                        <i class="icofont icofont-info-square"></i>Создать пометку симейного психолога</button>
                 </v-form>
                 <template>
                     <v-expansion-panels focusable>
@@ -799,6 +803,9 @@
                             <v-expansion-panel-header>{{item.id}} - Комментарий специалиста ({{item.created_at}})</v-expansion-panel-header>
 
                             <v-expansion-panel-content>
+                                <button class="btn btn-info btn-outline-danger" @click="simpsihologDelete(item)">
+                                    <i class="icofont icofont-info-square"></i>Удалить</button>
+
                                 <v-select
                                         :items="ageCategory"
                                         label="возрастная категория "
@@ -1080,8 +1087,8 @@
                 this.babycard = newV,
                 this.defectologs = newV.defectologs,
                 this.logopeds = newV.logopeds,
-                this.psiholog = newV.psiholog,
-                this.simpsiholog = newV.simpsiholog
+                this.psiholog = newV.psihologs,
+                this.simpsiholog = newV.simpsihologs
 
             }
         },
@@ -1107,11 +1114,56 @@
             },
             isReadOnly(){},
 
+            simpsihologDelete(data){
+                this.$store.dispatch("DELETE_AXIOS_SIMPSIHOLOG",data)
+            },
+
+            simpsihologSave(){
+                var data ={
+                    agecategory:this.agecategory,
+
+                    emotional:this.emotional,
+                    personalcharacteristics:this.personalcharacteristics,
+                    behaviorsituation:this.behaviorsituation,
+                    behaviorDesc:this.behaviorDesc,
+                    experiencesickshild:this.experiencesickshild,
+                    availabilitysupport:this.availabilitysupport,
+                    childillness:this.childillness,
+                    additionalstressors:this.additionalstressors,
+                    stressor:this.stressor,
+                    actualtr:this.actualtr,
+                    directionsrehabilit:this.directionsrehabilit,
+                    babycard: this.babycard.id
+                }
+                this.$store.dispatch("POST_AXIOS_SIMPSIHOLOG",data)
+            },
+
+            psihologDelete(data){
+                this.$store.dispatch("DELETE_AXIOS_SIMPSIHOLOG",data)
+            },
+
+            psihologSave(){
+                var data ={
+                    emotionalcondition:this.emotionalcondition,
+                    motivationalsphere:this.motivationalsphere,
+                    socialcontacts:this.socialcontacts,
+                    dopolstesor: this.dopolstesor,
+                    nspecificdifficulties:this.nspecificdifficulties,
+                    specificdifficulties:this.specificdifficulties,
+                    actualtrabl:this.actualtrabl,
+                    directionsrehabilitation:this.directionsrehabilitation,
+                    formofwork:this.formofwork,
+                    parentingattitude:this.parentingattitude,
+                    babycard: this.babycard.id
+                }
+                this.$store.dispatch("POST_AXIOS_PSIHOLOG",data)
+            },
+
             logopedDelete(item){
                 if(item.id){
                     console.log(item)
-                    this.$store.dispatch("DELETE_LOGOPED",item)
-                    //this.$store.dispatch("GET_EVENT_EDIT")
+                    this.$store.dispatch("DELETE_AXIOS_LOGOPEDS",item)
+
                 }
             },
 
@@ -1122,7 +1174,7 @@
                     logoactual:this.logoActual,
                     babycard: this.babycard.id
                 }
-                this.$store.dispatch("SAVE_LOGOPED",data)
+                this.$store.dispatch("POST_AXIOS_LOGOPEDS",data)
             },
 
             defectologDelete(item){
