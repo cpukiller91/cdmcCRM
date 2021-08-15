@@ -381,11 +381,7 @@
                 </v-container>
             </div>
             <div class="tab-pane" id="defectolog" role="tabpanel">
-                <v-form
-                        ref="form"
-                        v-model="valid"
-                        lazy-validation
-                >
+
                     <v-text-field
                             v-model="defIntel"
                             :counter="200"
@@ -417,7 +413,7 @@
                     <button class="btn btn-info btn-outline-success" @click.stop="defectologSave()">
                         <i class="icofont icofont-info-square"></i>Создать пометку дефектолога</button>
 
-                </v-form>
+
                 <template>
                     <v-expansion-panels focusable>
                         <v-expansion-panel
@@ -464,11 +460,7 @@
                 </template>
             </div>
             <div class="tab-pane" id="logoped" role="tabpanel">
-                <v-form
-                        ref="form"
-                        v-model="valid"
-                        lazy-validation
-                >
+
                     <v-select
                             :items="CharacteristicsSpeech"
                             v-model="characteristics"
@@ -493,7 +485,6 @@
                     ></v-text-field>
                     <button class="btn btn-info btn-outline-success" @click.stop="logopedSave()">
                         <i class="icofont icofont-info-square"></i>Создать пометку дефектолога</button>
-                </v-form>
                 <template>
                     <v-expansion-panels focusable>
                         <v-expansion-panel
@@ -536,11 +527,7 @@
                 </template>
             </div>
             <div class="tab-pane" id="psiholog" role="tabpanel">
-                <v-form
-                        ref="form"
-                        v-model="valid"
-                        lazy-validation
-                >
+
                     <v-select
                             :items="emotionalCondition"
                             v-model="emotionalcondition"
@@ -611,7 +598,7 @@
 
                     <button class="btn btn-info btn-outline-success" @click.stop="psihologSave()">
                         <i class="icofont icofont-info-square"></i>Создать пометку психолога</button>
-                </v-form>
+
                 <template>
                     <v-expansion-panels focusable>
                         <v-expansion-panel
@@ -706,11 +693,7 @@
                 </template>
             </div>
             <div class="tab-pane" id="fam-psiholog" role="tabpanel">
-                <v-form
-                        ref="form"
-                        v-model="valid"
-                        lazy-validation
-                >
+
                     <v-select
                             :items="ageCategory"
                             label="возрастная категория "
@@ -793,7 +776,7 @@
                     ></v-select>
                     <button class="btn btn-info btn-outline-success" @click.stop="simpsihologSave()">
                         <i class="icofont icofont-info-square"></i>Создать пометку симейного психолога</button>
-                </v-form>
+
                 <template>
                     <v-expansion-panels focusable>
                         <v-expansion-panel

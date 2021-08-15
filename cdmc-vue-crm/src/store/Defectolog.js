@@ -68,11 +68,12 @@ export default{
 
             console.log("POST_AXIOS_DEFECTOLOG_STORE",filter,data)
             let eventlists =  await Axios.post(data.url,data.data);
-            console.log("POST_AXIOS_DEFECTOLOG_STORE-->",eventlists.data)
+            context.commit('DEFECTOLOG_LIST', eventlists.data);
+            // console.log("POST_AXIOS_DEFECTOLOG_STORE-->",eventlists.data)
             context.dispatch("GET_AXIOS_DEFECTOLOG")
+            //
+            //context.dispatch("GET_AXIOS_BABYCARD",{id:eventlists.data.babycard.id})
 
-            context.dispatch("GET_AXIOS_BABYCARD",{id:eventlists.data.babycard.id})
-            //context.commit('DEFECTOLOG_LIST', eventlists.data);
         },
         PUT_AXIOS_DEFECTOLOG: async (context, filter) => {
             //context.state.url+filter.id
