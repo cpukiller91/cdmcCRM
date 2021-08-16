@@ -21,7 +21,8 @@ export default{
         url: '/eventlists/',
         EVENT_LIST:[],
         EVENT:[],
-        GUNT_EVENT_LIST:[]
+        GUNT_EVENT_LIST:[],
+        FREE_USERS_LIST:[]
     },
     mutations: {
         GUNT_EVENT_LIST(state, payload){
@@ -34,9 +35,25 @@ export default{
 
         EVENT_LIST(state, payload){
             state.EVENT_LIST = payload
+        },
+
+        FREE_USERS_LIST(state, payload){
+            state.FREE_USERS_LIST = payload
         }
     },
     actions: {
+
+        GET_FREE_USER_LIST: async (context, data) => {
+            let users =  await Axios.get("/users");
+            let eventlists =  await Axios.get('/eventlists');
+            let RES = {
+                users:users,
+                eventlists:eventlists
+            }
+            context.commit('FREE_USERS_LIST', RES);
+
+        },
+
         GET_GUNT_EVENT_LIST: async (context, data) => {
           var RES = []
           let eventlists =  await Axios.get('/eventlists');
@@ -45,7 +62,7 @@ export default{
           eventlists.data.forEach(element => {
             RES.push({
               id:element.id,
-              label:element.title,
+              label:element.babycard.kidf+" "+element.babycard.kidi+" "+element.babycard.kido,
               user: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ element.doctor.username +'</a>',
               start: element.strtime,
               parent: null,
@@ -56,7 +73,7 @@ export default{
               //type:'milestone',
               collapsed: false,
             })
-            //console.log("-1-1->",element);
+            console.log("-1-1->",element);
             //this.createElement(element)
           })
           //console.log("SET_KID_EVENT_LIST_RES",RES)
@@ -147,6 +164,9 @@ export default{
         },
         EVENT: state => {
             return state.EVENT;
+        },
+        FREE_USERS_LIST: state => {
+            return state.FREE_USERS_LIST;
         },
     }
 }

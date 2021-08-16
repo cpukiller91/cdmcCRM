@@ -8,8 +8,16 @@
     "deploy": "pm2 start ./server.sh --name CRM"
   },
   "dependencies": {
+    "@fullcalendar/core": "^5.9.0",
+    "@fullcalendar/daygrid": "^5.9.0",
+    "@fullcalendar/interaction": "^5.9.0",
+    "@fullcalendar/list": "^5.9.0",
+    "@fullcalendar/rrule": "^5.9.0",
+    "@fullcalendar/timegrid": "^5.9.0",
+    "@fullcalendar/vue": "^5.9.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "fullcalendar": "^5.9.0",
     "gantt-elastic": "^1.0.12",
     "gantt-elastic-header": "^0.1.11",
     "register-service-worker": "^1.7.1",

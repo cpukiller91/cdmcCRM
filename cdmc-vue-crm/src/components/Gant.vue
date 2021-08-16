@@ -72,7 +72,7 @@
                             },
                             {
                                 id: 2,
-                                label: 'Описание',
+                                label: 'Пациент',
                                 value: 'label',
                                 width: 200,
                                 expander: true,
@@ -88,7 +88,16 @@
                                 label: 'Исполнитель',
                                 value: 'user',
                                 width: 130,
-                                html: true
+                                html: true,
+                                events: {
+                                    click: ({data,column}) => {
+                                        this.$store.dispatch("GET_AXIOS_USERS")
+                                        this.$store.dispatch("GET_AXIOS_BABYCARDS")
+                                        this.$store.dispatch("GET_AXIOS_EVENT",{id:data.id})
+                                        //this.openModal(data)
+                                        console.log('description clicked!\n',data,column);
+                                    }
+                                }
                             },
                             {
                                 id: 3,
@@ -170,8 +179,8 @@
         },
         mounted(){
             //this.GanttElastic.$emit("recenterPosition");
-            this.$children[0].$emit("recenterPosition");
-            console.log("root",this)
+            // this.$children[0].$emit("recenterPosition");
+            // console.log("root",this)
             //this.loadTask();
             this.$store.dispatch("GET_GUNT_EVENT_LIST")
             //this.tasks = this.kidTask;
@@ -186,6 +195,9 @@
                 const timeStamp = new Date(currentYear, currentMonth, currentDay, 0, 0, 0).getTime();
                 return new Date(timeStamp + hours * 60 * 60 * 1000).getTime();
             },
+            openModal(data){
+                this.$store.dispatch("GET_AXIOS_EVENT",{id:data.id})
+            }
 
         }
     }

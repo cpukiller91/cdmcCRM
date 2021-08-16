@@ -1,11 +1,11 @@
 
 <template>
     <div>
+        <dragable-calendar></dragable-calendar>
+        <!-- Basic table card start -->
+        <div class="card" v-if="login">
 
-    <!-- Basic table card start -->
-    <div class="card" v-if="login">
         <div class="card-header">
-
             <div data-app style="z-index: 100">
                 <div class="row">
                     <div class="col-md-3">
@@ -25,80 +25,127 @@
 
             </div>
         </div>
-        <div class="card-block table-border-style">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs md-tabs " role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#home7" role="tab"><i class="fa fa-list"></i>Список</a>
-                    <div class="slide"></div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#profile7" role="tab">
-                        <i class="fa fa-tasks"></i>Гарн</a>
-                    <div class="slide"></div>
-                </li>
+        <div class="row m-b-20">
+            <div class="col col-md-9">
+                <!--div class="card-block table-border-style">
 
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content card-block">
-                <div class="tab-pane active" id="home7" role="tabpanel">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Пациент</th>
-                                <th>Специалист</th>
-                                <th>Тип приема</th>
-                                <th>Начало</th>
-                                <th>Длительность</th>
-                                <th><i class="fa fa-gears"></i></th>
+                    <ul class="nav nav-tabs md-tabs " role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#home7" role="tab"><i class="fa fa-list"></i>Список</a>
+                            <div class="slide"></div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#profile7" role="tab">
+                                <i class="fa fa-tasks"></i>Гарн</a>
+                            <div class="slide"></div>
+                        </li>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="Event in EventList" :key="Event.id"  >
-                                <th scope="row">{{Event.id}}</th>
-                                <td>{{Event.babycard.kidf}} {{Event.babycard.kidi}} {{Event.babycard.kido}}</td>
-                                <td>{{Event.doctor.username}}</td>
-                                <td>{{Event.typeEvent}}</td>
-                                <td>{{Event.strtime}}</td>
-                                <td>{{Event.duration}}</td>
-                                <td>
+                    </ul>
 
-                                    <button @click="openModal(Event.id)" data-toggle="modal" data-target="#large-Modal" class="btn btn-success btn-outline-success">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button @click="deleteTask(Event.id)" class="btn btn-danger btn-outline-danger">
-                                        <i class="fa fa-trash-o"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                    <div class="tab-content card-block">
+                        <div class="tab-pane active" id="home7" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Пациент</th>
+                                        <th>Специалист</th>
+                                        <th>Тип приема</th>
+                                        <th>Начало</th>
+                                        <th><i class="fa fa-clock-o"></i></th>
+                                        <th><i class="fa fa-gears"></i></th>
 
-                            </tbody>
-                        </table>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="Event in EventList" :key="Event.id"  >
+                                        <th scope="row">{{Event.id}}</th>
+                                        <td>{{Event.babycard.kidf}} {{Event.babycard.kidi}} {{Event.babycard.kido}}</td>
+                                        <td>{{Event.doctor.username}}</td>
+                                        <td>{{Event.typeEvent}}</td>
+                                        <td>{{Event.strtime}}</td>
+                                        <td>{{Event.duration}}</td>
+                                        <td>
+
+                                            <button @click="openModal(Event.id)" data-toggle="modal" data-target="#large-Modal" class="btn btn-success btn-outline-success">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button @click="deleteTask(Event.id)" class="btn btn-danger btn-outline-danger">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="profile7" role="tabpanel">
+                            <gunt></gunt>
+                        </div>
+                    </div>
+
+                </div-->
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="panel panel-warning">
+                    <div class="panel-heading bg-warning">
+                        Warning Panel
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-view">
+                            <li>
+                                <div class="card list-view-media">
+                                    <div class="card-block">
+                                        <div class="media">
+                                            <!--a class="media-left" href="#">
+                                                <img class="media-object card-list-img" src="/files/assets/images/avatar-1.jpg" alt="Generic placeholder image">
+                                            </a-->
+                                            <div class="media-body">
+                                                <div class="col-xs-12">
+                                                    <h6 class="d-inline-block">Heading</h6>
+                                                    <label class="label label-info">Agent</label>
+                                                </div>
+                                                <div class="f-13 text-muted m-b-15">
+                                                    Software Engineer
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="panel-footer text-warning">
+                        Panel Footer
                     </div>
                 </div>
-                <div class="tab-pane" id="profile7" role="tabpanel">
-                    <gunt></gunt>
-                </div>
             </div>
-
         </div>
+
     </div>
+
     </div>
 </template>
 <script>
+    //import ru from 'fullcalendar/locales/ru';
+
     export default {
         data: () => ({
             titleWindow: "Записать пациента",
             //EventList:[],
             modal:false,
-            login:true,
+            login:false,
             taskKid: []
         }),
         mounted(){
+
             this.$store.dispatch("GET_AXIOS_EVENTS")
+            this.$store.dispatch("GET_FREE_USER_LIST")
             //this.$store.dispatch("LOGIN_USER_STORAGE")
         // var kT = [{
         //     id: 1,
@@ -126,9 +173,9 @@
 
         },
         computed: {
-            // LOGIN_USER(){
-            //     return this.$store.getters.LOGIN_USER;
-            // },
+            FREE_USERS_LIST(){
+                return this.$store.getters.FREE_USERS_LIST;
+            },
             Event() {
                 return this.$store.getters.EVENT;
             },
@@ -137,16 +184,9 @@
             },
         },
         watch:{
-            // LOGIN_USER(newValue){
-            //     console.log("LOGIN_USER",newValue)
-            //     // if(newValue == null){
-            //     //
-            //     //     this.$router.push({ name: 'Login' })
-            //     // }else{
-            //     //     this.login = true
-            //     //     this.$router.push({ name: 'Home' })
-            //     // }
-            // }
+            FREE_USERS_LIST(newList){
+                console.log("FREE_USERS_LIST",newList)
+            }
         },
         methods:{
             logout(){
@@ -164,60 +204,10 @@
             },
             openModal(id){
 
-                //console.log("--11--",this.eventID)
-                // var data = {
-                //     params: {
-                //         id: id
-                //     }
-                // }
                 this.$store.dispatch("GET_AXIOS_EVENT",{id:id})
                 this.$store.dispatch("GET_AXIOS_USERS")
                 this.$store.dispatch("GET_AXIOS_BABYCARDS")
-                //
-                // console.log("--modal-edit--",this.eventID)
-                //console.log("----",this.eventID)
-                // console.log("--TaskModal-->>",this.todoList)
-                // //this.question;
-                // console.log("openModal")
-                // this.$http.get('/users')
-                // .then( (response) => {
-                //     // handle success
-                //     //this.message = response.message[0].message;
-                //     this.userList = response.data;
-                //     // this.src.forEach(element => {
-                //     //   //console.log("Home list Layouts",element);
-                //     //   //this.createElement(element)
-                //     // })
-                //     console.log("Task list Server",response);
-                // })
-                // .catch( (error) => {
-                //     console.log("Login error",error);
-                //     // handle error
-                //     console.log(error);
-                // });
-                // ///babycards
-                //
-                // this.$http.get('/babycards')
-                // .then( (response) => {
-                //     // handle success
-                //     //this.message = response.message[0].message;
-                //     this.cartList = []
-                //     //
-                //     response.data.forEach(element => {
-                //         this.cartList.push({
-                //             title:element.kidf+" "+element.kidi+" "+element.kido,
-                //             id:element.id
-                //         });
-                //       //console.log("babycards",element.id,element.kidf);
-                //       //this.createElement(element)
-                //     })
-                //     console.log("babycards",response);
-                // })
-                // .catch( (error) => {
-                //     console.log("Login error",error);
-                //     // handle error
-                //     console.log(error);
-                // });
+
             },
             deleteTask(id){
                 this.$store.dispatch("DELETE_AXIOS_EVENTS",{id:id})

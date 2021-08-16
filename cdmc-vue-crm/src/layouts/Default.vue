@@ -2053,6 +2053,12 @@
                 "/files/assets/pages/jquery.filer/js/jquery.filer.min.js",
                 "/files/assets/pages/filer/custom-filer.js",
                 "/files/assets/pages/filer/jquery.fileuploads.init.js",
+                "/files/bower_components/moment/js/moment.min.js",
+                // "/files/bower_components/fullcalendar/js/fullcalendar.min.js",
+                // 'fullcalendar/locales/ru',
+                // "https://data.jsdelivr.com/v1/package/npm/fullcalendar/badge",
+                // 'https://www.jsdelivr.com/package/npm/fullcalendar',
+                //"https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.9.0,npm/fullcalendar@5.9.0/locales-all.min.js,npm/fullcalendar@5.9.0/locales-all.min.js,npm/fullcalendar@5.9.0/main.min.js",
                 
                 
 // //--------------data-table js -->
@@ -2075,7 +2081,7 @@
 //------------- Custom js -->
                 //"/files/assets/pages/dashboard/custom-dashboard.min.js",
                 //"/files/assets/pages/data-table/js/data-table-custom.js",
-                
+                //"/files/assets/pages/full-calender/calendar.js",
                 "/files/assets/js/pcoded.min.js",
                 "/files/assets/js/horizontal-layout.min.js",
                 "/files/assets/js/jquery.mCustomScrollbar.concat.min.js",
