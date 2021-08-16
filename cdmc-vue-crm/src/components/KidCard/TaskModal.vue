@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button  @click="openModal" type="button" class="btn btn-info" data-toggle="modal" data-target="#large-Modal"><i class="icofont icofont-info-square"></i>{{titleWindow}}</button>
+        <button  @click="openModal" type="button" id="add-edit" class="btn btn-info" data-toggle="modal" data-target="#large-Modal"><i class="icofont icofont-info-square"></i>{{titleWindow}}</button>
         <!-- Modal large-->
 
         <div class="modal fade" id="large-Modal" tabindex="-1" role="dialog">

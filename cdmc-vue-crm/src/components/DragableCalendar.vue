@@ -1,60 +1,32 @@
 <template>
-    <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-md-3">
-                    <kid-task-modal></kid-task-modal>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-danger btn-outline-danger" @click="logout"><i class="icofont icofont-eye-alt"></i>Выход</button>
-                </div>
-                <div class="col-md-3">
-                    <all-kid-card-modal style="float: right"></all-kid-card-modal>
-                </div>
-                <div class="col-md-3">
-                    <kid-card-modal style="float: right"></kid-card-modal>
-                </div>
-            </div>
-            <!--div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li><i class="feather icon-maximize full-card"></i></li>
-                    <li><i class="feather icon-minus minimize-card"></i></li>
-                    <li><i class="feather icon-trash-2 close-card"></i></li>
-                </ul>
-            </div-->
+    <div style="padding: 10px" class="row m-b-20">
+        <div class="col col-md-9">
+            <FullCalendar :options="calendarOptions"/>
+
         </div>
-        <div class="card-block">
-            <div class="row m-b-20">
-                <div class="col col-md-9">
-                    <FullCalendar :options="calendarOptions"/>
+        <div class="col-6 col-md-3">
+            <div class="panel panel-warning">
+                <div class="panel-heading bg-warning">
+                    Список пользователей
+                </div>
+                <div class="panel-body">
+                    <div id='external-events-listing'>
+                        <ul>
+                            <li v-for="doctor in USERS_LIST" :key="doctor.id" class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event doctor'
+                                data-event='{ "title": "my event", "duration": "02:00" }'>{{doctor.username}}</li>
+
+                        </ul>
+
+                    </div>
 
                 </div>
-                <div class="col-6 col-md-3">
-                    <div class="panel panel-warning">
-                        <div class="panel-heading bg-warning">
-                            Список пользователей
-                        </div>
-                        <div class="panel-body">
-                            <div id='external-events-listing'>
-                               <ul>
-                                   <li v-for="doctor in USERS_LIST" :key="doctor.id" class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event doctor'
-                                       data-event='{ "title": "my event", "duration": "02:00" }'>{{doctor.username}}</li>
-
-                               </ul>
-
-                            </div>
-
-                        </div>
-                        <div class="panel-footer text-warning">
-                            <p>
-                                <input type='checkbox' id='drop-remove' checked='checked' />
-                                <label for='drop-remove'>remove after drop</label>
-                            </p>
-                        </div>
-                    </div>
+                <div class="panel-footer text-warning">
+                    <p>
+                        <input type='checkbox' id='drop-remove' checked='checked' />
+                        <label for='drop-remove'>remove after drop</label>
+                    </p>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -81,6 +53,9 @@
             FullCalendar
         },
         computed:{
+            FULLCALENDAR(){
+                return this.$store.getters.FULLCALENDAR
+            },
             USERS_LIST(){
                 return this.$store.getters.USERS_LIST
             }
@@ -88,6 +63,10 @@
         watch:{
             USERS_LIST(valNew){
                 console.log("USERS_LIST",valNew)
+            },
+            FULLCALENDAR(valNew){
+                this.calendarOptions.events = valNew;
+                console.log("FULLCALENDAR",valNew)
             }
         },
         data() {
@@ -119,11 +98,14 @@
                         // }
                     },
 
-                    eventClick: function(info) {
-                        alert('Event: ' + info.event.title);
-                        alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-                        alert('View: ' + info.view.type);
-
+                    eventClick: (info) => {
+                        //const elem = this.$refs.openModal
+                        $("#add-edit").click()
+                        this.$store.dispatch("GET_AXIOS_EVENT",{id:info.event._def.publicId})
+                        // alert('Event: ' + info.event.title);
+                        // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                        // alert('View: ' + info.view.type);
+                        console.log("eventClick",info.event._def.publicId)
                         // change the border color just for fun
                         info.el.style.borderColor = 'red';
                     },
@@ -193,6 +175,7 @@
         mounted() {
             // var Calendar = FullCalendar.Calendar;
             // var Draggable = FullCalendar.Draggable;
+            this.$store.dispatch("GET_FULLCALENDAR")
             this.$store.dispatch("GET_AXIOS_USERS")
             var containerEl = document.getElementById('external-events-listing');
             var calendarEl = document.getElementById('calendar');

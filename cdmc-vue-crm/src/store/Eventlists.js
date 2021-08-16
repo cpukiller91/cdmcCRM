@@ -22,11 +22,16 @@ export default{
         EVENT_LIST:[],
         EVENT:[],
         GUNT_EVENT_LIST:[],
-        FREE_USERS_LIST:[]
+        FREE_USERS_LIST:[],
+        FULLCALENDAR:[]
     },
     mutations: {
         GUNT_EVENT_LIST(state, payload){
             state.GUNT_EVENT_LIST = payload
+        },
+
+        FULLCALENDAR(state, payload){
+            state.FULLCALENDAR = payload
         },
 
         EVENT(state, payload){
@@ -42,7 +47,32 @@ export default{
         }
     },
     actions: {
+        GET_FULLCALENDAR: async (context, data) => {
+            var RES = []
+            let eventlists =  await Axios.get('/eventlists');
+            console.log("GET_FULLCALENDAR",eventlists)
 
+            eventlists.data.forEach(element => {
+                RES.push({
+                    id:element.id,
+                    title: element.doctor.username,
+                        //+ "("+element.babycard.kidf+" "+element.babycard.kidi+" "+element.babycard.kido+")" ,
+                    //end: '2021-08-17 17:00:00',
+                    start: element.strtime,
+                    //date: '2021-08-16 16:00',
+                    color: 'blue',     // an option!
+                    textColor: 'yellow' ,
+                    editable:true,
+                    itemSelector:".item-class",
+                    durationEditable:true,
+                    duration:"00:30"
+                })
+                //console.log("-1-1->",element);
+                //this.createElement(element)
+            })
+            //console.log("SET_KID_EVENT_LIST_RES",RES)
+            context.commit('FULLCALENDAR', RES);
+        },
         GET_FREE_USER_LIST: async (context, data) => {
             let users =  await Axios.get("/users");
             let eventlists =  await Axios.get('/eventlists');
@@ -123,6 +153,7 @@ export default{
             console.log("GET_AXIOS_EVENTS_STORE",eventlists.data)
             context.commit('EVENT_LIST', eventlists.data);
             context.dispatch("GET_GUNT_EVENT_LIST")
+            context.dispatch("GET_FULLCALENDAR")
         },
         POST_AXIOS_EVENTS: async (context, filter) => {
             //context.state.url+filter.id
@@ -158,6 +189,9 @@ export default{
     getters: {
         GUNT_EVENT_LIST: state => {
             return state.GUNT_EVENT_LIST;
+        },
+        FULLCALENDAR: state => {
+            return state.FULLCALENDAR;
         },
         EVENT_LIST: state => {
             return state.EVENT_LIST;
