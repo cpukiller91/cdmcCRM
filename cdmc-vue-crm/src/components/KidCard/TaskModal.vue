@@ -165,12 +165,16 @@
         mounted(){
             // this.openModal()
             //
-            var curent_date = new Date();
-            this.startDATE = dayjs(curent_date).format('YYYY-MM-DD H:m')
+
+
+            //console.log("YYYY-MM-DD H:m",this.timeS,dayjs(curent_date).format('YYYY-MM-DDTH:m'))
 
 
         },
         computed: {
+            DROP_EVENT(){
+                return this.$store.getters.DROP_EVENT;
+            },
             USERS_LIST_BY_KEY_ID(){
                 return this.$store.getters.USERS_LIST_BY_KEY_ID;
             },
@@ -185,11 +189,18 @@
             }
         },
         watch:{
+            DROP_EVENT(nv){
+                this.doctor = nv.doctor
+                this.timeS =
+                    //"2021-08-19T09:30"
+                    dayjs(nv.strtime).format('YYYY-MM-DDTHH:mm')
+                console.log("DROP_EVENT",nv,this.timeS)
+            },
             USERS_LIST_BY_KEY_ID(nv){
-                console.log("USERS_LIST_BY_KEY_ID",nv)
+                //console.log("USERS_LIST_BY_KEY_ID",nv)
             },
             userList(nv){
-                console.log("weweweew",nv)
+                //console.log("weweweew",nv)
             },
             EVENT(newValue,oldValue){
                if(newValue.id) {
@@ -222,28 +233,38 @@
             },
             openModal(){
                 this.$store.dispatch("GET_EVENT")
-                this.$store.dispatch("GET_AXIOS_USERS")
+                this.$store.dispatch("GET_AXIOS_USERS",{params:{"visState_ne":false}})
                 this.$store.dispatch("GET_AXIOS_BABYCARDS")
+                var curent_date = new Date();
+                this.timeS =
+                    //"2021-08-17T23:27"
+                    dayjs(curent_date).format('YYYY-MM-DDTHH:mm')
 
 
             },
             saveTask(){
+
                 var dodID,kidID
                 console.log(this.idRecord)
                 if(this.doctor == null && this.kid == null){
                     return false;
                 }
 
+
                 if(this.idRecord == null){
-                    dodID = this.doctor.id
+                    if(this.doctor.id){
+                        dodID = this.doctor.id
+                    }
+                    if(this.doctor){
+                        dodID = this.doctor
+                    }
                     kidID = this.kid.id
                 }else{
                     dodID = this.doctor
                     kidID = this.kid
                 }
-                //
-                //
-                //console.log("userList===--",dodID,this.USERS_LIST_BY_KEY_ID[dodID])
+
+
                 var data = {
                     id:this.idRecord,
                     duration:this.durationSelectRange,
@@ -259,7 +280,7 @@
                     babycard:kidID,
 
                 }
-
+                console.log("userList===--",this.doctor,this.USERS_LIST_BY_KEY_ID[dodID],this.idRecord,data)
                 //return false;
 
                 if(this.idRecord == null){

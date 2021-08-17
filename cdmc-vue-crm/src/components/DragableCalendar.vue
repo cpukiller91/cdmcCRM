@@ -76,10 +76,13 @@
                     locale:"ru",
                     navLinks:true,
 
-                    drop: (date) => {
+                    drop: (date,event) => {
+
                         $("#add-edit").click()
                         this.strtime = date.date
                         $(date.draggedEl).remove();
+
+
                         var dataNew = {
                             //id:this.idRecord,
                             //duration:this.durationSelectRange,
@@ -88,21 +91,28 @@
                             strtime: date.date,
                             //typeEvent:this.typeCurent,
                             //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
-                            doctor:date.draggedEl.attributes.doctorid.value,
+                            doctor:parseInt(date.draggedEl.attributes.doctorid.value),
                             // month:this.month,
                             // dayOfMonth:this.dayOfMonth,
                             //color:this.USERS_LIST_BY_KEY_ID[date.draggedEl.attributes.doctorid.value].usergroup.color,
                             babycard:1,
 
                         }
-                        //this.$store.dispatch("POST_AXIOS_EVENTS",dataNew)
+                        this.$store.dispatch("GET_DROP_EVENT",dataNew)
 
-                        console.log("drop",date.draggedEl,date,this.calendarOptions.events )
+                        //console.log("drop!!!",date )
+                        event.remove()
+
+
+
                         // is the "remove after drop" checkbox checked?
-                        if ($("#drop-remove").is(":checked")) {
-                            // if so, remove the element from the "Draggable Events" list
-                            $(this).remove();
-                        }
+                        // if ($("#drop-remove").is(":checked")) {
+                        //     // if so, remove the element from the "Draggable Events" list
+                        //     $(this).remove();
+                        // }
+                    },
+                    eventDropStop: (date, event, jsEvent) => {
+
                     },
                     eventDrop: (date, event, jsEvent) => {
                         let move = {
@@ -138,10 +148,16 @@
                         info.el.style.borderColor = 'red';
                     },
                     eventReceive: (info) =>{
-                        console.log("eventReceive",info)
+                        //info.eventColor = '#378006';
+                        console.log("eventReceive!!!",info )
+                        //console.log("eventReceive",info)
                     },
                     eventLeave: (info) =>{
-                        console.log("eventLeave",info)
+                        console.log("eventLeave",info.event)
+                        //info.event.remove()
+                    },
+                    eventRemove: (info) =>{
+                        console.log("eventRemove",info)
                     },
                     weekends:false,
 
@@ -210,7 +226,7 @@
             // var Calendar = FullCalendar.Calendar;
             // var Draggable = FullCalendar.Draggable;
             this.$store.dispatch("GET_FULLCALENDAR")
-            this.$store.dispatch("GET_AXIOS_USERS")
+            this.$store.dispatch("GET_AXIOS_USERS",{params:{"visState_ne":false}})
             var containerEl = document.getElementById('external-events-listing');
             var calendarEl = document.getElementById('calendar');
             var checkbox = document.getElementById('drop-remove');

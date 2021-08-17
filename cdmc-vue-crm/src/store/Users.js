@@ -101,7 +101,7 @@ export default{
             //context.state.url+filter.id
             var data = await context.dispatch("URL_CONSTRUCT_USERS",filter,true)
 
-            //console.log("GET_AXIOS_DEFECTOLOG_STORE",filter,typeof filter)
+            //console.log("GET_US",filter)
             let eventlists =  await Axios.get(data.url,data.data);
 
             console.log("GET_AXIOS_USERS_STORE",eventlists.data)
@@ -115,7 +115,7 @@ export default{
             console.log("POST_AXIOS_USERS_STORE",filter,data)
             let eventlists =  await Axios.post(data.url,data.data);
             console.log("POST_AXIOS_USERS_STORE-->",eventlists.data)
-            context.dispatch("GET_AXIOS_USERS")
+            context.dispatch("GET_AXIOS_USERS",{"visState_ne":false})
             //context.commit('USERS_LIST', eventlists.data);
         },
         PUT_AXIOS_USERS: async (context, filter) => {
@@ -126,7 +126,7 @@ export default{
             let eventlists =  await Axios.put(data.url,data.data);
             console.log("PUT_AXIOS_USERS_STORE",eventlists)
             //context.commit('USERS_LIST', eventlists.data);
-            context.dispatch("GET_AXIOS_USERS")
+            context.dispatch("GET_AXIOS_USERS",{"visState_ne":false})
         },
         DELETE_AXIOS_USERS: async (context, filter) => {
             //context.state.url+filter.id
@@ -136,9 +136,10 @@ export default{
             let eventlists =  await Axios.delete(data.url);
             console.log("DELETE_AXIOS_USERS_STORE",eventlists.data)
             //context.commit('USERS_LIST', eventlists.data);
-            context.dispatch("GET_AXIOS_USERS")
+            context.dispatch("GET_AXIOS_USERS",{"visState_ne":false})
         },
         GET_USERS_LIST_BY_KEY_ID: async (context, filter) => {
+
             let data = context.getters.USERS_LIST
                 let RES = [];
             data.forEach(element => {

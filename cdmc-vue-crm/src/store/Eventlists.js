@@ -21,11 +21,16 @@ export default{
         url: '/eventlists/',
         EVENT_LIST:[],
         EVENT:[],
+        DROP_EVENT:[],
         GUNT_EVENT_LIST:[],
         FREE_USERS_LIST:[],
         FULLCALENDAR:[]
     },
     mutations: {
+        DROP_EVENT(state, payload){
+            state.DROP_EVENT = payload
+        },
+
         GUNT_EVENT_LIST(state, payload){
             state.GUNT_EVENT_LIST = payload
         },
@@ -47,6 +52,12 @@ export default{
         }
     },
     actions: {
+
+        GET_DROP_EVENT: async (context, data) => {
+            console.log("GET_DROP_EVENT",data)
+            context.commit('DROP_EVENT', data);
+        },
+
         GET_FULLCALENDAR: async (context, data) => {
             var RES = []
             let eventlists =  await Axios.get('/eventlists');
@@ -54,7 +65,7 @@ export default{
 
             eventlists.data.forEach(element => {
                 //new Date(element.strtime).getMinutes()
-                console.log("END_DATE",new Date(element.strtime).setMinutes(element.duration))
+                //console.log("END_DATE",new Date(element.strtime).setMinutes(element.duration))
                 let getEndDate = new Date(element.strtime).getMinutes()
                 let newEndDate = new Date(element.strtime).setMinutes(getEndDate+element.duration)
                 RES.push({
@@ -107,7 +118,7 @@ export default{
               //type:'milestone',
               collapsed: false,
             })
-            console.log("-1-1->",element);
+            //console.log("-1-1->",element);
             //this.createElement(element)
           })
           //console.log("SET_KID_EVENT_LIST_RES",RES)
@@ -191,6 +202,9 @@ export default{
         }
     },
     getters: {
+        DROP_EVENT: state => {
+            return state.DROP_EVENT;
+        },
         GUNT_EVENT_LIST: state => {
             return state.GUNT_EVENT_LIST;
         },
