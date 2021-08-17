@@ -12,8 +12,9 @@
                 <div class="panel-body">
                     <div id='external-events-listing'>
                         <ul>
-                            <li v-for="doctor in USERS_LIST" :key="doctor.id" class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event doctor'
-                                :doctorID='doctor.id'>{{doctor.username}}</li>
+                            <li :style="'background-color: '+ doctor.usergroup.color +'!important;'" v-for="doctor in USERS_LIST" :key="doctor.id" class='fc-event  doctor'
+                                :doctorID='doctor.id'
+                                :color='doctor.usergroup.color'>{{doctor.username}}</li>
 
                         </ul>
 
@@ -95,7 +96,8 @@
 
                         }
                         //this.$store.dispatch("POST_AXIOS_EVENTS",dataNew)
-                        console.log("drop",date.draggedEl )
+
+                        console.log("drop",date.draggedEl,date,this.calendarOptions.events )
                         // is the "remove after drop" checkbox checked?
                         if ($("#drop-remove").is(":checked")) {
                             // if so, remove the element from the "Draggable Events" list
@@ -134,6 +136,12 @@
                         console.log("eventClick",info.event._def.publicId)
                         // change the border color just for fun
                         info.el.style.borderColor = 'red';
+                    },
+                    eventReceive: (info) =>{
+                        console.log("eventReceive",info)
+                    },
+                    eventLeave: (info) =>{
+                        console.log("eventLeave",info)
                     },
                     weekends:false,
 
@@ -179,19 +187,19 @@
                     },
 
                     events: [
-                        { title: 'event 1',
-                            //end: '2021-08-17 17:00:00',
-                            start: '2021-08-17 16:30:00',
-                            //date: '2021-08-16 16:00',
-                            color: 'black',     // an option!
-                            textColor: 'yellow' ,
-                            editable:true,
-                            itemSelector:".item-class",
-                            durationEditable:true,
-                            duration:"00:30"
-                        },
-
-                        { title: 'event 2', start: '2021-08-17T10:30:00',itemSelector:".item-class", duration:"00:30"}
+                        // { title: 'event 1',
+                        //     //end: '2021-08-17 17:00:00',
+                        //     start: '2021-08-17 16:30:00',
+                        //     //date: '2021-08-16 16:00',
+                        //     color: 'black',     // an option!
+                        //     textColor: 'yellow' ,
+                        //     editable:true,
+                        //     itemSelector:".item-class",
+                        //     durationEditable:true,
+                        //     duration:"00:30"
+                        // },
+                        //
+                        // { title: 'event 2', start: '2021-08-17T10:30:00',itemSelector:".item-class", duration:"00:30"}
                     ]
                 },
 
