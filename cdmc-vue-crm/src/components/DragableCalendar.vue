@@ -13,7 +13,7 @@
                     <div id='external-events-listing'>
                         <ul>
                             <li v-for="doctor in USERS_LIST" :key="doctor.id" class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event doctor'
-                                data-event='{ "title": "my event", "duration": "02:00" }'>{{doctor.username}}</li>
+                                :doctorID='doctor.id'>{{doctor.username}}</li>
 
                         </ul>
 
@@ -75,15 +75,41 @@
                     locale:"ru",
                     navLinks:true,
 
-                    drop: function() {
+                    drop: (date) => {
+                        $("#add-edit").click()
+                        this.strtime = date.date
+                        $(date.draggedEl).remove();
+                        var dataNew = {
+                            //id:this.idRecord,
+                            //duration:this.durationSelectRange,
+
+                            // times:this.times,
+                            strtime: date.date,
+                            //typeEvent:this.typeCurent,
+                            //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
+                            doctor:date.draggedEl.attributes.doctorid.value,
+                            // month:this.month,
+                            // dayOfMonth:this.dayOfMonth,
+                            //color:this.USERS_LIST_BY_KEY_ID[date.draggedEl.attributes.doctorid.value].usergroup.color,
+                            babycard:1,
+
+                        }
+                        //this.$store.dispatch("POST_AXIOS_EVENTS",dataNew)
+                        console.log("drop",date.draggedEl )
                         // is the "remove after drop" checkbox checked?
                         if ($("#drop-remove").is(":checked")) {
                             // if so, remove the element from the "Draggable Events" list
                             $(this).remove();
                         }
                     },
-                    eventDragStop: function(event, jsEvent, ui, view) {
-                        console.log("eventDragStop",event);
+                    eventDrop: (date, event, jsEvent) => {
+                        let move = {
+                            id:date.event._def.publicId,
+                            strtime:date.event.start
+                        }
+                        this.$store.dispatch("PUT_AXIOS_EVENTS",move)
+                        console.log("eventDragStop",move);
+
                         // if (isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
                         //     $("#calendar").fullCalendar("removeEvents", event._id);
                         //     var el = $("<div class='fc-event'>")
