@@ -21,7 +21,8 @@ export default{
     state: {
         url: '/users/',
         USERS_LIST:[],
-        LOGIN_USER:[]
+        LOGIN_USER:[],
+        USERS_LIST_BY_KEY_ID:[]
     },
     mutations: {
         LOGIN_USER(state, payload){
@@ -30,6 +31,10 @@ export default{
 
         USERS_LIST(state, payload){
             state.USERS_LIST = payload
+        },
+
+        USERS_LIST_BY_KEY_ID(state, payload){
+            state.USERS_LIST_BY_KEY_ID = payload
         }
     },
     actions: {
@@ -98,8 +103,10 @@ export default{
 
             //console.log("GET_AXIOS_DEFECTOLOG_STORE",filter,typeof filter)
             let eventlists =  await Axios.get(data.url,data.data);
+
             console.log("GET_AXIOS_USERS_STORE",eventlists.data)
             context.commit('USERS_LIST', eventlists.data);
+            context.dispatch("GET_USERS_LIST_BY_KEY_ID")
         },
         POST_AXIOS_USERS: async (context, filter) => {
             //context.state.url+filter.id
@@ -130,6 +137,14 @@ export default{
             console.log("DELETE_AXIOS_USERS_STORE",eventlists.data)
             //context.commit('USERS_LIST', eventlists.data);
             context.dispatch("GET_AXIOS_USERS")
+        },
+        GET_USERS_LIST_BY_KEY_ID: async (context, filter) => {
+            let data = context.getters.USERS_LIST
+                let RES = [];
+            data.forEach(element => {
+                RES[element.id] = element
+            })
+            context.commit('USERS_LIST_BY_KEY_ID', RES);
         }
     },
     getters: {
@@ -139,5 +154,9 @@ export default{
         USERS_LIST: state => {
             return state.USERS_LIST;
         },
+        USERS_LIST_BY_KEY_ID: state => {
+            return state.USERS_LIST_BY_KEY_ID;
+        },
+
     }
 }

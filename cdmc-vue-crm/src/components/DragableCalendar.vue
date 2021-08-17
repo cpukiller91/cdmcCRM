@@ -154,7 +154,7 @@
 
                     events: [
                         { title: 'event 1',
-                            end: '2021-08-17 17:00:00',
+                            //end: '2021-08-17 17:00:00',
                             start: '2021-08-17 16:30:00',
                             //date: '2021-08-16 16:00',
                             color: 'black',     // an option!
@@ -162,10 +162,10 @@
                             editable:true,
                             itemSelector:".item-class",
                             durationEditable:true,
-                            //duration:30
+                            duration:"00:30"
                         },
 
-                        { title: 'event 2', date: '2021-08-17T10:30:00',itemSelector:".item-class" }
+                        { title: 'event 2', start: '2021-08-17T10:30:00',itemSelector:".item-class", duration:"00:30"}
                     ]
                 },
 

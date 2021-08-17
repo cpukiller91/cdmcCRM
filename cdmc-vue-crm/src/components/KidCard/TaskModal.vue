@@ -171,7 +171,9 @@
 
         },
         computed: {
-
+            USERS_LIST_BY_KEY_ID(){
+                return this.$store.getters.USERS_LIST_BY_KEY_ID;
+            },
             cartList(){
                 return this.$store.getters.BABYCARDS_LIST_SELECT_OPTION;
             },
@@ -180,9 +182,15 @@
             },
             EVENT() {
                 return this.$store.getters.EVENT;
-            },
+            }
         },
         watch:{
+            USERS_LIST_BY_KEY_ID(nv){
+                console.log("USERS_LIST_BY_KEY_ID",nv)
+            },
+            userList(nv){
+                console.log("weweweew",nv)
+            },
             EVENT(newValue,oldValue){
                if(newValue.id) {
 
@@ -217,6 +225,7 @@
                 this.$store.dispatch("GET_AXIOS_USERS")
                 this.$store.dispatch("GET_AXIOS_BABYCARDS")
 
+
             },
             saveTask(){
                 var dodID,kidID
@@ -234,9 +243,11 @@
                 }
                 //
                 //
+                //console.log("userList===--",dodID,this.USERS_LIST_BY_KEY_ID[dodID])
                 var data = {
                     id:this.idRecord,
                     duration:this.durationSelectRange,
+
                     // times:this.times,
                     strtime: this.timeS,
                     typeEvent:this.typeCurent,
@@ -244,10 +255,12 @@
                     doctor:dodID,
                     // month:this.month,
                     // dayOfMonth:this.dayOfMonth,
-                    // color:this.details.color,
+                    color:this.USERS_LIST_BY_KEY_ID[dodID].usergroup.color,
                     babycard:kidID,
 
                 }
+
+                //return false;
 
                 if(this.idRecord == null){
                     //console.log("new",data)

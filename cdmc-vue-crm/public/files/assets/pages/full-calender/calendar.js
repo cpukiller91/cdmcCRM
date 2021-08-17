@@ -20,6 +20,7 @@
 
 
 	    $('#calendar').fullCalendar({
+			locale: 'ru',
 	        header: {
 	            left: 'prev,next today',
 	            center: 'title',
