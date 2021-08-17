@@ -8,9 +8,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">{{titleWindow}}</h4>
-                        <button type="button" class="close" data-dismiss="modal" @click="closeModal" aria-label="Close">
+                        <!--button type="button" class="close" data-dismiss="modal" @click="closeModal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </button>
+                        </button-->
+                        <button v-if="idRecord" @click="EventDelete(idRecord)" class="btn btn-danger btn-outline-danger">
+                            <i class="icofont icofont-eye-alt"></i>Удалить запись</button>
+
                     </div>
                     <div class="modal-body">
                         <div class="row m-b-20">
@@ -92,7 +95,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" @click="closeModal" ref="closeModal" class="btn btn-default waves-effect " data-dismiss="modal">Закрыть</button>
+                        <button type="button" id="closeModal" @click="closeModal" ref="closeModal" class="btn btn-default waves-effect " data-dismiss="modal">Закрыть</button>
                         <button type="button" ref="openModal" @click="saveTask" class="btn btn-primary waves-effect waves-light ">Сохранить</button>
                     </div>
                 </div>
@@ -219,6 +222,12 @@
             }
         },
         methods:{
+            EventDelete(id){
+                this.$store.dispatch("DELETE_AXIOS_EVENTS",{id:id})
+                const elem = this.$refs.closeModal
+                elem.click()
+                console.log("EventDelete",id)
+            },
             closeModal(){
                 this.idRecord = null;
                 this.durationSelectRange = null;
