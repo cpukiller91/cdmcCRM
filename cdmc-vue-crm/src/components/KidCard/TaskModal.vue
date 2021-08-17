@@ -130,7 +130,7 @@
                 "Мониторинг"
             ],
             timerDurationRange:[30,60],
-            durationSelectRange:"",
+            durationSelectRange:30,
             timeStart:[
                 "9:00",
                 "9:30",
