@@ -283,8 +283,8 @@
                     typeEvent:this.typeCurent,
                     //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
                     doctor:dodID,
-                    // month:this.month,
-                    // dayOfMonth:this.dayOfMonth,
+                    month:dayjs(this.timeS).format('MM'),
+                    dayOfMonth:dayjs(this.timeS).format('DD'),
                     color:this.USERS_LIST_BY_KEY_ID[dodID].usergroup.color,
                     babycard:kidID,
 

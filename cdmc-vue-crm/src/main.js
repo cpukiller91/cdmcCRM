@@ -15,7 +15,7 @@ import KidCardModal from "./components/KidCard/KidCardModal";
 import AllKidCardModal from "./components/KidCard/AllKidCardModal";
 import TaskModal from "./components/KidCard/TaskModal";
 import TabTaskModal from "./components/KidCard/TabTaskModal";
-//import FullCalendar from "./components/FullCalendar";
+import StatisticKidActon from "./components/StatisticKidActon";
 import DragableCalendar from "./components/DragableCalendar";
 
 Vue.component('default-layout', Deault)
@@ -28,7 +28,7 @@ Vue.component('kid-card-modal', KidCardModal)
 Vue.component('all-kid-card-modal', AllKidCardModal)
 Vue.component('kid-task-modal', TaskModal)
 Vue.component('tab-task-modal', TabTaskModal)
-//Vue.component('full-calendar', FullCalendar)
+Vue.component('statistic-kid-action', StatisticKidActon)
 Vue.component('dragable-calendar', DragableCalendar)
 
 Axios.defaults.baseURL = "https://admin.cdcmc.ru";

@@ -24,9 +24,25 @@ export default{
         DROP_EVENT:[],
         GUNT_EVENT_LIST:[],
         FREE_USERS_LIST:[],
-        FULLCALENDAR:[]
+        FULLCALENDAR:[],
+
+        YEAR_STATISTIC:[],
+        DAY_STATISTIC:[],
+        MONTH_STATISTIC:[]
     },
     mutations: {
+        YEAR_STATISTIC(state, payload){
+            state.YEAR_STATISTIC = payload
+        },
+
+        DAY_STATISTIC(state, payload){
+            state.DAY_STATISTIC = payload
+        },
+
+        MONTH_STATISTIC(state, payload){
+            state.MONTH_STATISTIC = payload
+        },
+
         DROP_EVENT(state, payload){
             state.DROP_EVENT = payload
         },
@@ -79,6 +95,8 @@ export default{
                     textColor: 'yellow' ,
                     editable:true,
                     itemSelector:".item-class",
+                    // eventMinHeight:5,
+                    // eventShortHeight:30,
                     //durationEditable:true,
                     duration:element.duration
                 })
@@ -199,9 +217,106 @@ export default{
             console.log("DELETE_AXIOS_EVENTS_STORE",eventlists.data)
             //context.commit('EVENT_LIST', eventlists.data);
             context.dispatch("GET_AXIOS_EVENTS")
+        },
+        GET_AXIOS_EVENT_COUNT: async (context, filter) => {
+            console.log("GET_AXIOS_EVENT_COUNT",filter)
+            let eventlists = await Axios.get('/eventlists/count',{
+                params:{
+                    "strtime_gte":filter.date,
+                    "doctor.id":filter.id
+                }
+            });
+            return eventlists.data;
+        },
+        GET_AXIOS_YEAR_STATISTIC: async (context, filter) => {
+            var RES = []
+
+            let USERlists =  await Axios.get('/users/',{
+                params:{
+                    "visState_ne":false
+                }
+            });
+            // let eventlists =  await Axios.get('/eventlists',{
+            //     params:{
+            //         "strtime_gte":"2021-00-00",
+            //         "doctor.id":22
+            //     }
+            // });
+            // console.log("GET_AXIOS_YEAR_STATISTIC",eventlists)
+            //
+            USERlists.data.forEach(async (element) => {
+                var EventCount = await context.dispatch("GET_AXIOS_EVENT_COUNT",{id:element.id,filter})
+                if(EventCount){
+                    RES.push([element.username + " ("+EventCount+")",EventCount])
+                }
+
+            })
+
+            context.commit('YEAR_STATISTIC', RES);
+            // context.dispatch("GET_AXIOS_EVENTS")
+        },
+        GET_AXIOS_DAY_STATISTIC: async (context, filter) => {
+            var RES = []
+
+            let USERlists =  await Axios.get('/users/',{
+                params:{
+                    "visState_ne":false
+                }
+            });
+
+            USERlists.data.forEach(async (element) => {
+                let EventCount = await Axios.get('/eventlists/count',{
+                    params:{
+                        //"strtime_gte":filter.date,
+                        "doctor.id":element.id,
+                        dayOfMonth:filter.DayOfMonth
+                    }
+                });
+
+                if(EventCount.data){
+                    RES.push([element.username + " ("+EventCount.data+")",EventCount.data])
+                }
+            })
+
+            context.commit('DAY_STATISTIC', RES);
+        },
+        GET_AXIOS_MONTH_STATISTIC: async (context, filter) => {
+            var RES = []
+
+            let USERlists =  await Axios.get('/users/',{
+                params:{
+                    "visState_ne":false
+                }
+            });
+
+            USERlists.data.forEach(async (element) => {
+                let EventCount = await Axios.get('/eventlists/count',{
+                    params:{
+                        //"strtime_gte":filter.date,
+                        "doctor.id":element.id,
+                        month:filter.Month
+                    }
+                });
+
+                if(EventCount.data){
+                    RES.push([element.username + " ("+EventCount.data+")",EventCount.data])
+                }
+            })
+
+            context.commit('MONTH_STATISTIC', RES);
         }
     },
     getters: {
+        YEAR_STATISTIC: state => {
+            return state.YEAR_STATISTIC;
+        },
+        DAY_STATISTIC: state => {
+            return state.DAY_STATISTIC;
+        },
+        MONTH_STATISTIC: state => {
+            return state.MONTH_STATISTIC;
+        },
+
         DROP_EVENT: state => {
             return state.DROP_EVENT;
         },

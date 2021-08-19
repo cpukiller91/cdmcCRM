@@ -1,7 +1,7 @@
 
 <template>
     <div>
-
+        <statistic-kid-action></statistic-kid-action>
         <!-- Basic table card start -->
         <div class="card" v-if="login">
 
