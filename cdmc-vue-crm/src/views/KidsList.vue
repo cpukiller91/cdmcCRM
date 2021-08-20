@@ -12,7 +12,8 @@
                         <kid-task-modal></kid-task-modal>
                     </div>
                     <div class="col-md-3">
-                        <button class="btn btn-danger btn-outline-danger" @click="logout"><i class="icofont icofont-eye-alt"></i>Выход</button>
+                        <!--button-- class="btn btn-danger btn-outline-danger" @click="logout">
+                            <i class="icofont icofont-eye-alt"></i>Выход</button-->
                     </div>
                     <div class="col-md-3">
                         <all-kid-card-modal style="float: right"></all-kid-card-modal>

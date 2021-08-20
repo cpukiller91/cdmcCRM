@@ -1,157 +1,30 @@
 <template>
     <div>
-        <!-- Pre-loader start -->
-        <div class="theme-loader">
-            <div class="ball-scale">
-                <div class='contain'>
-                    <div class="ring"><div class="frame"></div></div>
-                    <div class="ring"><div class="frame"></div></div>
-                    <div class="ring"><div class="frame"></div></div>
-                    <div class="ring"><div class="frame"></div></div>
-                    <div class="ring"><div class="frame"></div></div>
-                    <div class="ring"><div class="frame"></div></div>
-                    <div class="ring"><div class="frame"></div></div>
-                    <div class="ring"><div class="frame"></div></div>
-                    <div class="ring"><div class="frame"></div></div>
-                    <div class="ring"><div class="frame"></div></div>
-                </div>
-            </div>
-        </div>
-        <!-- Pre-loader end -->
         <div id="pcoded" class="pcoded">
 
             <div class="pcoded-container">
                 <!-- Menu header start -->
-                <nav style="z-index: 0" class="navbar header-navbar pcoded-header">
+                <nav class="navbar header-navbar pcoded-header">
                     <div class="navbar-wrapper">
 
-                        <div class="navbar-logo">
+                        <div  class="navbar-logo">
                             <a class="mobile-menu" id="mobile-collapse" href="#!">
                                 <i class="feather icon-menu"></i>
                             </a>
                             <a href="index-1.htm">
-                                <img class="img-fluid" src="files\assets\images\logo.png" alt="Theme-Logo">
+                                <img class="img-fluid" src="/files/assets/images/logo.png" alt="Theme-Logo">
                             </a>
                             <a class="mobile-options">
                                 <i class="feather icon-more-horizontal"></i>
                             </a>
                         </div>
 
-                        <div class="navbar-container container-fluid">
-                            <ul class="nav-left">
-                                <li class="header-search">
-                                    <div class="main-search morphsearch-search">
-                                        <div class="input-group">
-                                            <span class="input-group-addon search-close"><i class="feather icon-x"></i></span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon search-btn"><i class="feather icon-search"></i></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#!" onclick="javascript:toggleFullScreen()">
-                                        <i class="feather icon-maximize full-screen"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav-right">
-                                <li class="header-notification">
-                                    <div class="dropdown-primary dropdown">
-                                        <div class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="feather icon-bell"></i>
-                                            <span class="badge bg-c-pink">5</span>
-                                        </div>
-                                        <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                            <li>
-                                                <h6>Notifications</h6>
-                                                <label class="label label-danger">New</label>
-                                            </li>
-                                            <li>
-                                                <div class="media">
-                                                    <img class="d-flex align-self-center img-radius" src="files\assets\images\avatar-4.jpg" alt="Generic placeholder image">
-                                                    <div class="media-body">
-                                                        <h5 class="notification-user">Лазуренко Светлана Борисовна</h5>
-                                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                        <span class="notification-time">30 minutes ago</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="media">
-                                                    <img class="d-flex align-self-center img-radius" src="files\assets\images\avatar-3.jpg" alt="Generic placeholder image">
-                                                    <div class="media-body">
-                                                        <h5 class="notification-user">Joseph William</h5>
-                                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                        <span class="notification-time">30 minutes ago</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="media">
-                                                    <img class="d-flex align-self-center img-radius" src="files\assets\images\avatar-4.jpg" alt="Generic placeholder image">
-                                                    <div class="media-body">
-                                                        <h5 class="notification-user">Sara Soudein</h5>
-                                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                        <span class="notification-time">30 minutes ago</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="header-notification">
-                                    <div class="dropdown-primary dropdown">
-                                        <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
-                                            <i class="feather icon-message-square"></i>
-                                            <span class="badge bg-c-green">3</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="user-profile header-notification">
-                                    <div class="dropdown-primary dropdown">
-                                        <div class="dropdown-toggle" data-toggle="dropdown">
-                                            <img src="files\assets\images\avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                            <span>Лазуренко Светлана Борисовна</span>
-                                            <i class="feather icon-chevron-down"></i>
-                                        </div>
-                                        <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                            <li>
-                                                <a href="#!">
-                                                    <i class="feather icon-settings"></i> Settings
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="user-profile.htm">
-                                                    <i class="feather icon-user"></i> Profile
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="email-inbox.htm">
-                                                    <i class="feather icon-mail"></i> My Messages
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="auth-lock-screen.htm">
-                                                    <i class="feather icon-lock"></i> Lock Screen
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="auth-normal-sign-in.htm">
-                                                    <i class="feather icon-log-out"></i> Logout
-                                                </a>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        <user-meny></user-meny>
                     </div>
                 </nav>
                 <!-- Menu header end -->
                 <div class="pcoded-main-container">
-
-                    <nav v-if="menu" class="pcoded-navbar">
+                    <nav class="pcoded-navbar" v-if="menu">
                         <div class="pcoded-inner-navbar">
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="pcoded-hasmenu">
@@ -1241,7 +1114,7 @@
                                             </ul>
                                         </li>
                                         <li class="">
-                                            <a href="files\extra-pages\landingpage\index.htm" target="_blank" data-i18n="nav.landing-page.main"> <span class="pcoded-micon"><i class="ti-mobile"></i></span> <span class="pcoded-mtext">Landing Page</span> <span class="pcoded-mcaret"></span> </a>
+                                            <a href="/files/extra-pages/landingpage/index.htm" target="_blank" data-i18n="nav.landing-page.main"> <span class="pcoded-micon"><i class="ti-mobile"></i></span> <span class="pcoded-mtext">Landing Page</span> <span class="pcoded-mcaret"></span> </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -1502,35 +1375,35 @@
                                                     </a>
                                                     <ul class="pcoded-submenu">
                                                         <li class="">
-                                                            <a href="files\extra-pages\email-templates\email-welcome.htm" data-i18n="nav.email.email-template.welcome-email">
+                                                            <a href="/files/extra-pages/email-templates/email-welcome.htm" data-i18n="nav.email.email-template.welcome-email">
                                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                                 <span class="pcoded-mtext">Welcome Email</span>
                                                                 <span class="pcoded-mcaret"></span>
                                                             </a>
                                                         </li>
                                                         <li class="">
-                                                            <a href="files\extra-pages\email-templates\email-password.htm" data-i18n="nav.email.email-template.reset-password">
+                                                            <a href="/files/extra-pages/email-templates/email-password.htm" data-i18n="nav.email.email-template.reset-password">
                                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                                 <span class="pcoded-mtext">Reset Password</span>
                                                                 <span class="pcoded-mcaret"></span>
                                                             </a>
                                                         </li>
                                                         <li class="">
-                                                            <a href="files\extra-pages\email-templates\email-newsletter.htm" data-i18n="nav.email.email-template.newsletter-email">
+                                                            <a href="/files/extra-pages/email-templates/email-newsletter.htm" data-i18n="nav.email.email-template.newsletter-email">
                                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                                 <span class="pcoded-mtext">Newsletter Email</span>
                                                                 <span class="pcoded-mcaret"></span>
                                                             </a>
                                                         </li>
                                                         <li class="">
-                                                            <a href="files\extra-pages\email-templates\email-launch.htm" data-i18n="nav.email.email-template.app-launch">
+                                                            <a href="/files/extra-pages/email-templates/email-launch.htm" data-i18n="nav.email.email-template.app-launch">
                                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                                 <span class="pcoded-mtext">App Launch</span>
                                                                 <span class="pcoded-mcaret"></span>
                                                             </a>
                                                         </li>
                                                         <li class="">
-                                                            <a href="files\extra-pages\email-templates\email-activation.htm" data-i18n="nav.email.email-template.activation-code">
+                                                            <a href="/files/extra-pages/email-templates/email-activation.htm" data-i18n="nav.email.email-template.activation-code">
                                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                                 <span class="pcoded-mtext">Activation Code</span>
                                                                 <span class="pcoded-mcaret"></span>
@@ -1996,14 +1869,120 @@
                             </ul>
                         </div>
                     </nav>
-
+                    <!-- Sidebar chat start -->
+                    <div id="sidebar" class="users p-chat-user showChat">
+                        <div class="had-container">
+                            <div class="card card_main p-fixed users-main">
+                                <div class="user-box">
+                                    <div class="chat-inner-header">
+                                        <div class="back_chatBox">
+                                            <div class="right-icon-control">
+                                                <input type="text" class="form-control  search-text" placeholder="Search Friend" id="search-friends">
+                                                <div class="form-icon">
+                                                    <i class="icofont icofont-search"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="main-friend-list">
+                                        <div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe" data-toggle="tooltip" data-placement="left" title="Josephin Doe">
+                                            <a class="media-left" href="#!">
+                                                <img class="media-object img-radius img-radius" src="/files/assets/images/avatar-3.jpg" alt="Generic placeholder image ">
+                                                <div class="live-status bg-success"></div>
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="f-13 chat-header">Josephin Doe</div>
+                                            </div>
+                                        </div>
+                                        <div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe" data-toggle="tooltip" data-placement="left" title="Lary Doe">
+                                            <a class="media-left" href="#!">
+                                                <img class="media-object img-radius" src="/files/assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                                <div class="live-status bg-success"></div>
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="f-13 chat-header">Lary Doe</div>
+                                            </div>
+                                        </div>
+                                        <div class="media userlist-box" data-id="3" data-status="online" data-username="Alice" data-toggle="tooltip" data-placement="left" title="Alice">
+                                            <a class="media-left" href="#!">
+                                                <img class="media-object img-radius" src="/files/assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                                                <div class="live-status bg-success"></div>
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="f-13 chat-header">Alice</div>
+                                            </div>
+                                        </div>
+                                        <div class="media userlist-box" data-id="4" data-status="online" data-username="Alia" data-toggle="tooltip" data-placement="left" title="Alia">
+                                            <a class="media-left" href="#!">
+                                                <img class="media-object img-radius" src="/files/assets/images/avatar-3.jpg" alt="Generic placeholder image">
+                                                <div class="live-status bg-success"></div>
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="f-13 chat-header">Alia</div>
+                                            </div>
+                                        </div>
+                                        <div class="media userlist-box" data-id="5" data-status="online" data-username="Suzen" data-toggle="tooltip" data-placement="left" title="Suzen">
+                                            <a class="media-left" href="#!">
+                                                <img class="media-object img-radius" src="/files/assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                                <div class="live-status bg-success"></div>
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="f-13 chat-header">Suzen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar inner chat start-->
+                    <div class="showChat_inner">
+                        <div class="media chat-inner-header">
+                            <a class="back_chatBox">
+                                <i class="feather icon-chevron-left"></i> Josephin Doe
+                            </a>
+                        </div>
+                        <div class="media chat-messages">
+                            <a class="media-left photo-table" href="#!">
+                                <img class="media-object img-radius img-radius m-t-5" src="/files/assets/images/avatar-3.jpg" alt="Generic placeholder image">
+                            </a>
+                            <div class="media-body chat-menu-content">
+                                <div class="">
+                                    <p class="chat-cont">I'm just looking around. Will you tell me something about yourself?</p>
+                                    <p class="chat-time">8:20 a.m.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media chat-messages">
+                            <div class="media-body chat-menu-reply">
+                                <div class="">
+                                    <p class="chat-cont">I'm just looking around. Will you tell me something about yourself?</p>
+                                    <p class="chat-time">8:20 a.m.</p>
+                                </div>
+                            </div>
+                            <div class="media-right photo-table">
+                                <a href="#!">
+                                    <img class="media-object img-radius img-radius m-t-5" src="/files/assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="chat-reply-box p-b-20">
+                            <div class="right-icon-control">
+                                <input type="text" class="form-control search-text" placeholder="Share Your Thoughts">
+                                <div class="form-icon">
+                                    <i class="feather icon-navigation"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar inner chat end-->
                     <div class="pcoded-wrapper">
                         <div class="pcoded-content">
                             <div class="pcoded-inner-content">
                                 <div class="main-body">
                                     <div class="page-wrapper">
                                         <div class="page-body m-t-50">
-                                            <router-view/>
+                                            <router-view></router-view>
                                         </div>
                                     </div>
 
@@ -2014,85 +1993,37 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </div>
 </template>
-
 <script>
-
     export default {
         data: () => ({
             menu:false,
             src:[
-//-------------- Required Jquery
-                "/files/bower_components/jquery/js/jquery.min.js",
-                "/files/bower_components/jquery-ui/js/jquery-ui.min.js",
-                "/files/bower_components/popper.js/js/popper.min.js",
-                "/files/bower_components/bootstrap/js/bootstrap.min.js",
-//--------------jquery slimscroll js
-                "/files/bower_components/jquery-slimscroll/js/jquery.slimscroll.js",
-//--------------modernizr js
-                "/files/bower_components/modernizr/js/modernizr.js", 
-                "/files/bower_components/modernizr/js/css-scrollbars.js",
-//--------------Select 2 js -->
-                "/files/bower_components/select2/js/select2.full.min.js",
-//--------------Multiselect js -->
-                "/files/bower_components/bootstrap-multiselect/js/bootstrap-multiselect.js",
-                "/files/bower_components/multiselect/js/jquery.multi-select.js",
-                "/files/assets/js/jquery.quicksearch.js",
-                "/files/assets/pages/advance-elements/select2-custom.js",
-//--------------sweet alert js -->
-                "/files/bower_components/sweetalert/js/sweetalert.min.js",
                 "/files/assets/js/classie.js",
-                "/files/assets/js/modalEffects.js",
-//--------------jquery file upload js -->
-                "/files/assets/pages/jquery.filer/js/jquery.filer.min.js",
-                "/files/assets/pages/filer/custom-filer.js",
-                "/files/assets/pages/filer/jquery.fileuploads.init.js",
-                "/files/bower_components/moment/js/moment.min.js",
-                // "/files/bower_components/fullcalendar/js/fullcalendar.min.js",
-                // 'fullcalendar/locales/ru',
-                // "https://data.jsdelivr.com/v1/package/npm/fullcalendar/badge",
-                // 'https://www.jsdelivr.com/package/npm/fullcalendar',
-                //"https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.9.0,npm/fullcalendar@5.9.0/locales-all.min.js,npm/fullcalendar@5.9.0/locales-all.min.js,npm/fullcalendar@5.9.0/main.min.js",
-                
-                
-// //--------------data-table js -->
-//                 "/files/bower_components/datatables.net/js/jquery.dataTables.min.js",
-//                 "/files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js",
-//                 "/files/assets/pages/data-table/js/jszip.min.js",
-//                 "/files/assets/pages/data-table/js/pdfmake.min.js",
-//                 "/files/assets/pages/data-table/js/vfs_fonts.js",
-//                 "/files/bower_components/datatables.net-buttons/js/buttons.print.min.js",
-//                 "/files/bower_components/datatables.net-buttons/js/buttons.html5.min.js",
-//                 "/files/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js",
-//                 "/files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js",
-//                 "/files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js",
-// //--------------Chart js
-//                 "/files/bower_components/chart.js/js/Chart.js",
-// //--------------amchart js
-//                 "/files/assets/pages/widget/amchart/amcharts.js",
-//                 "/files/assets/pages/widget/amchart/serial.js",
-//                 "/files/assets/pages/widget/amchart/light.js",
-//------------- Custom js -->
-                //"/files/assets/pages/dashboard/custom-dashboard.min.js",
-                //"/files/assets/pages/data-table/js/data-table-custom.js",
-                //"/files/assets/pages/full-calender/calendar.js",
-                "/files/assets/js/pcoded.min.js",
                 "/files/assets/js/horizontal-layout.min.js",
                 "/files/assets/js/jquery.mCustomScrollbar.concat.min.js",
-                "/files/assets/js/script.js"
-                
+                "/files/assets/js/script.js",
+
+                "/files/bower_components/i18next/js/i18next.min.js",
+                "/files/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js",
+                "/files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js",
+                "/files/bower_components/jquery-i18next/js/jquery-i18next.min.js",
+                "/files/assets/js/common-pages.js",
+
+                "/files/bower_components/jquery-slimscroll/js/jquery.slimscroll.js",
+
+                "/files/bower_components/modernizr/js/modernizr.js",
+                "/files/bower_components/modernizr/js/css-scrollbars.js",
             ]
         }),
-        
         mounted() {
+
             this.src.forEach(element => {
-                //console.log("Home list Layouts",element);
+                console.log("Task detail Layouts",element);
                 this.createElement(element)
             })
 

@@ -95,15 +95,16 @@
   export default {
 
     data: () => ({
-      password:"pnn2812",
-      login:"pnn2812@mail.ru",
+      password:"admin99",
+      login:"admin99@admin.ru",
       message:"",
       overlay: true
     }),
     watch:{
       LOGIN_USER(newVal){
           if(newVal){
-            this.$router.push({ name: 'Home' })
+            window.location.href="/"
+            //this.$router.push({ name: 'Home' })
           }
         // console.log("LOGIN_USER",newVal)
       }

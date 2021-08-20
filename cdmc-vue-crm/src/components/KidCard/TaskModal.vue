@@ -290,7 +290,7 @@
                     babycard:kidID,
 
                 }
-                console.log("userList===--",this.doctor,this.USERS_LIST_BY_KEY_ID[dodID],this.idRecord,data)
+                //console.log("userList===--",this.doctor,this.USERS_LIST_BY_KEY_ID[dodID],this.idRecord,data)
                 //return false;
 
                 if(this.idRecord == null){

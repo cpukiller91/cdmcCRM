@@ -17,6 +17,7 @@ import TaskModal from "./components/KidCard/TaskModal";
 import TabTaskModal from "./components/KidCard/TabTaskModal";
 import StatisticKidActon from "./components/StatisticKidActon";
 import DragableCalendar from "./components/DragableCalendar";
+import UserMeny from "./components/UserMeny";
 
 Vue.component('default-layout', Deault)
 Vue.component('task-list', TaskList)
@@ -30,6 +31,8 @@ Vue.component('kid-task-modal', TaskModal)
 Vue.component('tab-task-modal', TabTaskModal)
 Vue.component('statistic-kid-action', StatisticKidActon)
 Vue.component('dragable-calendar', DragableCalendar)
+Vue.component('user-meny', UserMeny)
+
 
 Axios.defaults.baseURL = "https://admin.cdcmc.ru";
 //Axios.defaults.baseURL = "http://localhost:1338";
