@@ -104,7 +104,7 @@ export default{
             //console.log("GET_US",filter)
             let eventlists =  await Axios.get(data.url,data.data);
 
-            console.log("GET_AXIOS_USERS_STORE",eventlists.data)
+            //console.log("GET_AXIOS_USERS_STORE",eventlists.data)
             context.commit('USERS_LIST', eventlists.data);
             context.dispatch("GET_USERS_LIST_BY_KEY_ID")
         },

@@ -62,7 +62,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="header-notification">
+            <li v-if="menu" class="header-notification">
                 <div class="dropdown-primary dropdown">
                     <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
                         <i class="feather icon-message-square"></i>
@@ -107,7 +107,19 @@
 </template>
 <script>
     export default {
+        props: {
+            // title: String,
+            // likes: Number,
+            menu: Boolean,
+            // commentIds: Array,
+            // author: Object,
+            // callback: Function,
+            // contactsPromise: Promise // или любой другой конструктор
+        },
         computed:{
+            USERS_LIST(){
+                return this.$store.getters.USERS_LIST
+            },
             LOGIN_USER(){
                 return this.$store.getters.LOGIN_USER
             }

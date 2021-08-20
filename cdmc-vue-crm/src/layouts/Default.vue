@@ -19,7 +19,7 @@
                             </a>
                         </div>
 
-                        <user-meny></user-meny>
+                        <user-meny :menu="menu"></user-meny>
                     </div>
                 </nav>
                 <!-- Menu header end -->
@@ -1870,7 +1870,7 @@
                         </div>
                     </nav>
                     <!-- Sidebar chat start -->
-                    <div id="sidebar" class="users p-chat-user showChat">
+                    <div v-if="menu" id="sidebar" class="users p-chat-user showChat">
                         <div class="had-container">
                             <div class="card card_main p-fixed users-main">
                                 <div class="user-box">
@@ -1936,7 +1936,7 @@
                         </div>
                     </div>
                     <!-- Sidebar inner chat start-->
-                    <div class="showChat_inner">
+                    <div v-if="menu" class="showChat_inner">
                         <div class="media chat-inner-header">
                             <a class="back_chatBox">
                                 <i class="feather icon-chevron-left"></i> Josephin Doe
