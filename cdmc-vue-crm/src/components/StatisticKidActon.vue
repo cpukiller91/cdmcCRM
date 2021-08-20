@@ -213,20 +213,7 @@
             var curent_date = new Date();
             this.startDate = dayjs(curent_date).format('YYYY-MM-DD')
 
-            this.$store.dispatch("GET_AXIOS_YEAR_STATISTIC",{
-                times:dayjs(curent_date).format('YYYY')
-            })
-
-            this.$store.dispatch("GET_AXIOS_MONTH_STATISTIC",{
-                Month:dayjs(curent_dateS).format('MM'),
-                times:dayjs(curent_dateS).format('YYYY')
-            })
-
-            this.$store.dispatch("GET_AXIOS_DAY_STATISTIC",{
-                times:dayjs(curent_date).format('YYYY'),
-                DayOfMonth:dayjs(curent_date).format('DD'),
-                Month:dayjs(curent_date).format('MM')
-            })
+            this.getStatistic()
 
 
 
