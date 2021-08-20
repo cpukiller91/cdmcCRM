@@ -285,6 +285,7 @@
                     doctor:dodID,
                     month:dayjs(this.timeS).format('MM'),
                     dayOfMonth:dayjs(this.timeS).format('DD'),
+                    times:dayjs(this.timeS).format('YYYY'),
                     color:this.USERS_LIST_BY_KEY_ID[dodID].usergroup.color,
                     babycard:kidID,
 

@@ -236,21 +236,20 @@ export default{
                     "visState_ne":false
                 }
             });
-            // let eventlists =  await Axios.get('/eventlists',{
-            //     params:{
-            //         "strtime_gte":"2021-00-00",
-            //         "doctor.id":22
-            //     }
-            // });
-            // console.log("GET_AXIOS_YEAR_STATISTIC",eventlists)
-            //
             USERlists.data.forEach(async (element) => {
-                var EventCount = await context.dispatch("GET_AXIOS_EVENT_COUNT",{id:element.id,filter})
-                if(EventCount){
-                    RES.push([element.username + " ("+EventCount+")",EventCount])
+            let EventCount = await Axios.get('/eventlists/count',{
+                params:{
+                    //"strtime_gte":filter.date,
+                    "doctor.id":element.id,
+                    //dayOfMonth:filter.DayOfMonth,
+                    times:filter.times
                 }
+            });
 
-            })
+            if(EventCount.data){
+                RES.push([element.username + " ("+EventCount.data+")",EventCount.data])
+            }
+        })
 
             context.commit('YEAR_STATISTIC', RES);
             // context.dispatch("GET_AXIOS_EVENTS")
@@ -269,7 +268,9 @@ export default{
                     params:{
                         //"strtime_gte":filter.date,
                         "doctor.id":element.id,
-                        dayOfMonth:filter.DayOfMonth
+                        times:filter.times,
+                        dayOfMonth:filter.DayOfMonth,
+                        month:filter.Month
                     }
                 });
 
@@ -294,6 +295,7 @@ export default{
                     params:{
                         //"strtime_gte":filter.date,
                         "doctor.id":element.id,
+                        times:filter.times,
                         month:filter.Month
                     }
                 });
