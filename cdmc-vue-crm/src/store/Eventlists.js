@@ -301,7 +301,7 @@ export default{
                 });
 
                 if(EventCount.data){
-                    RES.push([element.username + " ("+EventCount.data+")",EventCount.data])
+                    RES.push([element.username + " ("+EventCount.data+")",EventCount.data,1090])
                 }
             })
 

@@ -117,7 +117,10 @@
                     eventDrop: (date, event, jsEvent) => {
                         let move = {
                             id:date.event._def.publicId,
-                            strtime:date.event.start
+                            strtime:date.event.start,
+                            month:dayjs(date.event.start).format('MM'),
+                            dayOfMonth:dayjs(date.event.start).format('DD'),
+                            times:dayjs(date.event.start).format('YYYY'),
                         }
                         this.$store.dispatch("PUT_AXIOS_EVENTS",move)
                         console.log("eventDragStop",move);
