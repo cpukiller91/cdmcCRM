@@ -54,6 +54,9 @@
             FullCalendar
         },
         computed:{
+            USERS_LIST_BY_KEY_ID(){
+                return this.$store.getters.USERS_LIST_BY_KEY_ID
+            },
             FULLCALENDAR(){
                 return this.$store.getters.FULLCALENDAR
             },
@@ -62,6 +65,9 @@
             }
         },
         watch:{
+            USERS_LIST_BY_KEY_ID(){
+
+            },
             USERS_LIST(valNew){
                 console.log("USERS_LIST",valNew)
             },
@@ -82,7 +88,7 @@
                         this.strtime = date.date
                         $(date.draggedEl).remove();
 
-
+                        //console.log("this.USERS_LIST_BY_KEY_ID",this.USERS_LIST_BY_KEY_ID,parseInt(date.draggedEl.attributes.doctorid.value))
                         var dataNew = {
                             //id:this.idRecord,
                             //duration:this.durationSelectRange,
@@ -91,16 +97,18 @@
                             strtime: date.date,
                             //typeEvent:this.typeCurent,
                             //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
-                            doctor:parseInt(date.draggedEl.attributes.doctorid.value),
+                            doctor:this.USERS_LIST_BY_KEY_ID[parseInt(date.draggedEl.attributes.doctorid.value)],
                             // month:this.month,
                             // dayOfMonth:this.dayOfMonth,
                             //color:this.USERS_LIST_BY_KEY_ID[date.draggedEl.attributes.doctorid.value].usergroup.color,
                             babycard:1,
 
                         }
+
+
                         this.$store.dispatch("GET_DROP_EVENT",dataNew)
 
-                        //console.log("drop!!!",date )
+                        console.log("drop!!!",dataNew )
                         event.remove()
 
 

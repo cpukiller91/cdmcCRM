@@ -19,7 +19,7 @@
                         <div class="row m-b-20">
                             <div class="col-md-4">
                                 <v-select
-                                        v-model="doctor"
+                                        v-model="doctorID"
                                         :rules="requiredF"
                                         :items="userList"
                                         item-text="username"
@@ -158,7 +158,7 @@
                 "19:00",
             ],
             typeCurent:"Диагностика",
-            doctor:null,
+            doctorID:null,
             kid:null,
             timeS:null,
             modal:false,
@@ -193,11 +193,11 @@
         },
         watch:{
             DROP_EVENT(nv){
-                this.doctor = nv.doctor
+                this.doctorID = nv.doctor
                 this.timeS =
                     //"2021-08-19T09:30"
                     dayjs(nv.strtime).format('YYYY-MM-DDTHH:mm')
-                console.log("DROP_EVENT",nv,this.timeS)
+                //console.log("DROP_EVENT",nv,this.timeS)
             },
             USERS_LIST_BY_KEY_ID(nv){
                 //console.log("USERS_LIST_BY_KEY_ID",nv)
@@ -212,8 +212,8 @@
                    this.durationSelectRange = newValue.duration
                    this.timeS = newValue.strtime
                    this.$store.dispatch("GET_AXIOS_BABYCARD",{id:newValue.babycard.id})
-                   this.kid = newValue.babycard.id
-                   this.doctor = newValue.doctor.id
+                   this.kid = newValue.babycard
+                   this.doctorID = newValue.doctor
                    this.typeCurent = newValue.typeEvent
                    //console.log("watch-TaskModal-EVENT",newValue,this.idRecord)
                    this.accessTab = true
@@ -226,7 +226,7 @@
                 this.$store.dispatch("DELETE_AXIOS_EVENTS",{id:id})
                 const elem = this.$refs.closeModal
                 elem.click()
-                console.log("EventDelete",id)
+                //console.log("EventDelete",id)
             },
             closeModal(){
                 this.idRecord = null;
@@ -234,7 +234,7 @@
                 this.timeS = null;
                 this.typeCurent = null;
 
-                this.doctor = null;
+                this.doctorID = null;
                 this.kid = null;
                 this.accessTab = false
                 //this.$store.dispatch("OPEN_EVENT_MODAL",false)
@@ -254,23 +254,9 @@
             saveTask(){
 
                 var dodID,kidID
-                console.log(this.idRecord)
-                if(this.doctor == null && this.kid == null){
+                //console.log(this.idRecord)
+                if(this.doctorID == null && this.kid == null){
                     return false;
-                }
-
-
-                if(this.idRecord == null){
-                    if(this.doctor.id){
-                        dodID = this.doctor.id
-                    }
-                    if(this.doctor){
-                        dodID = this.doctor
-                    }
-                    kidID = this.kid.id
-                }else{
-                    dodID = this.doctor
-                    kidID = this.kid
                 }
 
 
@@ -282,15 +268,15 @@
                     strtime: this.timeS,
                     typeEvent:this.typeCurent,
                     //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
-                    doctor:dodID,
+                    doctor:this.doctorID.id,
                     month:dayjs(this.timeS).format('MM'),
                     dayOfMonth:dayjs(this.timeS).format('DD'),
                     times:dayjs(this.timeS).format('YYYY'),
-                    color:this.USERS_LIST_BY_KEY_ID[dodID].usergroup.color,
-                    babycard:kidID,
+                    color:this.USERS_LIST_BY_KEY_ID[this.doctorID.id].usergroup.color,
+                    babycard:this.kid.id,
 
                 }
-                //console.log("userList===--",this.doctor,this.USERS_LIST_BY_KEY_ID[dodID],this.idRecord,data)
+                //console.log("Log<<<<<<<<<<<----------------_>>>>>>>",data)
                 //return false;
 
                 if(this.idRecord == null){

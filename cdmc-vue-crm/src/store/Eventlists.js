@@ -70,7 +70,7 @@ export default{
     actions: {
 
         GET_DROP_EVENT: async (context, data) => {
-            console.log("GET_DROP_EVENT",data)
+            //console.log("GET_DROP_EVENT",data)
             context.commit('DROP_EVENT', data);
         },
 

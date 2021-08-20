@@ -301,16 +301,7 @@
 
                         </v-col>
 
-                        <v-col
-                                cols="12"
-                                md="4"
-                        >
-                            <v-text-field
-                                    v-model="consaltfio"
-                                    label="ФИО консультанта"
-                                    required
-                            ></v-text-field>
-                        </v-col>
+
                     </v-row>
 
                     <v-row>
