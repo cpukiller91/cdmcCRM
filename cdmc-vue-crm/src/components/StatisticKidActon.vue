@@ -12,19 +12,58 @@
             </div>
         </div>
         <div class="card-block">
-            <div class="row m-b-20">
-                <div class="col-6 col-md-4">
+            <v-row>
 
-                </div>
-                <div class="col-6 col-md-4">
-                    Выбрать период: <input type="date" v-model="startDate" @change="getStatistic">
-                    <button class="btn btn-success btn-outline-success" @click="getStatistic">
-                        <i class="icofont icofont-check-circled"></i>Обновить</button>
-                </div>
-                <div class="col-6 col-md-4">
+                <v-spacer></v-spacer>
+                <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                >
+                    <v-dialog
+                            ref="dialog"
+                            v-model="modal"
+                            :return-value.sync="dateAnalitics"
+                            persistent
+                            width="290px"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                    v-model="dateAnalitics"
+                                    label="Период выборки аналитики"
+                                    prepend-icon="mdi-calendar"
+                                    readonly
+                                    v-bind="attrs"
+                                    v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                                v-model="dateAnalitics"
+                                scrollable
+                                locale="ru-ru"
+                        >
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                    text
+                                    color="primary"
+                                    @click="modal = false"
+                            >
+                                Закрыть
+                            </v-btn>
+                            <v-btn
+                                    text
+                                    color="primary"
+                                    @click="$refs.dialog.save(dateAnalitics)"
+                            >
+                                Выбрать
+                            </v-btn>
+                        </v-date-picker>
+                    </v-dialog>
+                </v-col>
 
-                </div>
-            </div>
+                <v-spacer></v-spacer>
+            </v-row>
+
             <div class="row m-b-20">
                 <div class="col-6 col-md-4">
                     <h5>год</h5>
@@ -81,6 +120,11 @@
             }
         },
         watch:{
+            dateAnalitics(nvL){
+                console.log("dateAnalitics",nvL)
+                this.startDate = nvL;
+                this.getStatistic()
+            },
             GET_AXIOS_DAY_STATISTIC(nv){
 
                 var day = c3.generate({
@@ -193,6 +237,11 @@
             }
         },
         data: () => ({
+            dateAnalitics: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            menu: false,
+            modal: false,
+            menu2: false,
+
             startDate: null,
                 //dayjs(nv.strtime).format('YYYY-MM-DDTHH:mm'),
             rules: [
@@ -223,6 +272,7 @@
         },
         methods:{
             getStatistic(){
+
                 this.$store.dispatch("GET_AXIOS_YEAR_STATISTIC",{
                     times:dayjs(this.startDate).format('YYYY')
                 })
@@ -316,5 +366,13 @@
     }
     #chart3{
         width: 300px;
+    }
+    .primary {
+        background-color: #1867c0 !important;
+        border-color: #1867c0 !important;
+    }
+    .accent {
+        background-color: #005caf !important;
+        border-color: #005caf !important;
     }
 </style>

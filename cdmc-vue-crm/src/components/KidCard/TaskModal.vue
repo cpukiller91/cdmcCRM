@@ -58,29 +58,29 @@
                         </div>
 
                         <div class="row m-b-20">
-                            <div class="col-md-4">
-                                <input type="datetime-local" :rules="requiredF" v-model="timeS">
+                            <div class="col-md-5">
+                                <v-date-picker v-model="EventDate" locale="ru-ru"></v-date-picker>
                             </div>
-                            <!--div class="col-md-4">
+                            <div class="col-md-4">
                                 <v-select
-                                        v-model="timeS"
+                                        v-model="EventTime"
 
                                         :items="timeStart"
                                         item-text="title"
                                         item-value="id"
-                                        label="Начало приема"
+                                        label="Начало"
                                         persistent-hint
                                         return-object
                                         single-line
                                 ></v-select>
-                            </div-->
-                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-3">
                                 <v-select
                                         v-model="durationSelectRange"
 
                                         :items="timerDurationRange"
                                         :rules="requiredF"
-                                        label="Длительность приема"
+                                        label="Длительность"
                                         persistent-hint
                                         return-object
                                         single-line
@@ -119,7 +119,9 @@
             requiredF:[
                 value => !!value || 'Обязательное поле.'
             ],
-            accessTab:false,
+            EventDate: "2021-08-24",
+            EventTime: "9:00",
+            accessTab: false,
             titleWindow: "Записать пациента",
             idRecord:null,
             startDATE:"",
@@ -192,11 +194,22 @@
             }
         },
         watch:{
+            EventTime(nv){
+                this.timeS = this.EventDate + " "+nv
+                console.log("EventDate-T->",nv,this.timeS)
+            },
+            EventDate(nv){
+                this.timeS = nv + " "+this.EventTime
+                console.log("EventDate-->",nv,this.timeS)
+            },
             DROP_EVENT(nv){
                 this.doctorID = nv.doctor
-                this.timeS =
-                    //"2021-08-19T09:30"
-                    dayjs(nv.strtime).format('YYYY-MM-DDTHH:mm')
+                // this.timeS =
+                //     //"2021-08-19T09:30"
+                //     dayjs(nv.strtime).format('YYYY-MM-DDTHH:mm')
+
+                this.EventDate =  dayjs(nv.strtime).format('YYYY-MM-DD')
+                this.EventTime =  dayjs(nv.strtime).format('HH:mm')
                 //console.log("DROP_EVENT",nv,this.timeS)
             },
             USERS_LIST_BY_KEY_ID(nv){
@@ -207,7 +220,8 @@
             },
             EVENT(newValue,oldValue){
                if(newValue.id) {
-
+                   this.EventDate =  dayjs(newValue.strtime).format('YYYY-MM-DD'),
+                   this.EventTime =  dayjs(newValue.strtime).format('HH:mm'),
                    this.idRecord = newValue.id;
                    this.durationSelectRange = newValue.duration
                    this.timeS = newValue.strtime
