@@ -8,6 +8,7 @@ import Babycards from "./Babycards";
 import Logopeds from "./Logopeds";
 import Psihologs from "./Psihologs";
 import SimPsihologs from "./Simpsihologs";
+import Projects from "./Projects";
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ export default new Vuex.Store({
     Babycards,
     Logopeds,
     Psihologs,
-    SimPsihologs
+    SimPsihologs,
+    Projects
   },
   state: {
 

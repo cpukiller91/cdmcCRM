@@ -1,6 +1,6 @@
 <template>
 
-  <div class="row">
+  <div class="row" data-app>
       <!-- task, page, download counter  start
       <div class="col-xl-3 col-md-6">
         <div class="card bg-c-yellow update-card">
@@ -84,6 +84,8 @@
             <!--h5>Sales Analytics</h5>
             <span class="text-muted"></span-->
             <!-- Modal large-->
+            <crm-task-modal></crm-task-modal>
+
             <button v-if="menu" type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#large-Modal"><i class="fa fa-plus"></i></button>
             <div v-if="menu" class="modal fade" id="large-Modal" tabindex="-1" role="dialog">
               <div class="modal-dialog modal-lg" role="document">
@@ -155,7 +157,7 @@
             </div>
 
 
-            <div class="animation-model">
+            <div v-if="menu" class="animation-model">
 
               <button @click="openModal" type="button" class="btn btn-info btn-outline-info waves-effect md-trigger" data-modal="modal-12">
                 <i class="fa fa-plus"></i></button>
@@ -969,6 +971,9 @@
     }),
     mounted() {
       this.loadTask()
+    },
+    watch:{
+
     },
     computed:{
 

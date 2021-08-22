@@ -1,6 +1,49 @@
 <template>
     <div>
-        <button  @click="openModal" type="button" id="add-edit" class="btn btn-info" data-toggle="modal" data-target="#large-Modal"><i class="icofont icofont-info-square"></i>{{titleWindow}}</button>
+
+        <div class="row" data-app style="z-index: 100">
+
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-block remove-label">
+                        <div class="btn-group dropdown-split-info">
+                            <button type="button"
+                                    id="add-edit"
+                                    class="btn btn-info"
+                                    data-toggle="modal"
+                                    data-target="#large-Modal"
+                                    @click="openModal"
+                            ><i class="icofont icofont-info-square"></i>{{titleWindow}}</button>
+
+                            <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle primary</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item waves-effect waves-light" ><all-kid-card-modal ></all-kid-card-modal></a>
+                                <a class="dropdown-item waves-effect waves-light" ><kid-card-modal ></kid-card-modal></a>
+                                <!--a class="dropdown-item waves-effect waves-light" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item waves-effect waves-light" href="#">Separated link</a-->
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--button  @click="openModal"
+                 type="button"
+                 class="btn btn-info"
+                 data-toggle="modal"
+                 data-target="#large-Modal"><i class="icofont icofont-info-square"></i>{{titleWindow}}</button-->
+
+
+
         <!-- Modal large-->
 
         <div class="modal fade" id="large-Modal" tabindex="-1" role="dialog">
@@ -311,3 +354,11 @@
         }
     };
 </script>
+<style>
+    .dropdown-menu>a {
+        padding: 17px 16px !important;
+    }
+    .btn-group, .btn-group-vertical {
+        padding: 0px 6px !important;
+    }
+</style>

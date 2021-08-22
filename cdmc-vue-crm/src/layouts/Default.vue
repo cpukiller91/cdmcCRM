@@ -2000,9 +2000,21 @@
 </template>
 <script>
     export default {
+
         data: () => ({
             menu:false,
             src:[
+                "/files/bower_components/jquery.cookie/js/jquery.cookie.js",
+                "/files/bower_components/jquery.steps/js/jquery.steps.js",
+                "/files/bower_components/jquery-validation/js/jquery.validate.js",
+
+                "/files/assets/pages/form-validation/validate.js",
+                "/files/assets/pages/forms-wizard-validation/form-wizard.js",
+
+                "/files/assets/pages/filer/custom-filer.js",
+                "/files/assets/pages/filer/jquery.fileuploads.init.js",
+                "/files/assets/pages/advance-elements/select2-custom.js",
+                "/files/assets/js/modalEffects.js",
                 "/files/assets/js/classie.js",
                 "/files/assets/js/horizontal-layout.min.js",
                 "/files/assets/js/jquery.mCustomScrollbar.concat.min.js",
@@ -2015,11 +2027,12 @@
                 "/files/assets/js/common-pages.js",
 
                 "/files/bower_components/jquery-slimscroll/js/jquery.slimscroll.js",
-
+                "/files/assets/js/modal.js",
                 "/files/bower_components/modernizr/js/modernizr.js",
                 "/files/bower_components/modernizr/js/css-scrollbars.js",
             ]
         }),
+
         mounted() {
 
             this.src.forEach(element => {

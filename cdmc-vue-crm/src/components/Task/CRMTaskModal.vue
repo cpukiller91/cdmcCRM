@@ -1,0 +1,419 @@
+<template>
+
+    <div class="btn-group dropdown-split-success">
+        <button data-toggle="modal" data-target="#large-Modal-task" type="button" class="btn btn-success"><i class="icofont icofont-check-circled"></i>Поставить задачу</button>
+        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle primary</span>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item waves-effect waves-light" href="#">Action</a>
+            <a class="dropdown-item waves-effect waves-light" href="#">Another action</a>
+            <a class="dropdown-item waves-effect waves-light" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item waves-effect waves-light" href="#">Separated link</a>
+        </div>
+
+
+        <!-- Modal large-->
+
+        <div class="modal fade" id="large-Modal-task" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Задачи CRM</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs md-tabs tabs-left b-none" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#project" role="tab">Проект</a>
+                                <div class="slide"></div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#profile5" role="tab">Задача</a>
+                                <div class="slide"></div>
+                            </li>
+                            <!--li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#messages5" role="tab">Выполнение</a>
+                                <div class="slide"></div>
+                            </li-->
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#settings5" role="tab">Комментарий</a>
+                                <div class="slide"></div>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content tabs-left-content card-block" style="width: 100%">
+                            <div class="tab-pane active" id="project" role="tabpanel">
+
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <v-select
+                                            v-model="curentProject"
+                                            :items="PROJECT_LIST"
+                                            label="Проект для редактирования"
+                                            item-text="title"
+                                            item-value="id"
+
+                                        ></v-select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <div style="float: right">
+                                            <button @click="resetNew" class="btn btn-info btn-outline-info"><i class="icofont icofont-eye-alt"></i>Скинуть фильтр</button>
+                                            <button @click="saveProject" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
+                                            <button @click="removeProject" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--v-divider></v-divider-->
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <v-select
+                                                :items="TASK_USER_LIST"
+                                                v-model="PROJECT.boss"
+                                                item-text="username"
+                                                item-value="id"
+                                                label="Руководитель"
+
+                                        ></v-select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <v-text-field label="Название задачи" v-model="PROJECT.title"></v-text-field>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <v-textarea
+                                                autocomplete="email"
+                                                label="Описание"
+                                                v-model="PROJECT.description"
+                                        ></v-textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <v-text-field
+                                                v-model="dateRangeText"
+                                                prepend-icon="mdi-calendar"
+                                                readonly
+                                        ></v-text-field>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                        <v-date-picker
+
+                                                v-model="dates"
+                                                no-title
+                                                scrollable
+                                                locale="ru-ru"
+                                                range
+                                                clearable
+                                        ></v-date-picker>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div style="float: right">
+                                            <button @click="saveProject" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
+                                            <button @click="removeProject" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="profile5" role="tabpanel">
+
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <div style="float: right">
+                                            <!--button @click="resetNew" class="btn btn-info btn-outline-info"><i class="icofont icofont-eye-alt"></i>Скинуть фильтр</button-->
+                                            <button @click="saveTask" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
+                                            <button @click="removeTask" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <div class="col-sm-6">
+                                        <v-text-field label="Название задачи" v-model="taskName"></v-text-field>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <v-select
+                                            v-model="taskProject"
+                                            :items="PROJECT_LIST"
+                                            label="Проект"
+                                            item-text="title"
+                                            item-value="id"
+                                        ></v-select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <v-select
+                                                :items="TASK_USER_LIST"
+                                                v-model="postanovchik"
+                                                item-text="username"
+                                                item-value="id"
+                                                label="Постановщик"
+
+                                        ></v-select>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <v-select
+                                                :items="TASK_USER_LIST"
+                                                v-model="otvetstvennij"
+                                                item-text="username"
+                                                item-value="id"
+                                                label="Ответственный"
+
+                                        ></v-select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <v-textarea
+                                                autocomplete="email"
+                                                label="Описание"
+                                                v-model="taskDescription"
+                                        ></v-textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                </div>
+
+                                <!--v-divider></v-divider-->
+
+
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div style="float: right">
+                                            <button @click="saveTask" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
+                                            <button @click="removeTask" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="messages5" role="tabpanel">
+                                <p class="m-0">3. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean mas Cum sociis natoque penatibus et magnis dis.....</p>
+                            </div>
+
+                            <div class="tab-pane" id="settings5" role="tabpanel">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <div style="float: right">
+                                            <!--button @click="resetNew" class="btn btn-info btn-outline-info"><i class="icofont icofont-eye-alt"></i>Скинуть фильтр</button-->
+                                            <button @click="saveTask" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
+                                            <button @click="removeTask" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <v-textarea
+                                                autocomplete="email"
+                                                label="Комментарий исполнителя"
+                                                v-model="taskDescription"
+                                        ></v-textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+
+                                        <v-file-input
+                                                chips
+                                                multiple
+                                                label="Прикрепленные файлы"
+                                        ></v-file-input>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light ">Save changes</button>
+                    </div-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</template>
+<script>
+    export default {
+        data: () => ({
+            otvetstvennij:"",
+            taskDescription:"",
+            taskName:"",
+            postanovchik:1,
+            taskProject:"",
+
+            isReset:true,
+            dates: [],
+            dialog:false,
+            boss:0,
+            curentProject:null,
+            projectList:[],
+            // src:[
+            //     "/files/bower_components/jquery.cookie/js/jquery.cookie.js",
+            //     "/files/bower_components/jquery.steps/js/jquery.steps.js",
+            //     "/files/bower_components/jquery-validation/js/jquery.validate.js",
+            //
+            //     "/files/assets/pages/form-validation/validate.js",
+            //     "/files/assets/pages/forms-wizard-validation/form-wizard.js"
+            // ]
+        }),
+        watch:{
+
+            TASK_USER_LIST(){
+
+            },
+            curentProject(nv){
+                this.$store.dispatch("GET_AXIOS_PROJECT",{id:nv})
+                console.log("watch curentProject",nv)
+            },
+            PROJECT_LIST(nv){
+                console.log("watch PROJECT_LIST",nv)
+            },
+            PROJECT(nv){
+                // this.PROJECT.startProject = dayjs(nv.startProject).format('YYYY-MM-DD')
+                // this.PROJECT.endProject = dayjs(nv.endProject).format('YYYY-MM-DD')
+               // $refs.menu.save([])
+                this.dates[0] = dayjs(nv.startProject).format('YYYY-MM-DD')
+                this.dates[1] = dayjs(nv.endProject).format('YYYY-MM-DD')
+                //this.onClear()
+                //this.PROJECT.boss = nv.boss.id
+
+                // this.dates[0] = nv.startProject
+                // this.dates[1] = nv.endProject
+                console.log("watch PROJECT",nv)
+            }
+        },
+        computed: {
+            TASK_USER_LIST(){
+                return this.$store.getters.TASK_USER_LIST
+            },
+            PROJECT_LIST(){
+                return this.$store.getters.PROJECT_LIST
+            },
+            PROJECT(){
+                return this.$store.getters.PROJECT
+            },
+            dateRangeText () {
+                //console.log("watch dateRangeText",this.dates)
+                return this.dates.join(' ~ ')
+            },
+        },
+        mounted() {
+            var curent_date = new Date();
+            this.dates[0] = dayjs(curent_date).format('YYYY-MM-DD')
+            this.dates[1] = dayjs(curent_date).format('YYYY-MM-DD')
+
+            // this.dates[0] = '2019-08-10'
+            // //dayjs(nv.startProject).format('YYYY-MM-DD')
+            // this.dates[1] = '2019-08-15'
+            //dayjs(nv.endProject).format('YYYY-MM-DD')
+            this.$store.dispatch("GET_AXIOS_TASK_USER_LIST")
+            this.$store.dispatch("GET_AXIOS_PROJECT_LIST")
+
+            // this.src.forEach(element => {
+            //
+            //     //this.createElement(element)
+            // })
+
+        },
+        methods:{
+            saveTask(){
+
+            },
+            removeTask(){
+
+            },
+            // onClear() {
+            //     this.isReset = true
+            //     this.$nextTick(() => {
+            //         this.isReset = false
+            //         //* Resetting your data to initial state, eg:
+            //         this.$emit(this.emits.onSave, this.latestAcceptedValue)
+            //     })
+            // },
+            resetNew(){
+                var curent_date = new Date();
+                this.curentProject = ''
+                this.dates[0] = dayjs(curent_date).format('YYYY-MM-DD')
+                this.dates[1] = dayjs(curent_date).format('YYYY-MM-DD')
+            },
+            saveProject(){
+                this.PROJECT.startProject = this.dates[0]
+                this.PROJECT.endProject = this.dates[1]
+
+                var data = {
+                    boss:this.PROJECT.boss,
+                    //this.boss,
+                    id:this.PROJECT.id,
+                    title:this.PROJECT.title,
+                    description: this.PROJECT.description,
+                    startProject: this.PROJECT.startProject,
+                    endProject: this.PROJECT.endProject
+                }
+                console.log("PROJECT",data);
+                if(this.PROJECT.id == null){
+                    this.$store.dispatch("POST_AXIOS_PROJECT",data)
+
+                }else{
+                    this.$store.dispatch("PUT_AXIOS_PROJECT",data)
+                }
+
+
+            },
+            removeProject(){
+                this.$store.dispatch("DELETE_AXIOS_PROJECT",{id:this.PROJECT.id})
+                this.resetNew()
+            },
+            createElement(src){
+                let recaptchaScript = document.createElement('script')
+                recaptchaScript.setAttribute('src', src)
+                document.head.appendChild(recaptchaScript)
+            }
+        }
+    }
+</script>
+<style>
+
+</style>

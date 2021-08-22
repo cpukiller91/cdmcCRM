@@ -86,13 +86,15 @@ export default{
                 let newEndDate = new Date(element.strtime).setMinutes(getEndDate+element.duration)
                 RES.push({
                     id:element.id,
-                    title: element.doctor.username,
-                        //+ "("+element.babycard.kidf+" "+element.babycard.kidi+" "+element.babycard.kido+")" ,
+                    title: element.doctor.username ,
+                        //+ "("+element.babycard.kidf+" "+element.babycard.kidi
+                        //+" "+element.babycard.kido
+                    //+")" ,
                     end:newEndDate,
                     start: element.strtime,
                     //date: '2021-08-16 16:00',
                     color: element.color,     // an option!
-                    textColor: 'yellow' ,
+                    textColor: '#2DCEE3',
                     editable:true,
                     itemSelector:".item-class",
                     // eventMinHeight:5,

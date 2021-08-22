@@ -105,7 +105,6 @@
 
                         }
 
-
                         this.$store.dispatch("GET_DROP_EVENT",dataNew)
 
                         console.log("drop!!!",dataNew )
@@ -219,7 +218,7 @@
                         //     start: '2021-08-17 16:30:00',
                         //     //date: '2021-08-16 16:00',
                         //     color: 'black',     // an option!
-                        //     textColor: 'yellow' ,
+                        //     textColor: '#2DCEE3' ,
                         //     editable:true,
                         //     itemSelector:".item-class",
                         //     durationEditable:true,
@@ -237,7 +236,10 @@
             // var Calendar = FullCalendar.Calendar;
             // var Draggable = FullCalendar.Draggable;
             this.$store.dispatch("GET_FULLCALENDAR")
-            this.$store.dispatch("GET_AXIOS_USERS",{params:{"visState_ne":false}})
+            this.$store.dispatch("GET_AXIOS_USERS",{
+                params:{"visState_ne":false}
+            })
+
             var containerEl = document.getElementById('external-events-listing');
             var calendarEl = document.getElementById('calendar');
             var checkbox = document.getElementById('drop-remove');
