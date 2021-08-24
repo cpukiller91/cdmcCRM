@@ -334,14 +334,23 @@
                                 <template>
                                     <v-expansion-panels>
                                         <v-expansion-panel
-                                                v-for="(item,i) in 1"
-                                                :key="i"
+                                                v-for="COMMENTS in COMMENTS_LIST" :key="COMMENTS.id"
                                         >
                                             <v-expansion-panel-header>
-                                                Item
+                                                {{COMMENTS.published_at}}
+
                                             </v-expansion-panel-header>
                                             <v-expansion-panel-content>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                <div class="col-sm-12">
+                                                    <div style="float: right">
+                                                        <button @click="removeComment(COMMENTS.id)" class="btn btn-danger btn-outline-danger">
+                                                            <i class="icofont icofont-eye-alt"></i>Удалить</button>
+                                                    </div>
+                                                </div>
+                                                {{COMMENTS.comment}}
+                                                <div v-for="Files in COMMENTS.AttachedFiles" :key="Files.id">
+                                                    <a target="_blank" :href="'https://admin.cdcmc.ru' + Files.url">{{Files.name}}</a>
+                                                </div>
                                             </v-expansion-panel-content>
                                         </v-expansion-panel>
                                     </v-expansion-panels>
@@ -410,6 +419,10 @@
             // ]
         }),
         watch:{
+            COMMENTS_LIST(nv){
+
+                console.log("COMMENTS_LIST-->",nv)
+            },
             TASK(nv){
                     console.log("TASK-CRM->",nv)
 
@@ -428,6 +441,8 @@
 
                 this.TaskID = nv.id
                 this.commentAccess = true
+                this.$store.dispatch("GET_AXIOS_COMMENTS",{task_board:nv.id})
+
             },
             TASK_USER_LIST(){
 
@@ -454,6 +469,9 @@
             }
         },
         computed: {
+            COMMENTS_LIST(){
+                return this.$store.getters.COMMENTS_LIST
+            },
             TASK(){
                 return this.$store.getters.TASK
             },
@@ -492,6 +510,9 @@
 
         },
         methods:{
+            removeComment(id){
+                this.$store.dispatch("DELETE_AXIOS_COMMENTS",{id:id})
+            },
             saveComment(){
                 let formData = new FormData();
 
