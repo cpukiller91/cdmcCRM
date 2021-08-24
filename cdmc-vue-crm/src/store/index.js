@@ -9,6 +9,8 @@ import Logopeds from "./Logopeds";
 import Psihologs from "./Psihologs";
 import SimPsihologs from "./Simpsihologs";
 import Projects from "./Projects";
+import TaskBoards from "./TaskBoards";
+import Comments from "./Comments";
 
 Vue.use(Vuex)
 
@@ -21,7 +23,9 @@ export default new Vuex.Store({
     Logopeds,
     Psihologs,
     SimPsihologs,
-    Projects
+    Projects,
+    TaskBoards,
+    Comments
   },
   state: {
 

@@ -18,17 +18,20 @@ import Axios from "axios";
 //     id:4}))
 export default{
     state: {
-        url: '/defectologs/',
-        Defectolog_LIST:[]
+        url: '/task-boards/',
+        TASK_BOARDS_LIST:[],
+        TASK:[]
     },
     mutations: {
-
-        DEFECTOLOG_LIST(state, payload){
-            state.Defectolog_LIST = payload
+        TASK(state, payload){
+            state.TASK = payload
+        },
+        TASK_BOARDS_LIST(state, payload){
+            state.TASK_BOARDS_LIST = payload
         }
     },
     actions: {
-        URL_CONSTRUCT: async (context, filter,GET) => {
+        URL_CONSTRUCT_BOARDS: async (context, filter,GET) => {
             var url = context.state.url
             var DATA = {}
 
@@ -53,49 +56,62 @@ export default{
             }
         },
 
-        GET_AXIOS_DEFECTOLOG: async (context, filter) => {
+        GET_AXIOS_TASK: async (context, filter) => {
             //context.state.url+filter.id
-            var data = await context.dispatch("URL_CONSTRUCT",filter,true)
+            var data = await context.dispatch("URL_CONSTRUCT_BOARDS",filter,true)
 
-            //console.log("GET_AXIOS_DEFECTOLOG_STORE",filter,typeof filter)
+            //console.log("GET_AXIOS_BOARDS_STORE",filter,typeof filter)
             let eventlists =  await Axios.get(data.url,data.data);
-            console.log("GET_AXIOS_DEFECTOLOG_STORE",eventlists.data)
-            context.commit('DEFECTOLOG_LIST', eventlists.data);
+            //console.log("GET_AXIOS_BOARDS_STORE",eventlists.data)
+            context.commit('TASK', eventlists.data);
         },
-        POST_AXIOS_DEFECTOLOG: async (context, filter) => {
-            //context.state.url+filter.id
-            var data = await context.dispatch("URL_CONSTRUCT",filter)
 
-            console.log("POST_AXIOS_DEFECTOLOG_STORE",filter,data)
-            let eventlists =  await Axios.post(data.url,data.data);
-            console.log("POST_AXIOS_DEFECTOLOG_STORE-->",eventlists.data)
-            context.dispatch("GET_AXIOS_DEFECTOLOG")
-            //context.commit('DEFECTOLOG_LIST', eventlists.data);
-        },
-        PUT_AXIOS_DEFECTOLOG: async (context, filter) => {
+        GET_AXIOS_BOARDS: async (context, filter) => {
             //context.state.url+filter.id
-            var data = await context.dispatch("URL_CONSTRUCT",filter)
+            var data = await context.dispatch("URL_CONSTRUCT_BOARDS",filter,true)
+
+            //console.log("GET_AXIOS_BOARDS_STORE",filter,typeof filter)
+            let eventlists =  await Axios.get(data.url,data.data);
+            console.log("GET_AXIOS_BOARDS_STORE",eventlists.data)
+            context.commit('TASK_BOARDS_LIST', eventlists.data);
+        },
+        POST_AXIOS_BOARDS: async (context, filter) => {
+            //context.state.url+filter.id
+            var data = await context.dispatch("URL_CONSTRUCT_BOARDS",filter)
+
+            console.log("POST_AXIOS_BOARDS_STORE",filter,data)
+            let eventlists =  await Axios.post(data.url,data.data);
+            console.log("POST_AXIOS_BOARDS_STORE-->",eventlists.data)
+            context.dispatch("GET_AXIOS_BOARDS")
+            //context.commit('TASK_BOARDS_LIST', eventlists.data);
+        },
+        PUT_AXIOS_BOARDS: async (context, filter) => {
+            //context.state.url+filter.id
+            var data = await context.dispatch("URL_CONSTRUCT_BOARDS",filter)
 
             console.log("---------",data,filter)
             let eventlists =  await Axios.put(data.url,data.data);
-            console.log("PUT_AXIOS_DEFECTOLOG_STORE",eventlists)
-            //context.commit('DEFECTOLOG_LIST', eventlists.data);
-            context.dispatch("GET_AXIOS_DEFECTOLOG")
+            console.log("PUT_AXIOS_BOARDS_STORE",eventlists)
+            //context.commit('TASK_BOARDS_LIST', eventlists.data);
+            context.dispatch("GET_AXIOS_BOARDS")
         },
-        DELETE_AXIOS_DEFECTOLOG: async (context, filter) => {
+        DELETE_AXIOS_BOARDS: async (context, filter) => {
             //context.state.url+filter.id
-            var data = await context.dispatch("URL_CONSTRUCT",filter)
+            var data = await context.dispatch("URL_CONSTRUCT_BOARDS",filter)
 
-            //console.log("GET_AXIOS_DEFECTOLOG_STORE",filter,typeof filter)
+            //console.log("GET_AXIOS_BOARDS_STORE",filter,typeof filter)
             let eventlists =  await Axios.delete(data.url);
-            console.log("DELETE_AXIOS_DEFECTOLOG_STORE",eventlists.data)
-            //context.commit('DEFECTOLOG_LIST', eventlists.data);
-            context.dispatch("GET_AXIOS_DEFECTOLOG")
+            console.log("DELETE_AXIOS_BOARDS_STORE",eventlists.data)
+            //context.commit('TASK_BOARDS_LIST', eventlists.data);
+            context.dispatch("GET_AXIOS_BOARDS")
         }
     },
     getters: {
-        DEFECTOLOG_LIST: state => {
-            return state.Defectolog_LIST;
+        TASK_BOARDS_LIST: state => {
+            return state.TASK_BOARDS_LIST;
+        },
+        TASK: state => {
+            return state.TASK;
         },
     }
 }

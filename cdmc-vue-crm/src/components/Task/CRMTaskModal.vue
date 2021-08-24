@@ -21,7 +21,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Задачи CRM</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button @click="closeModal" type="button" id="closeModalTask" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -41,7 +41,7 @@
                                 <a class="nav-link" data-toggle="tab" href="#messages5" role="tab">Выполнение</a>
                                 <div class="slide"></div>
                             </li-->
-                            <li class="nav-item">
+                            <li class="nav-item" v-if="commentAccess">
                                 <a class="nav-link" data-toggle="tab" href="#settings5" role="tab">Комментарий</a>
                                 <div class="slide"></div>
                             </li>
@@ -104,7 +104,8 @@
                                         ></v-textarea>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+
+                                <!--div class="form-group row">
                                     <div class="col-sm-6">
                                         <v-text-field
                                                 v-model="dateRangeText"
@@ -124,7 +125,8 @@
                                                 clearable
                                         ></v-date-picker>
                                     </div>
-                                </div>
+                                </div-->
+
                                 <div class="form-group row">
                                     <div class="col-sm-6">
 
@@ -165,7 +167,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <v-select
                                                 :items="TASK_USER_LIST"
                                                 v-model="postanovchik"
@@ -175,8 +177,7 @@
 
                                         ></v-select>
                                     </div>
-
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <v-select
                                                 :items="TASK_USER_LIST"
                                                 v-model="otvetstvennij"
@@ -187,6 +188,74 @@
                                         ></v-select>
                                     </div>
 
+                                    <div class="col-sm-4">
+                                        <v-menu
+                                                ref="menu"
+                                                v-model="menuModalEndDate"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="dateEndTask"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                        >
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                        :rules="[rules.required]"
+                                                        v-model="dateEndTask"
+                                                        label="Конечная дата"
+                                                        prepend-icon="mdi-calendar"
+                                                        readonly
+                                                        error
+                                                        v-bind="attrs"
+                                                        v-on="on"
+                                                ></v-text-field>
+                                            </template>
+                                            <v-date-picker
+                                                    v-model="dateEndTask"
+                                                    no-title
+                                                    scrollable
+                                                    locale="ru-ru"
+                                            >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                        text
+                                                        color="primary"
+                                                        @click="menuModalEndDate = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                        text
+                                                        color="primary"
+                                                        @click="$refs.menu.save(dateEndTask)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                            </v-date-picker>
+                                        </v-menu>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <v-select
+                                                :items="statusList"
+                                                v-model="status"
+                                                label="Статус"
+
+                                        ></v-select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <v-select
+                                                :items="priorityList"
+                                                v-model="priority"
+                                                label="Приоритет"
+
+                                        ></v-select>
+                                    </div>
+                                    <div class="col-sm-4">
+
+                                    </div>
                                 </div>
                                 <div class="form-group row">
 
@@ -227,16 +296,10 @@
                                 <p class="m-0">3. This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean mas Cum sociis natoque penatibus et magnis dis.....</p>
                             </div>
 
-                            <div class="tab-pane" id="settings5" role="tabpanel">
+                            <div class="tab-pane" id="settings5" role="tabpanel" v-if="commentAccess">
                                 <div class="form-group row">
 
-                                    <div class="col-sm-12">
-                                        <div style="float: right">
-                                            <!--button @click="resetNew" class="btn btn-info btn-outline-info"><i class="icofont icofont-eye-alt"></i>Скинуть фильтр</button-->
-                                            <button @click="saveTask" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
-                                            <button @click="removeTask" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="form-group row">
 
@@ -244,22 +307,45 @@
                                         <v-textarea
                                                 autocomplete="email"
                                                 label="Комментарий исполнителя"
-                                                v-model="taskDescription"
+                                                v-model="commentTask"
                                         ></v-textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
 
                                     <div class="col-sm-12">
-
                                         <v-file-input
+                                                v-model="attachFile"
                                                 chips
                                                 multiple
                                                 label="Прикрепленные файлы"
                                         ></v-file-input>
                                     </div>
+                                    <div class="col-sm-12">
+                                        <div style="float: right">
+                                            <!--button @click="resetNew" class="btn btn-info btn-outline-info"><i class="icofont icofont-eye-alt"></i>Скинуть фильтр</button-->
+                                            <button @click="saveComment" class="btn btn-success btn-outline-success">
+                                                <i class="icofont icofont-check-circled"></i>Сохранить</button>
+                                            <!--button @click="removeTask" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button-->
+                                        </div>
+                                    </div>
                                 </div>
 
+                                <template>
+                                    <v-expansion-panels>
+                                        <v-expansion-panel
+                                                v-for="(item,i) in 1"
+                                                :key="i"
+                                        >
+                                            <v-expansion-panel-header>
+                                                Item
+                                            </v-expansion-panel-header>
+                                            <v-expansion-panel-content>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                            </v-expansion-panel-content>
+                                        </v-expansion-panel>
+                                    </v-expansion-panels>
+                                </template>
                             </div>
                         </div>
 
@@ -276,20 +362,44 @@
 
 </template>
 <script>
+    import axios from "axios"
     export default {
         data: () => ({
-            otvetstvennij:"",
+            rules: {
+                required: value => !!value || 'Обязательное поле.',
+                counter: value => value.length <= 20 || 'Max 20 characters',
+                email: value => {
+                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    return pattern.test(value) || 'Invalid e-mail.'
+                },
+            },
+            commentTask:"",
+
+            status:"",
+            statusList:["Открытый","Закрытый","Новый","В работе"],
+
+            priorityList:["Высший","Высокий","Нормальный","Низкий"],
+            priority:"",
+
+            dateEndTask:"",
+            menuModalEndDate:"",
+
+            otvetstvennij:'',
             taskDescription:"",
             taskName:"",
-            postanovchik:1,
+
+            postanovchik:'',
             taskProject:"",
 
+            TaskID:null,
+            commentAccess:false,
             isReset:true,
             dates: [],
             dialog:false,
             boss:0,
             curentProject:null,
             projectList:[],
+            attachFile:null
             // src:[
             //     "/files/bower_components/jquery.cookie/js/jquery.cookie.js",
             //     "/files/bower_components/jquery.steps/js/jquery.steps.js",
@@ -300,7 +410,25 @@
             // ]
         }),
         watch:{
+            TASK(nv){
+                    console.log("TASK-CRM->",nv)
 
+                this.taskName = nv.title,
+                this.taskProject = nv.project,
+
+                this.priority = nv.Priority,
+                this.status = nv.Status,
+                this.taskDescription = nv.Task,
+
+                this.otvetstvennij = nv.otvetstvenni,
+                this.postanovchik = nv.postanovshik,
+
+                this.dateEndTask = dayjs(nv.dateEndTask).format('YYYY-MM-DD'),
+
+
+                this.TaskID = nv.id
+                this.commentAccess = true
+            },
             TASK_USER_LIST(){
 
             },
@@ -326,6 +454,9 @@
             }
         },
         computed: {
+            TASK(){
+                return this.$store.getters.TASK
+            },
             TASK_USER_LIST(){
                 return this.$store.getters.TASK_USER_LIST
             },
@@ -341,6 +472,8 @@
             },
         },
         mounted() {
+            this.dateEndTask = ""
+
             var curent_date = new Date();
             this.dates[0] = dayjs(curent_date).format('YYYY-MM-DD')
             this.dates[1] = dayjs(curent_date).format('YYYY-MM-DD')
@@ -359,11 +492,84 @@
 
         },
         methods:{
-            saveTask(){
+            saveComment(){
+                let formData = new FormData();
+
+                // files
+                for (let file of this.attachFile) {
+                    //console.log("files-->",file)
+                    formData.append("files.AttachedFiles", file, file.name);
+
+                    //console.log('>> formData >> ', formData);
+                }
+                //formData.append('AttachedFiles', this.attachFile);
+
+
+                var data = {
+                    title: this.commentTask,
+                    comment: this.commentTask,
+                    //AttachedFiles: this.attachFile,
+                    task_board:  this.TaskID
+                }
+
+                formData.append("data", JSON.stringify(data));
+                //formData.append('file', this.imageData);
+                // axios.post(
+                //     "/comments/"
+                //     ,formData
+                //     ,{headers: {"Content-Type": "multipart/form-data"}}
+                // )
+                //     .then(response => {
+                //         console.log("multipart/form-data",response)
+                //     })
+
+                this.$store.dispatch("POST_AXIOS_COMMENTS",formData)
+
 
             },
-            removeTask(){
+            closeModal(){
+                this.commentAccess = false
+                this.taskName = ""
+                this.taskDescription = ""
+                this.TaskID = null
+                this.taskProject = null
+                this.status = ""
+                this.priority = ""
+                this.dateEndTask = ""
+                this.postanovchik = ""
+                this.otvetstvennij = ""
+                $("#closeModalTask").click()
+            },
+            saveTask(){
+                var data = {
+                    title: this.taskName,
+                    AttachedFiles:[],
+                    Task: this.taskDescription,
+                    id:this.TaskID,
+                    comments:[],
+                    project: this.taskProject,
 
+                    postanovshik:this.postanovchik,
+                    otvetstvenni:this.otvetstvennij,
+                    //
+                    Status: this.status,
+                    Priority: this.priority,
+                    //
+                    endDate: this.dateEndTask
+                }
+                if(this.TaskID == null){
+                    this.$store.dispatch("POST_AXIOS_BOARDS",data)
+
+                }else{
+                    this.$store.dispatch("PUT_AXIOS_BOARDS",data)
+                }
+                this.closeModal()
+                //this.$store.dispatch("POST_AXIOS_BOARDS",data)
+                console.log("saveTask",data);
+            },
+            removeTask(id){
+                this.$store.dispatch("DELETE_AXIOS_BOARDS",{id:this.TaskID})
+                console.log("removeTask");
             },
             // onClear() {
             //     this.isReset = true
@@ -389,10 +595,10 @@
                     id:this.PROJECT.id,
                     title:this.PROJECT.title,
                     description: this.PROJECT.description,
-                    startProject: this.PROJECT.startProject,
-                    endProject: this.PROJECT.endProject
+                    //startProject: this.PROJECT.startProject,
+                    //endProject: this.PROJECT.endProject
                 }
-                console.log("PROJECT",data);
+
                 if(this.PROJECT.id == null){
                     this.$store.dispatch("POST_AXIOS_PROJECT",data)
 
