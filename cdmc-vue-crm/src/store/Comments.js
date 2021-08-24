@@ -69,7 +69,6 @@ export default{
                 ,filter
                 ,{headers: {"Content-Type": "multipart/form-data"}});
             console.log("POST_AXIOS_COMMENTS-->",eventlists.data)
-
             context.dispatch("GET_AXIOS_COMMENTS")
 
         },

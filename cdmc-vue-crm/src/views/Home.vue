@@ -1,81 +1,6 @@
 <template>
 
   <div class="row" data-app>
-      <!-- task, page, download counter  start
-      <div class="col-xl-3 col-md-6">
-        <div class="card bg-c-yellow update-card">
-          <div class="card-block">
-            <div class="row align-items-end">
-              <div class="col-8">
-                <h4 class="text-white">$30200</h4>
-                <h6 class="text-white m-b-0">All Earnings</h6>
-              </div>
-              <div class="col-4 text-right">
-                <canvas id="update-chart-1" height="50"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-md-6">
-        <div class="card bg-c-green update-card">
-          <div class="card-block">
-            <div class="row align-items-end">
-              <div class="col-8">
-                <h4 class="text-white">290+</h4>
-                <h6 class="text-white m-b-0">Page Views</h6>
-              </div>
-              <div class="col-4 text-right">
-                <canvas id="update-chart-2" height="50"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-md-6">
-        <div class="card bg-c-pink update-card">
-          <div class="card-block">
-            <div class="row align-items-end">
-              <div class="col-8">
-                <h4 class="text-white">145</h4>
-                <h6 class="text-white m-b-0">Task Completed</h6>
-              </div>
-              <div class="col-4 text-right">
-                <canvas id="update-chart-3" height="50"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-md-6">
-        <div class="card bg-c-lite-green update-card">
-          <div class="card-block">
-            <div class="row align-items-end">
-              <div class="col-8">
-                <h4 class="text-white">500</h4>
-                <h6 class="text-white m-b-0">Downloads</h6>
-              </div>
-              <div class="col-4 text-right">
-                <canvas id="update-chart-4" height="50"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
-          </div>
-        </div>
-      </div>
-      task, page, download counter  end -->
-
       <!--  sale analytics start -->
       <div class="col-xl-12 col-md-12">
         <div class="card">
@@ -96,13 +21,14 @@
 
               <!-- Nav tabs -->
               <ul class="nav nav-tabs md-tabs " role="tablist">
+
                 <li class="nav-item">
                   <a class="nav-link active" data-toggle="tab" href="#home7" role="tab"><i class="fa fa-list"></i>Список</a>
                   <div class="slide"></div>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="tab" href="#profile7" role="tab">
-                    <i class="fa fa-tasks"></i>Гант</a>
+                    <i class="fa fa-tasks"></i>ГАНТ</a>
                   <div class="slide"></div>
                 </li>
 
@@ -119,7 +45,7 @@
                       <th>Крайняя дата</th>
                       <th>Постановщик</th>
                       <th>Ответственный</th>
-                      <th>Проэкт</th>
+                      <th>Проект</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -156,13 +82,13 @@
                       <th>Крайняя дата</th>
                       <th>Постановщик</th>
                       <th>Ответственный</th>
-                      <th>Проэкт</th>
+                      <th>Проект</th>
                     </tr>
                     </tfoot>
                   </table>
                 </div>
                 <div class="tab-pane" id="profile7" role="tabpanel">
-                  <gunt></gunt>
+                  <gunt :tasksInput="guntTask"></gunt>
                 </div>
               </div>
 
@@ -199,7 +125,7 @@
   export default {
     name: 'Home',
     data: () => ({
-
+      guntTask:[],
 
       projectTask:1,
       titleTask:"",
@@ -265,6 +191,68 @@
     mounted() {
       this.$store.dispatch("GET_AXIOS_BOARDS")
       this.loadTask()
+
+      this.guntTask = [
+        {
+          id: 1,
+          label: 'Make some noise',
+          user:
+                  '<a href="https://www.google.com/search?q=John+Doe" target="_blank" style="color:#0077c0;">John Doe</a>',
+          start: this.getDate(-24 * 5),
+          duration: 15 * 24 * 60 * 60 * 1000,
+          progress: 85,
+          type: 'project'
+          //collapsed: true,
+        },
+        {
+          id: 2,
+          label: 'With great power comes great responsibility',
+          user:
+                  '<a href="https://www.google.com/search?q=Peter+Parker" target="_blank" style="color:#0077c0;">Peter Parker</a>',
+          parentId: 1,
+          start: this.getDate(-24 * 4),
+          duration: 4 * 24 * 60 * 60 * 1000,
+          progress: 50,
+          type: 'milestone',
+          collapsed: true,
+          style: {
+            base: {
+              fill: '#1EBC61',
+              stroke: '#0EAC51'
+            }
+            /*'tree-row-bar': {
+              fill: '#1EBC61',
+              stroke: '#0EAC51'
+            },
+            'tree-row-bar-polygon': {
+              stroke: '#0EAC51'
+            }*/
+          }
+        },
+        {
+          id: 3,
+          label: 'Courage is being scared to death, but saddling up anyway.',
+          user:
+                  '<a href="https://www.google.com/search?q=John+Wayne" target="_blank" style="color:#0077c0;">John Wayne</a>',
+          parentId: 2,
+          start: this.getDate(-24 * 3),
+          duration: 2 * 24 * 60 * 60 * 1000,
+          progress: 100,
+          type: 'task'
+        },
+        {
+          id: 4,
+          label: 'Put that toy AWAY!',
+          user:
+                  '<a href="https://www.google.com/search?q=Clark+Kent" target="_blank" style="color:#0077c0;">Clark Kent</a>',
+          start: this.getDate(-24 * 2),
+          duration: 2 * 24 * 60 * 60 * 1000,
+          progress: 50,
+          type: 'task',
+          dependentOn: [2]
+        }
+      ]
+
     },
     watch:{
       TASK_BOARDS_LIST(){
@@ -399,6 +387,14 @@
         };
         return date.toLocaleString("ru", options)
         //return dateInit;
+      },
+      getDate(hours) {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth();
+        const currentDay = currentDate.getDate();
+        const timeStamp = new Date(currentYear, currentMonth, currentDay, 0, 0, 0).getTime();
+        return new Date(timeStamp + hours * 60 * 60 * 1000).getTime();
       }
     }
   }

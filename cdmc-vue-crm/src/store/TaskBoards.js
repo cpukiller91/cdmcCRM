@@ -20,9 +20,13 @@ export default{
     state: {
         url: '/task-boards/',
         TASK_BOARDS_LIST:[],
-        TASK:[]
+        TASK:[],
+        GET_GUNT_TASK_BOARD_LIST:[]
     },
     mutations: {
+        GET_GUNT_TASK_BOARD_LIST(state, payload){
+            state.GET_GUNT_TASK_BOARD_LIST = payload
+        },
         TASK(state, payload){
             state.TASK = payload
         },
@@ -31,6 +35,32 @@ export default{
         }
     },
     actions: {
+        GET_GUNT_TASK_BOARD_LIST: async (context, data) => {
+            var RES = []
+            let eventlists =  await Axios.get('/task-boards/');
+            console.log("GET_GUNT_TASK_BOARD_LIST",eventlists)
+
+            // eventlists.data.forEach(element => {
+            //     RES.push({
+            //         id:element.id,
+            //         label:element.babycard.kidf+" "+element.babycard.kidi+" "+element.babycard.kido,
+            //         user: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ element.doctor.username +'</a>',
+            //         start: element.strtime,
+            //         parent: null,
+            //         duration:  element.duration * 60 * 1000,
+            //         progress: 100,
+            //         //type: 'project',
+            //         type: 'task',
+            //         //type:'milestone',
+            //         collapsed: false,
+            //     })
+            //     //console.log("-1-1->",element);
+            //     //this.createElement(element)
+            // })
+            // //console.log("SET_KID_EVENT_LIST_RES",RES)
+            // context.commit('GET_GUNT_TASK_BOARD_LIST', RES);
+        },
+
         URL_CONSTRUCT_BOARDS: async (context, filter,GET) => {
             var url = context.state.url
             var DATA = {}
@@ -107,6 +137,9 @@ export default{
         }
     },
     getters: {
+        GET_GUNT_TASK_BOARD_LIST: state => {
+            return state.TASK_BOARDS_LIST;
+        },
         TASK_BOARDS_LIST: state => {
             return state.TASK_BOARDS_LIST;
         },

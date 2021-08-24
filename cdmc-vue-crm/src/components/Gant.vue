@@ -1,9 +1,11 @@
 <template>
     <div>
-        <gantt-elastic :tasks="tasks" :options="options" >
+        <gantt-elastic :tasks="tasksInput" :options="options" >
             <gantt-elastic-header slot="header" :options="options"></gantt-elastic-header>
         </gantt-elastic>
+
     </div>
+
 </template>
 <script>
     import GanttElastic from "gantt-elastic";
@@ -16,19 +18,20 @@
             ganttElastic: GanttElastic,
             'gantt-elastic-header': Header,
         },
+        props: {
+            tasksInput:Array
+                // title: String,
+                // likes: Number,
+                // isPublished: Boolean,
+                //editEvent: Array
+                // author: Object,
+                // callback: Function,
+                // contactsPromise: Promise // или любой другой конструктор
+        },
+        //props: ['tasksInput'],
         //inject: ["GanttElastic"],
         data() {
             return {
-                props: {
-                    tasksInput:Array
-                        // title: String,
-                        // likes: Number,
-                        // isPublished: Boolean,
-                        //editEvent: Array
-                        // author: Object,
-                        // callback: Function,
-                        // contactsPromise: Promise // или любой другой конструктор
-                },
                 tasks: [],
                 options: {
                     // times:{
@@ -91,10 +94,10 @@
                                 html: true,
                                 events: {
                                     click: ({data,column}) => {
-                                        this.$store.dispatch("GET_AXIOS_USERS")
-                                        this.$store.dispatch("GET_AXIOS_BABYCARDS")
-                                        this.$store.dispatch("GET_AXIOS_EVENT",{id:data.id})
-                                        //this.openModal(data)
+                                        // this.$store.dispatch("GET_AXIOS_USERS")
+                                        // this.$store.dispatch("GET_AXIOS_BABYCARDS")
+                                        // this.$store.dispatch("GET_AXIOS_EVENT",{id:data.id})
+                                        // //this.openModal(data)
                                         console.log('description clicked!\n',data,column);
                                     }
                                 }
@@ -144,19 +147,19 @@
                         monthsShort: 'Sty_Lut_Mar_Kwi_Maj_Cze_Lip_Sie_Wrz_Paź_Lis_Gru'.split('_'), // OPTIONAL, short months Array, use first three letters if not provided
                         ordinal: n => `${n}`, // ordinal Function (number) => return number + output
                         relativeTime: { // relative time format strings, keep %s %d as the same
-                            future: 'za %s', // e.g. in 2 hours, %s been replaced with 2hours
+                            future: 'через %s', // e.g. in 2 hours, %s been replaced with 2hours
                             past: '%s temu',
                             s: 'kilka sekund',
-                            m: 'minutę',
-                            mm: '%d minut',
-                            h: 'godzinę',
-                            hh: '%d godzin', // e.g. 2 hours, %d been replaced with 2
-                            d: 'dzień',
-                            dd: '%d dni',
-                            M: 'miesiąc',
-                            MM: '%d miesięcy',
-                            y: 'rok',
-                            yy: '%d lat'
+                            m: 'минута',
+                            mm: '%d минут',
+                            h: 'час',
+                            hh: '%d часов', // e.g. 2 hours, %d been replaced with 2
+                            d: 'день',
+                            dd: '%d дни',
+                            M: 'месяц',
+                            MM: '%d месяцев',
+                            y: 'год',
+                            yy: '%d лет'
                         }
                     }
                 },
@@ -168,7 +171,7 @@
         },
         computed: {
             Task() {
-                return this.$store.getters.GUNT_EVENT_LIST;
+                //return this.$store.getters.GUNT_EVENT_LIST;
             },
         },
         watch:{
@@ -178,11 +181,13 @@
             }
         },
         mounted(){
+
+            //this.tasks = this.tasksInput
             //this.GanttElastic.$emit("recenterPosition");
             // this.$children[0].$emit("recenterPosition");
-            // console.log("root",this)
+            console.log("root",this.tasksInput)
             //this.loadTask();
-            this.$store.dispatch("GET_GUNT_EVENT_LIST")
+            //this.$store.dispatch("GET_GUNT_EVENT_LIST")
             //this.tasks = this.kidTask;
             //console.log("tasksInput-->",this.$store.getters.GUNT_KID_EVENT_LIST)
         },
@@ -196,7 +201,7 @@
                 return new Date(timeStamp + hours * 60 * 60 * 1000).getTime();
             },
             openModal(data){
-                this.$store.dispatch("GET_AXIOS_EVENT",{id:data.id})
+                //this.$store.dispatch("GET_AXIOS_EVENT",{id:data.id})
             }
 
         }

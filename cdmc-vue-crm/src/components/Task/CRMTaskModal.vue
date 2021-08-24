@@ -75,6 +75,61 @@
                                 </div>
                                 <!--v-divider></v-divider-->
                                 <div class="form-group row">
+                                   <div class="col-sm-6">
+                                       <v-menu
+                                               ref="menuStartProject"
+                                               v-model="menuStartProject"
+                                               :close-on-content-click="false"
+                                               :return-value.sync="dateStartProject"
+                                               transition="scale-transition"
+                                               offset-y
+                                               min-width="auto"
+                                       >
+                                           <template v-slot:activator="{ on, attrs }">
+                                               <v-text-field
+                                                       v-model="dateStartProject"
+                                                       label="Начало проекта"
+                                                       prepend-icon="mdi-calendar"
+                                                       readonly
+                                                       v-bind="attrs"
+                                                       v-on="on"
+                                               ></v-text-field>
+                                           </template>
+                                           <v-date-picker
+                                                   v-model="dateStartProject"
+                                                   no-title
+                                                   scrollable
+                                                   locale="ru-ru"
+                                           >
+                                               <v-spacer></v-spacer>
+                                               <v-btn
+                                                       text
+                                                       color="primary"
+                                                       @click="menuStartProject = false"
+                                               >
+                                                   Cancel
+                                               </v-btn>
+                                               <v-btn
+                                                       text
+                                                       color="primary"
+                                                       @click="$refs.menuStartProject.save(dateStartProject)"
+                                               >
+                                                   OK
+                                               </v-btn>
+                                           </v-date-picker>
+                                       </v-menu>
+                                   </div>
+                                   <div class="col-sm-6">
+                                       <v-text-field
+                                               v-model="duration"
+                                               label="Длительность проекта в днях"
+                                               type="number"
+
+                                       ></v-text-field>
+
+                                   </div>
+                               </div>
+                                <div class="form-group row">
 
                                     <div class="col-sm-12">
                                         <v-select
@@ -91,7 +146,7 @@
                                 <div class="form-group row">
 
                                     <div class="col-sm-12">
-                                        <v-text-field label="Название задачи" v-model="PROJECT.title"></v-text-field>
+                                        <v-text-field label="Название проекта" v-model="PROJECT.title"></v-text-field>
                                     </div>
                                 </div>
 
@@ -105,27 +160,6 @@
                                     </div>
                                 </div>
 
-                                <!--div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <v-text-field
-                                                v-model="dateRangeText"
-                                                prepend-icon="mdi-calendar"
-                                                readonly
-                                        ></v-text-field>
-                                    </div>
-                                    <div class="col-sm-6">
-
-                                        <v-date-picker
-
-                                                v-model="dates"
-                                                no-title
-                                                scrollable
-                                                locale="ru-ru"
-                                                range
-                                                clearable
-                                        ></v-date-picker>
-                                    </div>
-                                </div-->
 
                                 <div class="form-group row">
                                     <div class="col-sm-6">
@@ -374,6 +408,11 @@
     import axios from "axios"
     export default {
         data: () => ({
+            menuEndProject:false,
+            menuStartProject:false,
+            EndProject:null,
+            dateStartProject:null,
+
             rules: {
                 required: value => !!value || 'Обязательное поле.',
                 counter: value => value.length <= 20 || 'Max 20 characters',
@@ -382,6 +421,8 @@
                     return pattern.test(value) || 'Invalid e-mail.'
                 },
             },
+
+            duration:1,
             commentTask:"",
 
             status:"",
@@ -455,6 +496,9 @@
                 console.log("watch PROJECT_LIST",nv)
             },
             PROJECT(nv){
+                this.duration = nv.duration,
+                this.dateStartProject = dayjs(nv.startProject).format('YYYY-MM-DD'),
+                //this.$refs.menuStartProject.save(dayjs(nv.dateStartProject).format('YYYY-MM-DD'))
                 // this.PROJECT.startProject = dayjs(nv.startProject).format('YYYY-MM-DD')
                 // this.PROJECT.endProject = dayjs(nv.endProject).format('YYYY-MM-DD')
                // $refs.menu.save([])
@@ -502,6 +546,7 @@
             //dayjs(nv.endProject).format('YYYY-MM-DD')
             this.$store.dispatch("GET_AXIOS_TASK_USER_LIST")
             this.$store.dispatch("GET_AXIOS_PROJECT_LIST")
+            this.$store.dispatch("GET_GUNT_TASK_BOARD_LIST")
 
             // this.src.forEach(element => {
             //
@@ -549,6 +594,8 @@
 
             },
             closeModal(){
+                this.duration = 1,
+                this.dateStartProject = '',
                 this.commentAccess = false
                 this.taskName = ""
                 this.taskDescription = ""
@@ -603,6 +650,8 @@
             resetNew(){
                 var curent_date = new Date();
                 this.curentProject = ''
+                this.duration = 1,
+                this.dateStartProject = '',
                 this.dates[0] = dayjs(curent_date).format('YYYY-MM-DD')
                 this.dates[1] = dayjs(curent_date).format('YYYY-MM-DD')
             },
@@ -612,11 +661,13 @@
 
                 var data = {
                     boss:this.PROJECT.boss,
+
                     //this.boss,
                     id:this.PROJECT.id,
                     title:this.PROJECT.title,
                     description: this.PROJECT.description,
-                    //startProject: this.PROJECT.startProject,
+                    duration: this.duration,
+                    startProject: this.dateStartProject,
                     //endProject: this.PROJECT.endProject
                 }
 

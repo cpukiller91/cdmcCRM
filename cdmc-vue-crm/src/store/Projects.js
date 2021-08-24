@@ -103,7 +103,7 @@ export default{
             let eventlists =  await Axios.delete(data.url);
             console.log("DELETE_AXIOS_PROJECT_STORE",eventlists.data)
             //context.commit('PROJECT_LIST', eventlists.data);
-            context.dispatch("GET_AXIOS_PROJECT")
+            context.dispatch("GET_AXIOS_PROJECT_LIST")
         }
     },
     getters: {
