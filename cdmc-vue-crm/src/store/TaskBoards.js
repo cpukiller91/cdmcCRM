@@ -21,9 +21,13 @@ export default{
         url: '/task-boards/',
         TASK_BOARDS_LIST:[],
         TASK:[],
-        GET_GUNT_TASK_BOARD_LIST:[]
+        GET_GUNT_TASK_BOARD_LIST:[],
+        GET_GUNT_TASK_PROJECT_LIST:[]
     },
     mutations: {
+        GET_GUNT_TASK_PROJECT_LIST(state, payload){
+            state.GET_GUNT_TASK_PROJECT_LIST = payload
+        },
         GET_GUNT_TASK_BOARD_LIST(state, payload){
             state.GET_GUNT_TASK_BOARD_LIST = payload
         },
@@ -35,30 +39,62 @@ export default{
         }
     },
     actions: {
-        GET_GUNT_TASK_BOARD_LIST: async (context, data) => {
+        GET_GUNT_TASK_PROJECT_BOARD_LIST: async (context, data) => {
             var RES = []
-            let eventlists =  await Axios.get('/task-boards/');
-            console.log("GET_GUNT_TASK_BOARD_LIST",eventlists)
+            let eventlists =  await Axios.get('/projects/');
+            console.log("GET_GUNT_TASK_PROJECT_LIST",eventlists)
 
-            // eventlists.data.forEach(element => {
-            //     RES.push({
-            //         id:element.id,
-            //         label:element.babycard.kidf+" "+element.babycard.kidi+" "+element.babycard.kido,
-            //         user: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ element.doctor.username +'</a>',
-            //         start: element.strtime,
-            //         parent: null,
-            //         duration:  element.duration * 60 * 1000,
-            //         progress: 100,
-            //         //type: 'project',
-            //         type: 'task',
-            //         //type:'milestone',
-            //         collapsed: false,
-            //     })
-            //     //console.log("-1-1->",element);
-            //     //this.createElement(element)
-            // })
-            // //console.log("SET_KID_EVENT_LIST_RES",RES)
-            // context.commit('GET_GUNT_TASK_BOARD_LIST', RES);
+            eventlists.data.forEach(element => {
+                var parent = element.id
+                RES.push({
+                    id:element.id,
+                    label:element.title,
+                    user: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ element.boss.username +'</a>',
+                    start: element.startProject,
+                    parent: null,
+                    duration:  element.duration * 24 * 60 * 60 * 1000,
+                    progress: 100,
+                    //type: 'project',
+                    //type: 'task',
+                    type:'milestone',
+                    style: {
+                        base: {
+                            fill: '#1EBC61',
+                            stroke: '#0EAC51'
+                        }
+                        /*'tree-row-bar': {
+                          fill: '#1EBC61',
+                          stroke: '#0EAC51'
+                        },
+                        'tree-row-bar-polygon': {
+                          stroke: '#0EAC51'
+                        }*/
+                    },
+                    collapsed: true,
+                })
+
+                element.task_boards.forEach(taskProject => {
+                    RES.push({
+                        id:parent+"-"+taskProject.id,
+                        label:taskProject.title,
+                        user: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ element.boss.username +'</a>',
+                        start: taskProject.created_at,
+                        parentId: parent,
+                        duration:  24 * 60 * 60 * 1000,
+                        progress: 100,
+                        //type: 'project',
+                        type: 'task',
+                        dependentOn: [parent],
+                        //type:'milestone',
+                        collapsed: false,
+                    })
+                    console.log("-1-1->taskProject",taskProject);
+                })
+
+                //this.createElement(element)
+            })
+            console.log("GET_GUNT_TASK_PROJECT_BOARD_LIST",RES)
+            context.commit('GET_GUNT_TASK_PROJECT_LIST', RES);
         },
 
         URL_CONSTRUCT_BOARDS: async (context, filter,GET) => {
@@ -94,6 +130,7 @@ export default{
             let eventlists =  await Axios.get(data.url,data.data);
             //console.log("GET_AXIOS_BOARDS_STORE",eventlists.data)
             context.commit('TASK', eventlists.data);
+
         },
 
         GET_AXIOS_BOARDS: async (context, filter) => {
@@ -137,6 +174,10 @@ export default{
         }
     },
     getters: {
+
+        GET_GUNT_TASK_PROJECT_LIST: state => {
+            return state.GET_GUNT_TASK_PROJECT_LIST;
+        },
         GET_GUNT_TASK_BOARD_LIST: state => {
             return state.TASK_BOARDS_LIST;
         },

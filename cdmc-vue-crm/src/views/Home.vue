@@ -88,7 +88,7 @@
                   </table>
                 </div>
                 <div class="tab-pane" id="profile7" role="tabpanel">
-                  <gunt :tasksInput="guntTask"></gunt>
+                  <gunt :tasksInput="GET_GUNT_TASK_PROJECT_LIST"></gunt>
                 </div>
               </div>
 
@@ -189,6 +189,7 @@
       ]
     }),
     mounted() {
+      this.$store.dispatch("GET_GUNT_TASK_PROJECT_BOARD_LIST")
       this.$store.dispatch("GET_AXIOS_BOARDS")
       this.loadTask()
 
@@ -255,6 +256,9 @@
 
     },
     watch:{
+      GET_GUNT_TASK_PROJECT_LIST(nv){
+        console.log("TASK-->GET_GUNT_TASK_PROJECT_LIST",nv)
+      },
       TASK_BOARDS_LIST(){
 
       },
@@ -263,6 +267,9 @@
       }
     },
     computed:{
+      GET_GUNT_TASK_PROJECT_LIST(){
+        return this.$store.getters.GET_GUNT_TASK_PROJECT_LIST
+      },
       TASK(){
         return this.$store.getters.TASK
       },

@@ -74,50 +74,55 @@
                                     </div>
                                 </div>
                                 <!--v-divider></v-divider-->
-                                <div class="form-group row">
-                                   <div class="col-sm-6">
-                                       <v-menu
-                                               ref="menuStartProject"
-                                               v-model="menuStartProject"
-                                               :close-on-content-click="false"
-                                               :return-value.sync="dateStartProject"
-                                               transition="scale-transition"
-                                               offset-y
-                                               min-width="auto"
-                                       >
-                                           <template v-slot:activator="{ on, attrs }">
-                                               <v-text-field
-                                                       v-model="dateStartProject"
-                                                       label="Начало проекта"
-                                                       prepend-icon="mdi-calendar"
-                                                       readonly
-                                                       v-bind="attrs"
-                                                       v-on="on"
-                                               ></v-text-field>
-                                           </template>
-                                           <v-date-picker
-                                                   v-model="dateStartProject"
-                                                   no-title
-                                                   scrollable
-                                                   locale="ru-ru"
+                                <div class="form-group row" >
+                                   <div class="col-sm-6" >
+                                       <div  >
+                                           <v-menu
+
+
+                                                   ref="menuStartProject"
+                                                   v-model="menuStartProject"
+                                                   :close-on-content-click="false"
+                                                   :return-value.sync="dateStartProject"
+                                                   transition="scale-transition"
+                                                   offset-y
+                                                   min-width="auto"
                                            >
-                                               <v-spacer></v-spacer>
-                                               <v-btn
-                                                       text
-                                                       color="primary"
-                                                       @click="menuStartProject = false"
+                                               <template v-slot:activator="{ on, attrs }">
+                                                   <v-text-field
+                                                           v-model="dateStartProject"
+                                                           label="Начало проекта"
+                                                           prepend-icon="mdi-calendar"
+                                                           readonly
+                                                           v-bind="attrs"
+                                                           v-on="on"
+                                                   ></v-text-field>
+                                               </template>
+                                               <v-date-picker
+                                                       v-model="dateStartProject"
+                                                       no-title
+                                                       scrollable
+                                                       locale="ru-ru"
                                                >
-                                                   Cancel
-                                               </v-btn>
-                                               <v-btn
-                                                       text
-                                                       color="primary"
-                                                       @click="$refs.menuStartProject.save(dateStartProject)"
-                                               >
-                                                   OK
-                                               </v-btn>
-                                           </v-date-picker>
-                                       </v-menu>
+                                                   <v-spacer></v-spacer>
+                                                   <v-btn
+                                                           text
+                                                           color="primary"
+                                                           @click="menuStartProject = false"
+                                                   >
+                                                       Cancel
+                                                   </v-btn>
+                                                   <v-btn
+                                                           text
+                                                           color="primary"
+                                                           @click="$refs.menuStartProject.save(dateStartProject)"
+                                                   >
+                                                       OK
+                                                   </v-btn>
+                                               </v-date-picker>
+                                           </v-menu>
+                                       </div>
+
                                    </div>
                                    <div class="col-sm-6">
                                        <v-text-field
@@ -203,76 +208,6 @@
                                 <div class="form-group row">
                                     <div class="col-sm-4">
                                         <v-select
-                                                :items="TASK_USER_LIST"
-                                                v-model="postanovchik"
-                                                item-text="username"
-                                                item-value="id"
-                                                label="Постановщик"
-
-                                        ></v-select>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <v-select
-                                                :items="TASK_USER_LIST"
-                                                v-model="otvetstvennij"
-                                                item-text="username"
-                                                item-value="id"
-                                                label="Ответственный"
-
-                                        ></v-select>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <v-menu
-                                                ref="menu"
-                                                v-model="menuModalEndDate"
-                                                :close-on-content-click="false"
-                                                :return-value.sync="dateEndTask"
-                                                transition="scale-transition"
-                                                offset-y
-                                                min-width="auto"
-                                        >
-                                            <template v-slot:activator="{ on, attrs }">
-                                                <v-text-field
-                                                        :rules="[rules.required]"
-                                                        v-model="dateEndTask"
-                                                        label="Конечная дата"
-                                                        prepend-icon="mdi-calendar"
-                                                        readonly
-                                                        error
-                                                        v-bind="attrs"
-                                                        v-on="on"
-                                                ></v-text-field>
-                                            </template>
-                                            <v-date-picker
-                                                    v-model="dateEndTask"
-                                                    no-title
-                                                    scrollable
-                                                    locale="ru-ru"
-                                            >
-                                                <v-spacer></v-spacer>
-                                                <v-btn
-                                                        text
-                                                        color="primary"
-                                                        @click="menuModalEndDate = false"
-                                                >
-                                                    Cancel
-                                                </v-btn>
-                                                <v-btn
-                                                        text
-                                                        color="primary"
-                                                        @click="$refs.menu.save(dateEndTask)"
-                                                >
-                                                    OK
-                                                </v-btn>
-                                            </v-date-picker>
-                                        </v-menu>
-                                    </div>
-
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <v-select
                                                 :items="statusList"
                                                 v-model="status"
                                                 label="Статус"
@@ -301,6 +236,40 @@
                                         ></v-textarea>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <v-select
+                                                :items="TASK_USER_LIST"
+                                                v-model="postanovchik"
+                                                item-text="username"
+                                                item-value="id"
+                                                label="Постановщик"
+
+                                        ></v-select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <v-select
+                                                :items="TASK_USER_LIST"
+                                                v-model="otvetstvennij"
+                                                item-text="username"
+                                                item-value="id"
+                                                label="Ответственный"
+
+                                        ></v-select>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label>Напомнить </label>
+                                        <div v-for="i in reminderList">
+                                            <input type="date" v-model="reminder[i]">
+                                            <i class="fa fa-plus-square-o" @click="reminderAdd"></i>
+                                            <i class="fa fa-minus-square-o" @click="reminderRemove" v-if="reminderList > 1" ></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
                                 <div class="form-group row">
                                     <div class="col-sm-6">
 
@@ -408,6 +377,8 @@
     import axios from "axios"
     export default {
         data: () => ({
+            reminder:[],
+
             menuEndProject:false,
             menuStartProject:false,
             EndProject:null,
@@ -440,6 +411,7 @@
 
             postanovchik:'',
             taskProject:"",
+            reminderList:1,
 
             TaskID:null,
             commentAccess:false,
@@ -460,6 +432,9 @@
             // ]
         }),
         watch:{
+            reminder(nv){
+                console.log("reminder_LIST-->",nv)
+            },
             COMMENTS_LIST(nv){
 
                 console.log("COMMENTS_LIST-->",nv)
@@ -555,6 +530,12 @@
 
         },
         methods:{
+            reminderAdd(){
+                this.reminderList++
+            },
+            reminderRemove(){
+                this.reminderList--
+            },
             removeComment(id){
                 this.$store.dispatch("DELETE_AXIOS_COMMENTS",{id:id})
             },
@@ -631,6 +612,8 @@
                 }else{
                     this.$store.dispatch("PUT_AXIOS_BOARDS",data)
                 }
+                //this.$store.dispatch("GET_GUNT_TASK_PROJECT_BOARD_LIST")
+                //this.$store.dispatch("GET_GUNT_TASK_PROJECT_LIST")
                 this.closeModal()
                 //this.$store.dispatch("POST_AXIOS_BOARDS",data)
                 console.log("saveTask",data);

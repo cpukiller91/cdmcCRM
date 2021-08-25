@@ -75,7 +75,7 @@
                             },
                             {
                                 id: 2,
-                                label: 'Пациент',
+                                label: 'Название',
                                 value: 'label',
                                 width: 200,
                                 expander: true,
@@ -141,10 +141,10 @@
                         'Before/After': 'Expand',
                         'Display task list': 'Список задач',
                         weekdays: 'Понедельник_Вторник_Среда_Четверг_Пятница_Суббота_Воскресенье'.split('_'), // weekdays Array
-                        weekdaysShort: 'Pon_Wto_Śro_Czw_Pią_Sob_Nie'.split('_'), // OPTIONAL, short weekdays Array, use first three letters if not provided
-                        weekdaysMin: 'Pn_Wt_Śr_Cz_Pt_So_Ni'.split('_'), // OPTIONAL, min weekdays Array, use first two letters if not provided
+                        weekdaysShort: 'Пон_Вто_Сре_Чет_Пят_Суб_Вос'.split('_'), // OPTIONAL, short weekdays Array, use first three letters if not provided
+                        weekdaysMin: 'ПН_ВТ_СР_ЧТ_ПТ_СБ_ВС'.split('_'), // OPTIONAL, min weekdays Array, use first two letters if not provided
                         months: 'Январь_Февраль_Март_Апрель_Май_Июнь_Июль_Август_Сентябрь_Октябрь_Ноябрь_Декабрь'.split('_'), // months Array
-                        monthsShort: 'Sty_Lut_Mar_Kwi_Maj_Cze_Lip_Sie_Wrz_Paź_Lis_Gru'.split('_'), // OPTIONAL, short months Array, use first three letters if not provided
+                        monthsShort: 'Янв_Фев_Мар_Апр_Май_Июн_Июл_Авг_Сен_Окт_Ноя_Дек'.split('_'), // OPTIONAL, short months Array, use first three letters if not provided
                         ordinal: n => `${n}`, // ordinal Function (number) => return number + output
                         relativeTime: { // relative time format strings, keep %s %d as the same
                             future: 'через %s', // e.g. in 2 hours, %s been replaced with 2hours

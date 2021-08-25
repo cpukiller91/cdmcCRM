@@ -64,6 +64,7 @@ export default{
             let eventlists =  await Axios.get(data.url,data.data);
             //console.log("GET_AXIOS_PROJECT_STORE",eventlists.data)
             context.commit('PROJECT', eventlists.data);
+            //
         },
         GET_AXIOS_PROJECT_LIST: async (context, filter) => {
             //context.state.url+filter.id
@@ -73,6 +74,7 @@ export default{
             let eventlists =  await Axios.get(data.url,data.data);
             console.log("GET_AXIOS_PROJECT_STORE",eventlists.data)
             context.commit('PROJECT_LIST', eventlists.data);
+            context.dispatch("GET_GUNT_TASK_PROJECT_BOARD_LIST");
         },
         POST_AXIOS_PROJECT: async (context, filter) => {
             //context.state.url+filter.id
