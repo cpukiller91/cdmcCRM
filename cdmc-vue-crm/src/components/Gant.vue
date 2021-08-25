@@ -88,8 +88,8 @@
                             },
                             {
                                 id: 3,
-                                label: 'Исполнитель',
-                                value: 'user',
+                                label: 'Постановщик',
+                                value: 'postanovshik',
                                 width: 130,
                                 html: true,
                                 events: {
@@ -103,7 +103,23 @@
                                 }
                             },
                             {
-                                id: 3,
+                                id: 4,
+                                label: 'Исполнитель',
+                                value: 'otvetstvenni',
+                                width: 130,
+                                html: true,
+                                events: {
+                                    click: ({data,column}) => {
+                                        // this.$store.dispatch("GET_AXIOS_USERS")
+                                        // this.$store.dispatch("GET_AXIOS_BABYCARDS")
+                                        // this.$store.dispatch("GET_AXIOS_EVENT",{id:data.id})
+                                        // //this.openModal(data)
+                                        console.log('description clicked!\n',data,column);
+                                    }
+                                }
+                            },
+                            {
+                                id: 5,
                                 label: 'Начало',
                                 value: task => dayjs(task.start).format('YYYY-MM-DD'),
                                 width: 78
@@ -115,7 +131,7 @@
                             //     width: 68
                             // },
                             {
-                                id: 5,
+                                id: 6,
                                 label: '%',
                                 value: 'progress',
                                 width: 35,

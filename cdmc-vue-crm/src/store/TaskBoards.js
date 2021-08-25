@@ -41,7 +41,14 @@ export default{
     actions: {
         GET_GUNT_TASK_PROJECT_BOARD_LIST: async (context, data) => {
             var RES = []
+            var RESU = []
             let eventlists =  await Axios.get('/projects/');
+
+            let users =  await Axios.get('/users/');
+            users.data.forEach(element => {
+                RESU[element.id] = element
+            })
+
             console.log("GET_GUNT_TASK_PROJECT_LIST",eventlists)
 
             eventlists.data.forEach(element => {
@@ -49,7 +56,8 @@ export default{
                 RES.push({
                     id:element.id,
                     label:element.title,
-                    user: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ element.boss.username +'</a>',
+                    otvetstvenni: '',
+                    postanovshik: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ element.boss.username +'</a>',
                     start: element.startProject,
                     parent: null,
                     duration:  element.duration * 24 * 60 * 60 * 1000,
@@ -77,10 +85,11 @@ export default{
                     RES.push({
                         id:parent+"-"+taskProject.id,
                         label:taskProject.title,
-                        user: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ element.boss.username +'</a>',
-                        start: taskProject.created_at,
+                        otvetstvenni: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ RESU[taskProject.otvetstvenni].username +'</a>',
+                        postanovshik: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ RESU[taskProject.postanovshik].username +'</a>',
+                        start: taskProject.startDate,
                         parentId: parent,
-                        duration:  24 * 60 * 60 * 1000,
+                        duration:  taskProject.duration * 24 * 60 * 60 * 1000,
                         progress: 100,
                         //type: 'project',
                         type: 'task',

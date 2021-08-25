@@ -42,7 +42,7 @@
                       <th><i class="fa fa-gears"></i></th>
                       <th>Название</th>
                       <th>Активность</th>
-                      <th>Крайняя дата</th>
+                      <th>Начальная дата</th>
                       <th>Постановщик</th>
                       <th>Ответственный</th>
                       <th>Проект</th>
@@ -67,7 +67,7 @@
                       </td>
                       <td>{{Task.title}}</td>
                       <td>{{convertDate(Task.updated_at)}}</td>
-                      <td>{{convertDate(Task.endDate)}}</td>
+                      <td>{{convertDate(Task.startDate)}}</td>
                       <td ><div v-if="Task.postanovshik">{{Task.postanovshik.username}}</div></td>
                       <td><span v-if="Task.otvetstvenni" >{{Task.otvetstvenni.username}} </span></td>
                       <td>{{Task.project.title}}</td>

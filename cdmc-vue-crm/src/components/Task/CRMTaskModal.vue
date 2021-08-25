@@ -178,6 +178,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="tab-pane" id="profile5" role="tabpanel">
 
                                 <div class="form-group row">
@@ -206,7 +207,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <v-select
                                                 :items="statusList"
                                                 v-model="status"
@@ -214,7 +215,7 @@
 
                                         ></v-select>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <v-select
                                                 :items="priorityList"
                                                 v-model="priority"
@@ -222,8 +223,16 @@
 
                                         ></v-select>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
+                                        <input type="date" v-model="startDate">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <v-text-field
+                                                v-model="durationTask"
+                                                label="Длительность задачи в днях"
+                                                type="number"
 
+                                        ></v-text-field>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -395,7 +404,8 @@
 
             duration:1,
             commentTask:"",
-
+            startDate:"2021-08-24",
+            durationTask:1,
             status:"",
             statusList:["Открытый","Закрытый","Новый","В работе"],
 
@@ -452,8 +462,9 @@
                 this.otvetstvennij = nv.otvetstvenni,
                 this.postanovchik = nv.postanovshik,
 
-                this.dateEndTask = dayjs(nv.dateEndTask).format('YYYY-MM-DD'),
-
+                //this.dateEndTask = dayjs(nv.dateEndTask).format('YYYY-MM-DD'),
+                this.durationTask = nv.duration,
+                this.startDate = dayjs(nv.startDate).format('YYYY-MM-DD')
 
                 this.TaskID = nv.id
                 this.commentAccess = true
@@ -477,8 +488,8 @@
                 // this.PROJECT.startProject = dayjs(nv.startProject).format('YYYY-MM-DD')
                 // this.PROJECT.endProject = dayjs(nv.endProject).format('YYYY-MM-DD')
                // $refs.menu.save([])
-                this.dates[0] = dayjs(nv.startProject).format('YYYY-MM-DD')
-                this.dates[1] = dayjs(nv.endProject).format('YYYY-MM-DD')
+               //  this.dates[0] = dayjs(nv.startProject).format('YYYY-MM-DD')
+               //  this.dates[1] = dayjs(nv.endProject).format('YYYY-MM-DD')
                 //this.onClear()
                 //this.PROJECT.boss = nv.boss.id
 
@@ -604,7 +615,8 @@
                     Status: this.status,
                     Priority: this.priority,
                     //
-                    endDate: this.dateEndTask
+                    duration: this.durationTask,
+                    startDate: this.startDate
                 }
                 if(this.TaskID == null){
                     this.$store.dispatch("POST_AXIOS_BOARDS",data)
