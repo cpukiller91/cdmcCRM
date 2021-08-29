@@ -11,6 +11,7 @@ import SimPsihologs from "./Simpsihologs";
 import Projects from "./Projects";
 import TaskBoards from "./TaskBoards";
 import Comments from "./Comments";
+import Reminder from "./Reminder";
 
 Vue.use(Vuex)
 
@@ -25,7 +26,8 @@ export default new Vuex.Store({
     SimPsihologs,
     Projects,
     TaskBoards,
-    Comments
+    Comments,
+    Reminder
   },
   state: {
 

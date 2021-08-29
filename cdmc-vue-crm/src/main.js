@@ -19,6 +19,7 @@ import StatisticKidActon from "./components/StatisticKidActon";
 import DragableCalendar from "./components/DragableCalendar";
 import UserMeny from "./components/UserMeny";
 import CRMTaskModal from "./components/Task/CRMTaskModal";
+import Reminder from "./components/Task/Reminder";
 
 Vue.component('default-layout', Deault)
 Vue.component('task-list', TaskList)
@@ -34,6 +35,7 @@ Vue.component('statistic-kid-action', StatisticKidActon)
 Vue.component('dragable-calendar', DragableCalendar)
 Vue.component('user-meny', UserMeny)
 Vue.component('crm-task-modal', CRMTaskModal)
+Vue.component('remindes', Reminder)
 
 
 

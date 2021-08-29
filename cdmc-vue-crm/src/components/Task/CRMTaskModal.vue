@@ -139,7 +139,7 @@
                                     <div class="col-sm-12">
                                         <v-select
                                                 :items="TASK_USER_LIST"
-                                                v-model="PROJECT.boss"
+                                                v-model="bossProject"
                                                 item-text="username"
                                                 item-value="id"
                                                 label="Руководитель"
@@ -151,7 +151,7 @@
                                 <div class="form-group row">
 
                                     <div class="col-sm-12">
-                                        <v-text-field label="Название проекта" v-model="PROJECT.title"></v-text-field>
+                                        <v-text-field label="Название проекта" v-model="titleProject"></v-text-field>
                                     </div>
                                 </div>
 
@@ -160,7 +160,7 @@
                                         <v-textarea
                                                 autocomplete="email"
                                                 label="Описание"
-                                                v-model="PROJECT.description"
+                                                v-model="descriptionProject"
                                         ></v-textarea>
                                     </div>
                                 </div>
@@ -267,14 +267,7 @@
                                         ></v-select>
                                     </div>
 
-                                    <div class="col-sm-4">
-                                        <label>Напомнить </label>
-                                        <div v-for="i in reminderList">
-                                            <input type="date" v-model="reminder[i]">
-                                            <i class="fa fa-plus-square-o" @click="reminderAdd"></i>
-                                            <i class="fa fa-minus-square-o" @click="reminderRemove" v-if="reminderList > 1" ></i>
-                                        </div>
-                                    </div>
+                                   <remindes :taskID="TaskID"></remindes>
 
                                 </div>
 
@@ -388,6 +381,10 @@
         data: () => ({
             reminder:[],
 
+            bossProject:"",
+            titleProject:"",
+            descriptionProject:"",
+
             menuEndProject:false,
             menuStartProject:false,
             EndProject:null,
@@ -442,15 +439,52 @@
             // ]
         }),
         watch:{
-            reminder(nv){
-                console.log("reminder_LIST-->",nv)
+            otvetstvennij(nv){
+                console.log("-----!otvetstvennij___",nv)
             },
+            postanovchik(nv){
+                console.log("-----!postanovchik",nv)
+            },
+            // reminder(nv) {
+            //     console.log("reminder_LIST-->", nv,nv.length)
+            //     if (nv) {
+            //         nv.forEach(async (remi) => {
+            //             var ifExists = await this.$store.dispatch("GET_AXIOS_REMINDERS_COUNT", {
+            //                 params: {
+            //                     task_board: this.TaskID,
+            //                     reminderDate: remi.DATE
+            //                 }
+            //             })
+            //
+            //             if (ifExists == 0) {
+            //                 this.$store.dispatch("POST_AXIOS_REMINDERS", {
+            //                     task_board: this.TaskID,
+            //                     reminderDate: remi.DATE
+            //                 })
+            //                 console.log("GET_AXIOS_REMINDERS_COUNT", ifExists, remi.DATE)
+            //                 //this.reminderList++
+            //             }
+            //
+            //         })
+            //     }
+            // },
+            // REMINDERS_LIST(nv){
+            //     this.reminder = []
+            //     nv.forEach( itemRem => {
+            //         this.reminder.push({
+            //             id:itemRem.id,
+            //             DATE :dayjs(itemRem.reminderDate).format('YYYY-MM-DD')
+            //         })
+            //         console.log("REMINDERS_LIST-->",nv,dayjs(itemRem.reminderDate).format('YYYY-MM-DD'))
+            //     })
+            //
+            // },
             COMMENTS_LIST(nv){
 
                 console.log("COMMENTS_LIST-->",nv)
             },
             TASK(nv){
-                    console.log("TASK-CRM->",nv)
+                console.log("TASK-CRM->",nv)
 
                 this.taskName = nv.title,
                 this.taskProject = nv.project,
@@ -468,7 +502,10 @@
 
                 this.TaskID = nv.id
                 this.commentAccess = true
+
                 this.$store.dispatch("GET_AXIOS_COMMENTS",{task_board:nv.id})
+
+                //this.$store.dispatch("GET_AXIOS_REMINDERS",{params:{task_board:nv.id}})
 
             },
             TASK_USER_LIST(){
@@ -482,6 +519,9 @@
                 console.log("watch PROJECT_LIST",nv)
             },
             PROJECT(nv){
+                this.bossProject = nv.boss.id
+                this.titleProject = nv.title
+                this.descriptionProject = nv.description
                 this.duration = nv.duration,
                 this.dateStartProject = dayjs(nv.startProject).format('YYYY-MM-DD'),
                 //this.$refs.menuStartProject.save(dayjs(nv.dateStartProject).format('YYYY-MM-DD'))
@@ -499,6 +539,7 @@
             }
         },
         computed: {
+
             COMMENTS_LIST(){
                 return this.$store.getters.COMMENTS_LIST
             },
@@ -541,12 +582,8 @@
 
         },
         methods:{
-            reminderAdd(){
-                this.reminderList++
-            },
-            reminderRemove(){
-                this.reminderList--
-            },
+
+
             removeComment(id){
                 this.$store.dispatch("DELETE_AXIOS_COMMENTS",{id:id})
             },
@@ -586,8 +623,11 @@
 
             },
             closeModal(){
-                this.duration = 1,
-                this.dateStartProject = '',
+                //this.$store.dispatch("RESET_REMINDERS_LIST")
+                //this.REMINDERS_LIST = []
+                this.reminder = []
+                this.duration = 1
+                this.dateStartProject = ''
                 this.commentAccess = false
                 this.taskName = ""
                 this.taskDescription = ""

@@ -39,6 +39,9 @@ export default{
         }
     },
     actions: {
+
+
+
         GET_GUNT_TASK_PROJECT_BOARD_LIST: async (context, data) => {
             var RES = []
             var RESU = []
@@ -52,6 +55,7 @@ export default{
             console.log("GET_GUNT_TASK_PROJECT_LIST",eventlists)
 
             eventlists.data.forEach(element => {
+
                 var parent = element.id
                 RES.push({
                     id:element.id,
@@ -82,11 +86,19 @@ export default{
                 })
 
                 element.task_boards.forEach(taskProject => {
+                    ///console.log("-----!___",taskProject,RESU)
+                    if(taskProject.otvetstvenni){
+                        var otvetstvenni = '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ RESU[taskProject.otvetstvenni].username +'</a>'
+                    }
+                    if(taskProject.postanovshik){
+                        var postanovshik = '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ RESU[taskProject.postanovshik].username +'</a>'
+                    }
+
                     RES.push({
                         id:parent+"-"+taskProject.id,
                         label:taskProject.title,
-                        otvetstvenni: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ RESU[taskProject.otvetstvenni].username +'</a>',
-                        postanovshik: '<a style="color:#0077c0;" data-toggle="modal" data-target="#large-Modal">'+ RESU[taskProject.postanovshik].username +'</a>',
+                        otvetstvenni: otvetstvenni,
+                        postanovshik: postanovshik,
                         start: taskProject.startDate,
                         parentId: parent,
                         duration:  taskProject.duration * 24 * 60 * 60 * 1000,
@@ -97,12 +109,12 @@ export default{
                         //type:'milestone',
                         collapsed: false,
                     })
-                    console.log("-1-1->taskProject",taskProject);
+                    //console.log("-1-1->taskProject",taskProject);
                 })
 
                 //this.createElement(element)
             })
-            console.log("GET_GUNT_TASK_PROJECT_BOARD_LIST",RES)
+            //console.log("GET_GUNT_TASK_PROJECT_BOARD_LIST",RES)
             context.commit('GET_GUNT_TASK_PROJECT_LIST', RES);
         },
 
