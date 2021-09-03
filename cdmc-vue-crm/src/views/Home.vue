@@ -1,6 +1,6 @@
 <template>
 
-  <div class="row" data-app>
+  <div class="row">
       <!--  sale analytics start -->
       <div class="col-xl-12 col-md-12">
         <div class="card">

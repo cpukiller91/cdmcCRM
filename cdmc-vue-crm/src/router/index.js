@@ -14,6 +14,14 @@ const routes = [
     }
   },
   {
+    path: '/analitics',
+    name: 'Analitics',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Analitics.vue'),
+    meta: {
+      layout: 'default-layout'
+    }
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

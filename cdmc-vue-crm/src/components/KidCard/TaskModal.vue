@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div class="row" data-app style="z-index: 100">
+        <div class="row"  style="z-index: 100">
 
             <div class="col-sm-12">
                 <div class="card">

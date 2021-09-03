@@ -1,4 +1,25 @@
 <template>
+<div>
+    <div class="card">
+        <div class="card-header">
+            <v-col
+                cols="12"
+                sm="6"
+                md="4"
+            >
+            <v-select
+                :items="USERS"
+                label="Специалисты"
+                dense
+            ></v-select>
+            </v-col>
+        </div>
+
+
+        <div class="card-block">
+            <div id="chart-user-statistic" ></div>
+        </div>
+    </div>
 
     <div class="card">
         <div class="card-header">
@@ -60,8 +81,8 @@
                         </v-date-picker>
                     </v-dialog>
                 </v-col>
-
                 <v-spacer></v-spacer>
+
             </v-row>
 
             <div class="row m-b-20">
@@ -104,6 +125,7 @@
         </div>
     </div>
 
+</div>
 </template>
 
 <script>
@@ -134,9 +156,9 @@
                         columns: nv,
                         type: 'pie',
 
-                        // onclick: function(d, i) {
-                        //     console.log("onclick", d, i);
-                        // },
+                        onclick: function(d, i) {
+                            console.log("onclick", d, i);
+                        },
                         // onmouseover: function(d, i) {
                         //     console.log("onmouseover", d, i);
                         // },
@@ -197,6 +219,7 @@
 
             },
             GET_AXIOS_YEAR_STATISTIC(nv){
+                console.log("GET_AXIOS_YEAR_STATISTIC-->",nv)
 
                 var year = c3.generate({
                     bindto: '#year',
@@ -208,12 +231,12 @@
                         onclick: function(d, i) {
                             console.log("onclick", d, i);
                         },
-                        onmouseover: function(d, i) {
-                            console.log("onmouseover", d, i);
-                        },
-                        onmouseout: function(d, i) {
-                            console.log("onmouseout", d, i);
-                        }
+                        // onmouseover: function(d, i) {
+                        //     console.log("onmouseover", d, i);
+                        // },
+                        // onmouseout: function(d, i) {
+                        //     console.log("onmouseout", d, i);
+                        // }
                     },
                     size: {
                         height: 600
@@ -241,7 +264,7 @@
             menu: false,
             modal: false,
             menu2: false,
-
+            USERS:["1212","122"],
             startDate: null,
                 //dayjs(nv.strtime).format('YYYY-MM-DDTHH:mm'),
             rules: [
@@ -272,6 +295,79 @@
         },
         methods:{
             getStatistic(){
+                var dateNow = new Date().getTime();
+                var date = [
+                    'x'
+                ]
+                var USERQ = [
+                    'user'
+                ]
+                for (var i = 1; i < 30; i++) {
+                    date.push(dateNow + i * 24 * 60 * 60 * 1000)
+                    USERQ.push(i)
+                    console.log(i);
+                    // ещё какие-то выражения
+                }
+
+                var chart = c3.generate({
+                    bindto: '#chart-user-statistic',
+                    axis: {
+                        x: {
+                            type: 'timeseries',
+                            tick: {
+                                format: '%Y-%m-%d'
+                            }
+                        }
+                    },
+                    data: {
+                        x: 'x',
+                        // iris data from R
+                        columns: [
+                            // ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06',
+                            //     '2013-01-07', '2013-01-08', '2013-01-09','2013-01-10','2013-01-11','2013-01-12'],
+                            date,
+                            USERQ
+                            //['data2', 130, 340, 200, 500, 250, 350]
+                        ],
+                        type: 'line',
+
+                        options: {
+
+                            responsive: true,
+                            plugins: {
+                                legend: {
+
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Chart.js Line Chart'
+                                }
+                            }
+                        },
+                        onclick: function(d, i) {
+                            console.log("onclick", d, i);
+                        },
+                        // onmouseover: function(d, i) {
+                        //     console.log("onmouseover", d, i);
+                        // },
+                        // onmouseout: function(d, i) {
+                        //     console.log("onmouseout", d, i);
+                        // }
+                    },
+                    size: {
+                        height: 600
+                    },
+                    padding: {
+                        //bottom: 200
+                    },
+                    // color: {
+                    //     pattern: ['#1ABC9C', '#4C5667', '#00C292', '#AB8CE4']
+                    // },
+
+                });
+
+                chart.load()
 
                 this.$store.dispatch("GET_AXIOS_YEAR_STATISTIC",{
                     times:dayjs(this.startDate).format('YYYY')

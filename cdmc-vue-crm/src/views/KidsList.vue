@@ -12,7 +12,7 @@
             <dragable-calendar></dragable-calendar>
 
     </div>
-        <!--statistic-kid-action></statistic-kid-action-->
+
 
     </div>
 </template>

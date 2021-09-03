@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div data-app>
         <div id="pcoded" class="pcoded">
 
             <div class="pcoded-container">
