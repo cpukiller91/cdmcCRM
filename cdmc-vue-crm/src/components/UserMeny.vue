@@ -79,6 +79,11 @@
                     </div>
                     <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                         <li>
+                            <a href="/analitics">
+                                <i class="feather icon-settings"></i> Аналитика
+                            </a>
+                        </li>
+                        <li>
                             <a href="/kids-list">
                                 <i class="feather icon-settings"></i> CRM
                             </a>

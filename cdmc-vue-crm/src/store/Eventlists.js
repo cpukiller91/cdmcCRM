@@ -28,9 +28,16 @@ export default{
 
         YEAR_STATISTIC:[],
         DAY_STATISTIC:[],
-        MONTH_STATISTIC:[]
+        MONTH_STATISTIC:[],
+
+        STATISTIC_CHART:[]
     },
     mutations: {
+
+        STATISTIC_CHART(state, payload){
+            state.STATISTIC_CHART = payload
+        },
+
         YEAR_STATISTIC(state, payload){
             state.YEAR_STATISTIC = payload
         },
@@ -68,6 +75,88 @@ export default{
         }
     },
     actions: {
+
+        GET_AXIOS_STATISTIC_CHART: async (context, data) => {
+            var RES = []
+
+            let diagnostic =  await Axios.get('/eventlists/count',{
+                params:{
+                    typeEvent :"Диагностика",
+                    "doctor.id" : data.doctor_id != null ? data.doctor_id  : null,
+                    "strtime_gte":data.strtime_gte != null ? data.strtime_gte : null,
+                    "strtime_lte":data.strtime_lte != null ? data.strtime_lte  : null
+                }
+            });
+
+            //data.typeEvent = "Консультация"
+            let consalt =  await Axios.get('/eventlists/count',{
+                params:{
+                    typeEvent :"Консультация",
+                    "doctor.id" : data.doctor_id != null ? data.doctor_id  : null,
+                    "strtime_gte":data.strtime_gte != null ? data.strtime_gte : null,
+                    "strtime_lte":data.strtime_lte != null ? data.strtime_lte  : null
+                }
+            });
+
+            let individual =  await Axios.get('/eventlists/count',{
+                params:{
+                    typeEvent :"Индивидуальное занятие",
+                    "doctor.id" : data.doctor_id != null ? data.doctor_id  : null,
+                    "strtime_gte":data.strtime_gte != null ? data.strtime_gte : null,
+                    "strtime_lte":data.strtime_lte != null ? data.strtime_lte  : null
+                }
+            });
+
+            let group =  await Axios.get('/eventlists/count',{
+                params:{
+                    typeEvent :"Групповое занятие",
+                    "doctor.id" : data.doctor_id != null ? data.doctor_id  : null,
+                    "strtime_gte":data.strtime_gte != null ? data.strtime_gte : null,
+                    "strtime_lte":data.strtime_lte != null ? data.strtime_lte  : null
+                }
+            });
+
+            let parent_kons =  await Axios.get('/eventlists/count',{
+                params:{
+                    typeEvent : "Консультация родителей",
+                    "doctor.id" : data.doctor_id != null ? data.doctor_id  : null,
+                    "strtime_gte":data.strtime_gte != null ? data.strtime_gte : null,
+                    "strtime_lte":data.strtime_lte != null ? data.strtime_lte  : null
+                }
+            });
+
+            let KDC =  await Axios.get('/eventlists/count',{
+                params:{
+                    typeEvent : "Прием КДЦ",
+                    "doctor.id" : data.doctor_id != null ? data.doctor_id  : null,
+                    "strtime_gte":data.strtime_gte != null ? data.strtime_gte : null,
+                    "strtime_lte":data.strtime_lte != null ? data.strtime_lte  : null
+                }
+            });
+
+            let monitor =  await Axios.get('/eventlists/count',{
+                params:{
+                    typeEvent : "Мониторинг",
+                    "doctor.id" : data.doctor_id != null ? data.doctor_id  : null,
+                    "strtime_gte":data.strtime_gte != null ? data.strtime_gte : null,
+                    "strtime_lte":data.strtime_lte != null ? data.strtime_lte  : null
+                }
+            });
+
+            RES = [
+                ['Диагностика',diagnostic.data],
+                ['Консультация',consalt.data],
+                ["Индивидуальное занятие",individual.data],
+                ["Групповое занятие",group.data],
+                ["Консультация родителей",parent_kons.data],
+                ["Прием КДЦ",KDC.data],
+                ["Мониторинг",monitor.data]
+            ]
+
+
+            context.commit("STATISTIC_CHART",RES)
+            //console.log("GET_AXIOS_STATISTIC_CHART",RES)
+        },
 
         GET_DROP_EVENT: async (context, data) => {
             //console.log("GET_DROP_EVENT",data)
@@ -108,6 +197,7 @@ export default{
             //console.log("SET_KID_EVENT_LIST_RES",RES)
             context.commit('FULLCALENDAR', RES);
         },
+
         GET_FREE_USER_LIST: async (context, data) => {
             let users =  await Axios.get("/users");
             let eventlists =  await Axios.get('/eventlists');
@@ -177,7 +267,7 @@ export default{
             var data = await context.dispatch("URL_CONSTRUCT_EVENTS",filter,true)
 
             let eventlists =  await Axios.get(data.url,data.data);
-            console.log("GET_AXIOS_EVENT_STORE",eventlists.data)
+            //console.log("GET_AXIOS_EVENT_STORE",eventlists.data)
             context.commit('EVENT', eventlists.data);
         },
         GET_AXIOS_EVENTS: async (context, filter) => {
@@ -185,10 +275,11 @@ export default{
             var data = await context.dispatch("URL_CONSTRUCT_EVENTS",filter,true)
 
             let eventlists =  await Axios.get(data.url,data.data);
-            console.log("GET_AXIOS_EVENTS_STORE",eventlists.data)
+            //console.log("GET_AXIOS_EVENTS_STORE",eventlists.data)
             context.commit('EVENT_LIST', eventlists.data);
             context.dispatch("GET_GUNT_EVENT_LIST")
             context.dispatch("GET_FULLCALENDAR")
+
         },
         POST_AXIOS_EVENTS: async (context, filter) => {
             //context.state.url+filter.id
@@ -196,7 +287,7 @@ export default{
 
             //console.log("POST_AXIOS_EVENTS_STORE",filter,data)
             let eventlists =  await Axios.post(data.url,data.data);
-            console.log("POST_AXIOS_EVENTS_STORE-->",eventlists.data)
+            //console.log("POST_AXIOS_EVENTS_STORE-->",eventlists.data)
             context.dispatch("GET_AXIOS_EVENTS")
             //context.commit('EVENT_LIST', eventlists.data);
         },
@@ -206,7 +297,7 @@ export default{
 
             //console.log("---------",data,filter)
             let eventlists =  await Axios.put(data.url,data.data);
-            console.log("PUT_AXIOS_EVENTS_STORE",eventlists)
+            //console.log("PUT_AXIOS_EVENTS_STORE",eventlists)
             //context.commit('EVENT_LIST', eventlists.data);
             context.dispatch("GET_AXIOS_EVENTS")
         },
@@ -216,12 +307,12 @@ export default{
 
             //console.log("GET_AXIOS_EVENTS_STORE",filter,typeof filter)
             let eventlists =  await Axios.delete(data.url);
-            console.log("DELETE_AXIOS_EVENTS_STORE",eventlists.data)
+            //console.log("DELETE_AXIOS_EVENTS_STORE",eventlists.data)
             //context.commit('EVENT_LIST', eventlists.data);
             context.dispatch("GET_AXIOS_EVENTS")
         },
         GET_AXIOS_EVENT_COUNT: async (context, filter) => {
-            console.log("GET_AXIOS_EVENT_COUNT",filter)
+            //console.log("GET_AXIOS_EVENT_COUNT",filter)
             let eventlists = await Axios.get('/eventlists/count',{
                 params:{
                     "strtime_gte":filter.date,
@@ -311,6 +402,11 @@ export default{
         }
     },
     getters: {
+
+        STATISTIC_CHART: state => {
+            return state.STATISTIC_CHART;
+        },
+
         YEAR_STATISTIC: state => {
             return state.YEAR_STATISTIC;
         },

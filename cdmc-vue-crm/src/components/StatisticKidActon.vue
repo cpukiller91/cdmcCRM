@@ -8,11 +8,25 @@
                 md="4"
             >
             <v-select
-                :items="USERS"
+                :items="USERS_LIST"
+                v-model="USERS"
+                item-text="username"
+                item-value="id"
                 label="Специалисты"
                 dense
             ></v-select>
+                <input type="date" v-model="startFilter">
+                <input type="date" v-model="endFilter">
+            <!--v-select
+                    v-model="duration"
+                    :items="durationLIST"
+                    label="Период"
+                    item-text="title"
+                    item-value="duration"
+                    dense
+            ></v-select-->
             </v-col>
+
         </div>
 
 
@@ -21,7 +35,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div v-if="menu" class="card">
         <div class="card-header">
             <h5>Аналитика за</h5>
             <div class="card-header-right">
@@ -131,6 +145,12 @@
 <script>
     export default {
         computed:{
+            STATISTIC_CHART(){
+                return this.$store.getters.STATISTIC_CHART
+            },
+            USERS_LIST(){
+              return this.$store.getters.USERS_LIST
+            },
             GET_AXIOS_YEAR_STATISTIC(){
                 return this.$store.getters.YEAR_STATISTIC
             },
@@ -142,8 +162,97 @@
             }
         },
         watch:{
+            STATISTIC_CHART(nv){
+                var chart = c3.generate({
+                    bindto: '#chart-user-statistic',
+
+                    // axis: {
+                    //     x: {
+                    //         // type: 'category',
+                    //         // categories: this.durationLIST
+                    //         type: 'timeseries',
+                    //         tick: {
+                    //             format: '%Y-%m-%d'
+                    //         }
+                    //     }
+                    // },
+                    data: {
+                        //x: 'x',
+                        // iris data from R
+                        columns: nv,
+                        //     [
+                        //     // ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06',
+                        //     //     '2013-01-07', '2013-01-08', '2013-01-09','2013-01-10','2013-01-11','2013-01-12'],
+                        //    // date,
+                        //     //this.GET_AXIOS_STATISTIC_CHART
+                        //     //CRM
+                        //     //['data2', 130, 340, 200, 500, 250, 350]
+                        // ],
+                        type: 'bar',
+                        //type: "line",
+
+                        options: {
+
+                            responsive: true,
+                            plugins: {
+                                legend: {
+
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Chart.js Line Chart'
+                                }
+                            }
+                        },
+                        onclick: function(d, i) {
+                            console.log("onclick", d, i);
+                        },
+                        // onmouseover: function(d, i) {
+                        //     console.log("onmouseover", d, i);
+                        // },
+                        // onmouseout: function(d, i) {
+                        //     console.log("onmouseout", d, i);
+                        // }
+                    },
+                    size: {
+                        height: 600
+                    },
+                    padding: {
+                        //bottom: 200
+                    },
+                    // color: {
+                    //     pattern: ['#1ABC9C', '#4C5667', '#00C292', '#AB8CE4']
+                    // },
+
+                });
+                chart.load()
+
+            },
+            USERS(USERS){
+                //this.buildStatistik()
+                var params = {
+                    "strtime_gte":this.startFilter,
+                    "strtime_lte":this.endFilter,
+                    "doctor_id":USERS
+                }
+                this.$store.dispatch("GET_AXIOS_STATISTIC_CHART", params)
+                //console.log("--->>",USERS, this.duration)
+
+
+            },
+            USERS_LIST(){
+                //console.log("dateAnalitics",nvL)
+            },
+            startFilter(){
+
+                //this.buildStatistik()
+            },
+            endFilter(){
+               // this.buildStatistik()
+            },
             dateAnalitics(nvL){
-                console.log("dateAnalitics",nvL)
+                //console.log("dateAnalitics",nvL)
                 this.startDate = nvL;
                 this.getStatistic()
             },
@@ -260,11 +369,23 @@
             }
         },
         data: () => ({
+            durationLIST:[
+                {title:"За год",duration:360},
+                {title:"За 6 мес",duration:186},
+                {title:"За 3 мес",duration:93},
+                {title:"За месяц",duration:31},
+
+            ],
+
+            startFilter:dayjs(new Date()).format('YYYY-MM-DD'),
+            endFilter:dayjs(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD'),
+
+            duration:null,
             dateAnalitics: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             menu: false,
             modal: false,
             menu2: false,
-            USERS:["1212","122"],
+            USERS:null,
             startDate: null,
                 //dayjs(nv.strtime).format('YYYY-MM-DDTHH:mm'),
             rules: [
@@ -275,10 +396,12 @@
 
         }),
         mounted(){
+            this.$store.dispatch("GET_AXIOS_USERS")
+            //this.buildStatistik()
             var curent_date = new Date();
             this.startDate = dayjs(curent_date).format('YYYY-MM-DD')
 
-            this.getStatistic()
+            //this.getStatistic()
 
 
 
@@ -294,80 +417,85 @@
             // })
         },
         methods:{
+            buildStatistik(){
+
+                //console.log("dateAnalitics",this.startFilter,this.endFilter)
+
+
+
+
+                // var dateNow = new Date().getTime();
+                // var date = [
+                //     'x'
+                // ]
+                // var diagnostic = [
+                //     'Диагностика'
+                // ]
+                // var consalt = [
+                //     'Консультация'
+                // ]
+                // var individual = [
+                //     "Индивидуальное занятие"
+                // ]
+                // var group = [
+                //     "Групповое занятие"
+                // ]
+                // var parent_kons = [
+                //     "Консультация родителей"
+                // ]
+                // var KDC = [
+                //     "Прием КДЦ"
+                // ]
+                // var monitor = [
+                //     "Мониторинг"
+                // ]
+                // var CRM = [
+                //     "Задачи ЦРМ"
+                // ]
+                // for (var i = 1; i <= 30; i++) {
+                //     date.push(dateNow + i * 24 * 60 * 60 * 1000)
+                //     diagnostic.push(i)
+                //     consalt.push(i+2)
+                //     individual.push(i+4)
+                //     group.push(i+6)
+                //     parent_kons.push(i+8)
+                //     KDC.push(i+10)
+                //     monitor.push(i+12)
+                //     //CRM.push(i+18)
+                //     //console.log(i);
+                //     // ещё какие-то выражения
+                // }
+
+
+                // this.durationLIST.forEach((LIST ,i )=> {
+                //     date.push(LIST.title)
+                //     diagnostic.push(i)
+                //     consalt.push(i+2)
+                //     individual.push(i+4)
+                //     group.push(i+6)
+                //     parent_kons.push(i+8)
+                //     KDC.push(i+10)
+                //     monitor.push(i+12)
+                //
+                // })
+
+                //date.push(LIST.title)
+                // var i = 2;
+                //
+                // diagnostic.push(i)
+                // consalt.push(i+2)
+                // individual.push(i+4)
+                // group.push(i+6)
+                // parent_kons.push(i+8)
+                // KDC.push(i+10)
+                // monitor.push(i+12)
+
+
+
+
+            },
             getStatistic(){
-                var dateNow = new Date().getTime();
-                var date = [
-                    'x'
-                ]
-                var USERQ = [
-                    'user'
-                ]
-                for (var i = 1; i < 30; i++) {
-                    date.push(dateNow + i * 24 * 60 * 60 * 1000)
-                    USERQ.push(i)
-                    console.log(i);
-                    // ещё какие-то выражения
-                }
 
-                var chart = c3.generate({
-                    bindto: '#chart-user-statistic',
-                    axis: {
-                        x: {
-                            type: 'timeseries',
-                            tick: {
-                                format: '%Y-%m-%d'
-                            }
-                        }
-                    },
-                    data: {
-                        x: 'x',
-                        // iris data from R
-                        columns: [
-                            // ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06',
-                            //     '2013-01-07', '2013-01-08', '2013-01-09','2013-01-10','2013-01-11','2013-01-12'],
-                            date,
-                            USERQ
-                            //['data2', 130, 340, 200, 500, 250, 350]
-                        ],
-                        type: 'line',
-
-                        options: {
-
-                            responsive: true,
-                            plugins: {
-                                legend: {
-
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Chart.js Line Chart'
-                                }
-                            }
-                        },
-                        onclick: function(d, i) {
-                            console.log("onclick", d, i);
-                        },
-                        // onmouseover: function(d, i) {
-                        //     console.log("onmouseover", d, i);
-                        // },
-                        // onmouseout: function(d, i) {
-                        //     console.log("onmouseout", d, i);
-                        // }
-                    },
-                    size: {
-                        height: 600
-                    },
-                    padding: {
-                        //bottom: 200
-                    },
-                    // color: {
-                    //     pattern: ['#1ABC9C', '#4C5667', '#00C292', '#AB8CE4']
-                    // },
-
-                });
-
-                chart.load()
 
                 this.$store.dispatch("GET_AXIOS_YEAR_STATISTIC",{
                     times:dayjs(this.startDate).format('YYYY')
