@@ -245,10 +245,21 @@
                 //console.log("dateAnalitics",nvL)
             },
             startFilter(){
-
+                var params = {
+                    "strtime_gte":this.startFilter,
+                    "strtime_lte":this.endFilter,
+                    "doctor_id":this.USERS
+                }
+                this.$store.dispatch("GET_AXIOS_STATISTIC_CHART", params)
                 //this.buildStatistik()
             },
             endFilter(){
+                var params = {
+                    "strtime_gte":this.startFilter,
+                    "strtime_lte":this.endFilter,
+                    "doctor_id":this.USERS
+                }
+                this.$store.dispatch("GET_AXIOS_STATISTIC_CHART", params)
                // this.buildStatistik()
             },
             dateAnalitics(nvL){
