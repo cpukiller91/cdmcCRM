@@ -2,11 +2,20 @@
 <div>
     <div class="card">
         <div class="card-header">
+            <div class="card-header-right">
+                <ul class="list-unstyled card-option">
+                    <li> <button @click="print"><i class="fa fa-print"></i></button></li>
+                    <!--li><i class="feather icon-maximize full-card"></i></li>
+                    <li><i class="feather icon-minus minimize-card"></i></li>
+                    <li><i class="feather icon-trash-2 close-card"></i></li-->
+                </ul>
+            </div>
             <v-col
                 cols="12"
                 sm="6"
                 md="4"
             >
+
             <v-select
                 :items="USERS_LIST"
                 v-model="USERS"
@@ -17,6 +26,9 @@
             ></v-select>
                 <input type="date" v-model="startFilter">
                 <input type="date" v-model="endFilter">
+
+                <!-- OUTPUT -->
+
             <!--v-select
                     v-model="duration"
                     :items="durationLIST"
@@ -27,11 +39,33 @@
             ></v-select-->
             </v-col>
 
+            <!-- SOURCE -->
+
+
         </div>
 
 
         <div class="card-block">
             <div id="chart-user-statistic" ></div>
+
+            <div id="printMe" v-if="isTable">
+                <h4>{{USERS_LIST[USERS-1].username}}</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th v-for="header in STATISTIC_CHART_TABLE">{{header.title}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td v-for="td in STATISTIC_CHART_TABLE">{{td.val}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -145,6 +179,9 @@
 <script>
     export default {
         computed:{
+            STATISTIC_CHART_TABLE(){
+                return this.$store.getters.STATISTIC_CHART_TABLE
+            },
             STATISTIC_CHART(){
                 return this.$store.getters.STATISTIC_CHART
             },
@@ -162,6 +199,10 @@
             }
         },
         watch:{
+            STATISTIC_CHART_TABLE(nv){
+                this.isTable = true
+                //console.log("STATISTIC_CHART_TABLE+++",nv)
+            },
             STATISTIC_CHART(nv){
                 var chart = c3.generate({
                     bindto: '#chart-user-statistic',
@@ -380,6 +421,7 @@
             }
         },
         data: () => ({
+            isTable:false,
             durationLIST:[
                 {title:"За год",duration:360},
                 {title:"За 6 мес",duration:186},
@@ -428,6 +470,10 @@
             // })
         },
         methods:{
+            async print () {
+                // Pass the element id here
+                await this.$htmlToPaper('printMe');
+            },
             buildStatistik(){
 
                 //console.log("dateAnalitics",this.startFilter,this.endFilter)

@@ -20,7 +20,25 @@ import DragableCalendar from "./components/DragableCalendar";
 import UserMeny from "./components/UserMeny";
 import CRMTaskModal from "./components/Task/CRMTaskModal";
 import Reminder from "./components/Task/Reminder";
+import VueHtmlToPaper from 'vue-html-to-paper';
 
+const options = {
+  name: '_blank',
+  specs: [
+    'fullscreen=yes',
+    'titlebar=yes',
+    'scrollbars=yes'
+  ],
+  styles: [
+    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+    'https://unpkg.com/kidlat-css/css/kidlat.css'
+  ],
+  timeout: 1000, // default timeout before the print window appears
+  autoClose: true, // if false, the window will not close after printing
+  windowTitle: window.document.title, // override the window title
+}
+
+Vue.use(VueHtmlToPaper, options);
 Vue.component('default-layout', Deault)
 Vue.component('task-list', TaskList)
 Vue.component('task-detail', TaskDetail)

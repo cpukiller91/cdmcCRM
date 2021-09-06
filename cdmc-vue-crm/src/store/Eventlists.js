@@ -30,9 +30,13 @@ export default{
         DAY_STATISTIC:[],
         MONTH_STATISTIC:[],
 
-        STATISTIC_CHART:[]
+        STATISTIC_CHART:[],
+        STATISTIC_CHART_TABLE:[]
     },
     mutations: {
+        STATISTIC_CHART_TABLE(state, payload){
+            state.STATISTIC_CHART_TABLE = payload
+        },
 
         STATISTIC_CHART(state, payload){
             state.STATISTIC_CHART = payload
@@ -78,6 +82,7 @@ export default{
 
         GET_AXIOS_STATISTIC_CHART: async (context, data) => {
             var RES = []
+            var Table = []
 
             let diagnostic =  await Axios.get('/eventlists/count',{
                 params:{
@@ -152,9 +157,18 @@ export default{
                 ["Прием КДЦ",KDC.data],
                 ["Мониторинг",monitor.data]
             ]
-
-
+            Table = [
+                {title:'Диагностика',val:diagnostic.data},
+                {title:'Консультация',val:consalt.data},
+                {title:'Индивидуальное занятие',val:individual.data},
+                {title:'Групповое занятие',val:group.data},
+                {title:'Консультация родителей',val:parent_kons.data},
+                {title:'Прием КДЦ',val:KDC.data},
+                {title:'Мониторинг',val:monitor.data},
+            ]
+            //STATISTIC_CHART_TABLE
             context.commit("STATISTIC_CHART",RES)
+            context.commit("STATISTIC_CHART_TABLE",Table)
             //console.log("GET_AXIOS_STATISTIC_CHART",RES)
         },
 
@@ -402,6 +416,10 @@ export default{
         }
     },
     getters: {
+
+        STATISTIC_CHART_TABLE: state => {
+            return state.STATISTIC_CHART_TABLE;
+        },
 
         STATISTIC_CHART: state => {
             return state.STATISTIC_CHART;
