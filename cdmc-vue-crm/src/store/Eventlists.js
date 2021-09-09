@@ -197,7 +197,7 @@ export default{
                     start: element.strtime,
                     //date: '2021-08-16 16:00',
                     color: element.color,     // an option!
-                    textColor: '#2DCEE3',
+                    textColor: 'white',
                     editable:true,
                     itemSelector:".item-class",
                     // eventMinHeight:5,

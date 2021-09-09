@@ -7,7 +7,8 @@
         <div class="col-6 col-md-3">
             <div class="panel panel-warning">
                 <div class="panel-heading bg-warning">
-                    Список пользователей
+                    <div style="background-color: #2c3e50;padding: 5px">Список пользователей</div>
+
                 </div>
                 <div class="panel-body">
                     <div id='external-events-listing'>
@@ -21,12 +22,12 @@
                     </div>
 
                 </div>
-                <div class="panel-footer text-warning">
+                <!--div class="panel-footer text-warning">
                     <p>
                         <input type='checkbox' id='drop-remove' checked='checked' />
                         <label for='drop-remove'>remove after drop</label>
                     </p>
-                </div>
+                </div-->
             </div>
         </div>
     </div>
@@ -272,8 +273,24 @@
 
 <style>
     .doctor{
-        padding: 4px;
-        margin: 3px 0;
+        padding: 5px;
+        margin: 1% 8%;
+        color: white;
+        width: 84%;
+        border-radius: 11px;;
+    }
+    .fc .fc-toolbar.fc-header-toolbar {
+        padding: 10px !important;
+        margin: 0 !important;
+        background-color: #bdbdbd;
+    }
+    .bg-warning {
+        background-color: #bdbdbd !important;
+        padding: 12px;
+    }
+
+    .fc-button {
+        margin: 0px 11px 0 0px !important;
     }
 
 </style>

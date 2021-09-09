@@ -169,7 +169,7 @@
                             start: '2021-08-16 16:30:00',
                             //date: '2021-08-16 16:00',
                             color: 'black',     // an option!
-                            textColor: 'yellow' ,
+                            textColor: 'white' ,
                             editable:true,
                             durationEditable:true,
                             //duration:30

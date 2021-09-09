@@ -197,6 +197,7 @@
             GET_AXIOS_MONTH_STATISTIC(){
                 return this.$store.getters.MONTH_STATISTIC
             }
+
         },
         watch:{
             STATISTIC_CHART_TABLE(nv){

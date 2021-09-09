@@ -1,18 +1,13 @@
 
 <template>
     <div>
-
+        <kid-task-modal></kid-task-modal>
         <!-- Basic table card start -->
         <div class="card" v-if="login">
 
-        <div class="card-header">
-            <kid-task-modal></kid-task-modal>
-
-        </div>
             <dragable-calendar></dragable-calendar>
 
-    </div>
-
+        </div>
 
     </div>
 </template>
