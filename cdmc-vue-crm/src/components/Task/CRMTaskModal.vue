@@ -2,7 +2,7 @@
 
     <div class="btn-group dropdown-split-success">
         <button data-toggle="modal" data-target="#large-Modal-task" type="button" class="btn btn-success"><i class="icofont icofont-check-circled"></i>Поставить задачу</button>
-        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <!--button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="sr-only">Toggle primary</span>
         </button>
         <div class="dropdown-menu">
@@ -11,7 +11,7 @@
             <a class="dropdown-item waves-effect waves-light" href="#">Something else here</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item waves-effect waves-light" href="#">Separated link</a>
-        </div>
+        </div-->
 
 
         <!-- Modal large-->
@@ -78,8 +78,6 @@
                                    <div class="col-sm-6" >
                                        <div  >
                                            <v-menu
-
-
                                                    ref="menuStartProject"
                                                    v-model="menuStartProject"
                                                    :close-on-content-click="false"

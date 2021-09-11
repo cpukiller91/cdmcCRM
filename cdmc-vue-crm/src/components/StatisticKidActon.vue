@@ -24,8 +24,109 @@
                 label="Специалисты"
                 dense
             ></v-select>
-                <input type="date" v-model="startFilter">
-                <input type="date" v-model="endFilter">
+                <v-row>
+                    <v-col
+                            cols="12"
+                            sm="6"
+                            md="4"
+                    >
+                        <v-menu
+                                ref="menuStart"
+                                v-model="menuStart"
+                                :close-on-content-click="false"
+                                :return-value.sync="startFilter"
+                                transition="scale-transition"
+                                offset-y
+                                min-width="auto"
+                        >
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field
+                                        v-model="startFilter"
+                                        label="Начальная Дата"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker
+                                    v-model="startFilter"
+                                    no-title
+                                    scrollable
+                                    locale="ru-ru"
+                            >
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                        text
+                                        color="primary"
+                                        @click="menuStart = false"
+                                >
+                                    Cancel
+                                </v-btn>
+                                <v-btn
+                                        text
+                                        color="primary"
+                                        @click="$refs.menuStart.save(startFilter)"
+                                >
+                                    OK
+                                </v-btn>
+                            </v-date-picker>
+                        </v-menu>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                    <v-col
+                            cols="12"
+                            sm="6"
+                            md="4"
+                    >
+                        <v-menu
+                                ref="menuEndFilter"
+                                v-model="menuEndFilter"
+                                :close-on-content-click="false"
+                                :return-value.sync="endFilter"
+                                transition="scale-transition"
+                                offset-y
+                                min-width="auto"
+                        >
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field
+                                        v-model="endFilter"
+                                        label="Конечная Дата"
+
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker
+                                    v-model="endFilter"
+                                    no-title
+                                    scrollable
+                                    locale="ru-ru"
+                            >
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                        text
+                                        color="primary"
+                                        @click="menuEnd = false"
+                                >
+                                    Cancel
+                                </v-btn>
+                                <v-btn
+                                        text
+                                        color="primary"
+                                        @click="$refs.menuEndFilter.save(endFilter)"
+                                >
+                                    OK
+                                </v-btn>
+                            </v-date-picker>
+                        </v-menu>
+                    </v-col>
+                    <v-spacer></v-spacer>
+                </v-row>
+                <!--input type="date" v-model="startFilter">
+                <input type="date" v-model="endFilter"-->
 
                 <!-- OUTPUT -->
 
@@ -422,6 +523,8 @@
             }
         },
         data: () => ({
+            menuStart:"",
+            menuEndFilter:"",
             isTable:false,
             durationLIST:[
                 {title:"За год",duration:360},

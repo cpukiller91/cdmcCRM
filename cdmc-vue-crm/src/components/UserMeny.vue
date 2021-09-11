@@ -18,7 +18,7 @@
         </ul>
 
         <ul class="nav-right">
-            <li class="header-notification">
+            <li v-if="menu" class="header-notification">
                 <div class="dropdown-primary dropdown">
                     <div class="dropdown-toggle" data-toggle="dropdown">
                         <i class="feather icon-bell"></i>
@@ -88,7 +88,7 @@
                                 <i class="feather icon-settings"></i> CRM
                             </a>
                         </li>
-                        <li>
+                        <!--li>
                             <a href="user-profile.htm">
                                 <i class="feather icon-user"></i> Профиль
                             </a>
@@ -97,7 +97,7 @@
                             <a href="email-inbox.htm">
                                 <i class="feather icon-mail"></i> Мои сообщения
                             </a>
-                        </li>
+                        </li-->
                         <li>
                             <a @click="logout">
                                 <i class="feather icon-log-out"></i> Выход
