@@ -337,4 +337,7 @@
     .btn-group, .btn-group-vertical {
         padding: 0px 6px !important;
     }
+    .v-btn__content {
+        color: black !important;
+    }
 </style>
