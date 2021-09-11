@@ -8,7 +8,7 @@
                     data-toggle="modal"
                     data-target="#large-Modal"
                     @click="openModal"
-            ><i class="icofont icofont-info-square"></i>{{titleWindow}}</button>
+            ><!--i class="icofont icofont-info-square"></i-->{{titleWindow}}</button>
 
             <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle primary</span>
