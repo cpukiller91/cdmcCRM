@@ -43,7 +43,7 @@
                 this.$store.dispatch("GET_AXIOS_REMINDERS",{params:{task_board:nv}})
             },
             TASK(nv){
-                this.reminder = []
+                this.reminder = [[]]
                 //console.log("TASKTASKTASKTASKTASKTASKTASK",nv)
             },
             REMINDERS_LIST(nv){

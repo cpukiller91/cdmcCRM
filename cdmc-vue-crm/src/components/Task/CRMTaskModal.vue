@@ -65,6 +65,7 @@
                                 </div>
                                 <div class="form-group row">
 
+
                                     <div class="col-sm-12">
                                         <div style="float: left">
                                             <button @click="resetNew" class="btn btn-info btn-outline-info">Скинуть фильтр</button>
