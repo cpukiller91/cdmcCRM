@@ -14,7 +14,7 @@
 
         data: () => ({
             //TaskID:true,
-            reminder:[]
+            reminder:[[]]
         }),
         props:{
             taskID:Number,
