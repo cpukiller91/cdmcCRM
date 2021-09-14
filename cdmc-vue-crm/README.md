@@ -1,5 +1,5 @@
 # cdmc-vue-crm
-wwq
+
 ## Project setup
 ```
 npm install
