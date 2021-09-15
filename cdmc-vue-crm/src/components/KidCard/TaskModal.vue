@@ -188,6 +188,10 @@
 
         }),
         mounted(){
+            $( "#large-Modal" ).click(function() {
+                const elem = this.$refs.closeModal
+                elem.click()
+            });
             // this.openModal()
             //
 
