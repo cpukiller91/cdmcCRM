@@ -156,8 +156,8 @@
             timerDurationRange:[30,60],
             durationSelectRange:30,
             timeStart:[
-                "9:00",
-                "9:30",
+                "09:00",
+                "09:30",
                 "10:00",
                 "10:30",
                 "11:00",
@@ -291,7 +291,7 @@
                 if(this.doctorID == null && this.kid == null){
                     return false;
                 }
-
+                console.log("timeS",this.timeS)
 
                 var data = {
                     id:this.idRecord,
