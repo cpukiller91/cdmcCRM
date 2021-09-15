@@ -138,7 +138,7 @@
             requiredF:[
                 value => !!value || 'Обязательное поле.'
             ],
-            EventDate: "2021-08-24",
+            EventDate: "",
             EventTime: "9:00",
             accessTab: false,
             titleWindow: "Записать пациента",
