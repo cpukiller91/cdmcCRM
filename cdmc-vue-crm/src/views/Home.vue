@@ -28,7 +28,7 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="tab" href="#profile7" role="tab">
-                    <i class="fa fa-tasks"></i>ГАНТ</a>
+                    <i class="fa fa-tasks"></i>Диаграмма Ганта</a>
                   <div class="slide"></div>
                 </li>
 
