@@ -93,7 +93,7 @@
                                         <v-text-field
                                             v-model="mamf"
 
-                                            label="Фамилия Мамы"
+                                            label="Фамилия мамы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -106,7 +106,7 @@
                                         <v-text-field
                                             v-model="mami"
 
-                                            label="Имя Мамы"
+                                            label="Имя мамы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -117,7 +117,7 @@
                                       >
                                         <v-text-field
                                             v-model="mamo"
-                                            label="Отчество Мамы"
+                                            label="Отчество мамы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -131,7 +131,7 @@
                                         <v-text-field
                                             v-model="dadf"
 
-                                            label="Фамилия Папы"
+                                            label="Фамилия папы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -144,7 +144,7 @@
                                         <v-text-field
                                             v-model="dadi"
 
-                                            label="Имя Папы"
+                                            label="Имя папы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -155,7 +155,7 @@
                                       >
                                         <v-text-field
                                             v-model="dado"
-                                            label="Отчество Папы"
+                                            label="Отчество папы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -178,7 +178,7 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
                                             v-model="date"
-                                            label="Дата Рождения"
+                                            label="Дата рождения"
                                             prepend-icon="mdi-calendar"
                                             readonly
                                             v-bind="attrs"
@@ -218,7 +218,7 @@
                             <v-text-field
                                     v-model="momtel"
 
-                                    label="Телефон Мамы"
+                                    label="Телефон мамы"
                                     required
                             ></v-text-field>
                         </v-col>
@@ -332,7 +332,7 @@
                         >
                             <v-text-field
                                     v-model="dadtel"
-                                    label="Телефон Папы"
+                                    label="Телефон папы"
                                     required
                             ></v-text-field>
 
@@ -372,7 +372,7 @@
                                     v-model="sikrange"
 
                                     :counter="10"
-                                    label="Длительность Болезни"
+                                    label="Длительность болезни"
                                     required
                             ></v-text-field>
                         </v-col>

@@ -69,7 +69,7 @@
                         >
                             <v-text-field
                                     v-model="babycard.date"
-                                    label="Дата Рождения"
+                                    label="Дата рождения"
                                     prepend-icon="mdi-calendar"
 
                             ></v-text-field>
@@ -83,7 +83,7 @@
                             <v-text-field
                                     v-model="babycard.momtel"
 
-                                    label="Телефон Мамы"
+                                    label="Телефон мамы"
                                     required
                             ></v-text-field>
                         </v-col>
@@ -205,7 +205,7 @@
                         >
                             <v-text-field
                                     v-model="babycard.dadtel"
-                                    label="Телефон Папы"
+                                    label="Телефон папы"
                                     required
                             ></v-text-field>
 
@@ -245,7 +245,7 @@
                                     v-model="babycard.sikrange"
 
                                     :counter="10"
-                                    label="Длительность Болезни"
+                                    label="Длительность болезни"
                                     required
                             ></v-text-field>
                         </v-col>

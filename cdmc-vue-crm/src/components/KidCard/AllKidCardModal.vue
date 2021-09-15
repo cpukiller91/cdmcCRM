@@ -99,7 +99,7 @@
                                     <v-text-field
 
                                             v-model="datebf"
-                                            label="Дата Рождения"
+                                            label="Дата рождения"
                                             prepend-icon="mdi-calendar"
                                             readonly
                                             v-bind="attrs"
@@ -196,7 +196,7 @@
                                         >
                                             <v-text-field
                                                     v-model="item.date"
-                                                    label="Дата Рождения"
+                                                    label="Дата рождения"
                                                     prepend-icon="mdi-calendar"
 
 
@@ -211,7 +211,7 @@
                                             <v-text-field
                                                     v-model="item.momtel"
 
-                                                    label="Телефон Мамы"
+                                                    label="Телефон мамы"
 
                                             ></v-text-field>
                                         </v-col>
@@ -326,7 +326,7 @@
                                         >
                                             <v-text-field
                                                     v-model="item.dadtel"
-                                                    label="Телефон Папы"
+                                                    label="Телефон папы"
 
                                             ></v-text-field>
 
@@ -366,7 +366,7 @@
                                                     v-model="item.sikrange"
 
                                                     :counter="10"
-                                                    label="Длительность Болезни"
+                                                    label="Длительность болезни"
 
                                             ></v-text-field>
                                         </v-col>
