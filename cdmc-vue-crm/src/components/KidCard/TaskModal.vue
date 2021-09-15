@@ -188,7 +188,7 @@
 
         }),
         mounted(){
-            $( "#large-Modal" ).click(function() {
+            $( "#large-Modal" ).click( () => {
                 const elem = this.$refs.closeModal
                 elem.click()
             });
