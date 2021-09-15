@@ -151,10 +151,10 @@
                     locale: {
                         name: "ru",
                         Now: 'Сейчас',
-                        'X-Scale': 'Зумировать по ширине ',
-                        'Y-Scale': 'по высоте  ',
+                        'X-Scale': 'Растянуть по ширине ',
+                        'Y-Scale': 'По высоте  ',
                         'Task list width': 'Список задач',
-                        'Before/After': 'Expand',
+                        'Before/After': 'Расширить',
                         'Display task list': 'Список задач',
                         weekdays: 'Понедельник_Вторник_Среда_Четверг_Пятница_Суббота_Воскресенье'.split('_'), // weekdays Array
                         weekdaysShort: 'Пон_Вто_Сре_Чет_Пят_Суб_Вос'.split('_'), // OPTIONAL, short weekdays Array, use first three letters if not provided

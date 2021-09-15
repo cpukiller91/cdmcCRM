@@ -28,7 +28,7 @@
                             dark
                             @click="dialogAll = false"
                     >
-                        <v-icon>mdi-close</v-icon>
+                        <v-icon style="color: white !important;">mdi-close</v-icon>
                     </v-btn>
                     <v-toolbar-title>Карточки ребенка</v-toolbar-title>
                     <v-spacer></v-spacer>
@@ -38,7 +38,7 @@
                                 text
                                 @click.stop="resetFilter"
                         >
-                            Сбросить Фильтр
+                            <span style="color: white !important;">Сбросить Фильтр</span>
                         </v-btn>
                     </v-toolbar-items>
                 </v-toolbar>

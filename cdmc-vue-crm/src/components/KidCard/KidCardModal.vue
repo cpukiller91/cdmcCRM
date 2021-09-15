@@ -12,6 +12,7 @@
                         v-bind="attrs"
                         v-on="on"
 
+
                 >
                     Добавить карточку ребенка
                 </v-btn>
@@ -24,20 +25,20 @@
                 >
                     <v-btn
                             icon
-                            dark
+
                             @click="dialog = false"
                     >
-                        <v-icon>mdi-close</v-icon>
+                        <v-icon style="color: white !important;">mdi-close</v-icon>
                     </v-btn>
                     <v-toolbar-title>Карточка ребенка</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-toolbar-items>
                         <v-btn
-                                dark
+
                                 text
                                 @click.stop="saveCard"
                         >
-                            Сохранить
+                            <span style="color: white !important;">Сохранить</span>
                         </v-btn>
                     </v-toolbar-items>
                 </v-toolbar>
@@ -281,7 +282,7 @@
                         >
                             <v-select
                                     :items="finsrcList"
-                                    label="Источн финансирования"
+                                    label="Источник финансирования"
                                     v-model="finsrc"
                                     required
                             ></v-select>
