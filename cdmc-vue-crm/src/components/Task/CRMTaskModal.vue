@@ -65,11 +65,15 @@
                                 </div>
                                 <div class="form-group row">
 
+
                                     <div class="col-sm-12">
+                                        <div style="float: left">
+                                            <button @click="resetNew" class="btn btn-info btn-outline-info">Скинуть фильтр</button>
+                                        </div>
                                         <div style="float: right">
-                                            <button @click="resetNew" class="btn btn-info btn-outline-info"><i class="icofont icofont-eye-alt"></i>Скинуть фильтр</button>
-                                            <button @click="saveProject" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
-                                            <button @click="removeProject" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
+
+                                            <button @click="saveProject" class="btn btn-success btn-outline-success">Сохранить</button>
+                                            <button @click="removeProject" class="btn btn-danger btn-outline-danger">Удалить</button>
                                         </div>
                                     </div>
                                 </div>
@@ -170,8 +174,8 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div style="float: right">
-                                            <button @click="saveProject" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
-                                            <button @click="removeProject" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
+                                            <button @click="saveProject" class="btn btn-success btn-outline-success">Сохранить</button>
+                                            <button @click="removeProject" class="btn btn-danger btn-outline-danger">Удалить</button>
                                         </div>
                                     </div>
                                 </div>
@@ -184,8 +188,8 @@
                                     <div class="col-sm-12">
                                         <div style="float: right">
                                             <!--button @click="resetNew" class="btn btn-info btn-outline-info"><i class="icofont icofont-eye-alt"></i>Скинуть фильтр</button-->
-                                            <button @click="saveTask" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
-                                            <button @click="removeTask" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
+                                            <button @click="saveTask" class="btn btn-success btn-outline-success">Сохранить</button>
+                                            <button @click="removeTask" class="btn btn-danger btn-outline-danger">Удалить</button>
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +209,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <v-select
                                                 :items="statusList"
                                                 v-model="status"
@@ -213,7 +217,7 @@
 
                                         ></v-select>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <v-select
                                                 :items="priorityList"
                                                 v-model="priority"
@@ -221,18 +225,65 @@
 
                                         ></v-select>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <input type="date" v-model="startDate">
-                                    </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <v-text-field
                                                 v-model="durationTask"
                                                 label="Длительность задачи в днях"
                                                 type="number"
-
                                         ></v-text-field>
                                     </div>
+
                                 </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <v-menu
+                                                ref="menuStartDate"
+                                                v-model="menuStartDate"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="StartDate"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                        >
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                        v-model="StartDate"
+                                                        label="Начало задачи"
+                                                        prepend-icon="mdi-calendar"
+                                                        readonly
+                                                        v-bind="attrs"
+                                                        v-on="on"
+                                                ></v-text-field>
+                                            </template>
+                                            <v-date-picker
+                                                    v-model="StartDate"
+                                                    no-title
+                                                    scrollable
+                                                    locale="ru-ru"
+                                            >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                        text
+                                                        color="primary"
+                                                        @click="menuStartDate = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                        text
+                                                        color="primary"
+                                                        @click="$refs.menuStartDate.save(StartDate)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                            </v-date-picker>
+                                        </v-menu>
+
+
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
 
                                     <div class="col-sm-12">
@@ -289,8 +340,8 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div style="float: right">
-                                            <button @click="saveTask" class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Сохранить</button>
-                                            <button @click="removeTask" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button>
+                                            <button @click="saveTask" class="btn btn-success btn-outline-success">Сохранить</button>
+                                            <button @click="removeTask" class="btn btn-danger btn-outline-danger">Удалить</button>
                                         </div>
                                     </div>
                                 </div>
@@ -327,8 +378,7 @@
                                     <div class="col-sm-12">
                                         <div style="float: right">
                                             <!--button @click="resetNew" class="btn btn-info btn-outline-info"><i class="icofont icofont-eye-alt"></i>Скинуть фильтр</button-->
-                                            <button @click="saveComment" class="btn btn-success btn-outline-success">
-                                                <i class="icofont icofont-check-circled"></i>Сохранить</button>
+                                            <button @click="saveComment" class="btn btn-success btn-outline-success">Сохранить</button>
                                             <!--button @click="removeTask" class="btn btn-danger btn-outline-danger"><i class="icofont icofont-eye-alt"></i>Удалить</button-->
                                         </div>
                                     </div>
@@ -378,7 +428,8 @@
     export default {
         data: () => ({
             reminder:[],
-
+            menuStartDate:false,
+            StartDate:'',
             bossProject:"",
             titleProject:"",
             descriptionProject:"",

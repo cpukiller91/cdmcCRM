@@ -12,6 +12,7 @@
                         v-bind="attrs"
                         v-on="on"
 
+
                 >
                     Добавить карточку ребенка
                 </v-btn>
@@ -24,20 +25,20 @@
                 >
                     <v-btn
                             icon
-                            dark
+
                             @click="dialog = false"
                     >
-                        <v-icon>mdi-close</v-icon>
+                        <v-icon style="color: white !important;">mdi-close</v-icon>
                     </v-btn>
                     <v-toolbar-title>Карточка ребенка</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-toolbar-items>
                         <v-btn
-                                dark
+
                                 text
                                 @click.stop="saveCard"
                         >
-                            Сохранить
+                            <span style="color: white !important;">Сохранить</span>
                         </v-btn>
                     </v-toolbar-items>
                 </v-toolbar>
@@ -92,7 +93,7 @@
                                         <v-text-field
                                             v-model="mamf"
 
-                                            label="Фамилия Мамы"
+                                            label="Фамилия мамы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -105,7 +106,7 @@
                                         <v-text-field
                                             v-model="mami"
 
-                                            label="Имя Мамы"
+                                            label="Имя мамы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -116,7 +117,7 @@
                                       >
                                         <v-text-field
                                             v-model="mamo"
-                                            label="Отчество Мамы"
+                                            label="Отчество мамы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -130,7 +131,7 @@
                                         <v-text-field
                                             v-model="dadf"
 
-                                            label="Фамилия Папы"
+                                            label="Фамилия папы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -143,7 +144,7 @@
                                         <v-text-field
                                             v-model="dadi"
 
-                                            label="Имя Папы"
+                                            label="Имя папы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -154,7 +155,7 @@
                                       >
                                         <v-text-field
                                             v-model="dado"
-                                            label="Отчество Папы"
+                                            label="Отчество папы"
                                             required
                                         ></v-text-field>
                                       </v-col>
@@ -177,7 +178,7 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
                                             v-model="date"
-                                            label="Дата Рождения"
+                                            label="Дата рождения"
                                             prepend-icon="mdi-calendar"
                                             readonly
                                             v-bind="attrs"
@@ -217,7 +218,7 @@
                             <v-text-field
                                     v-model="momtel"
 
-                                    label="Телефон Мамы"
+                                    label="Телефон мамы"
                                     required
                             ></v-text-field>
                         </v-col>
@@ -281,7 +282,7 @@
                         >
                             <v-select
                                     :items="finsrcList"
-                                    label="Источн финансирования"
+                                    label="Источник финансирования"
                                     v-model="finsrc"
                                     required
                             ></v-select>
@@ -331,7 +332,7 @@
                         >
                             <v-text-field
                                     v-model="dadtel"
-                                    label="Телефон Папы"
+                                    label="Телефон папы"
                                     required
                             ></v-text-field>
 
@@ -371,7 +372,7 @@
                                     v-model="sikrange"
 
                                     :counter="10"
-                                    label="дл-ть бол-ни"
+                                    label="Длительность болезни"
                                     required
                             ></v-text-field>
                         </v-col>
@@ -394,7 +395,7 @@
                         >
                             <v-select
                                     :items="dnList"
-                                    label="Заб.н.с. (ЦНС)"
+                                    label="Заболевание (ЦНС)"
                                     v-model="zapnsdn"
                                     required
                             ></v-select>
@@ -408,7 +409,7 @@
                         >
                             <v-select
                                     :items="dnList"
-                                    label="Врожд пороки развития"
+                                    label="Врожденные пороки развития"
                                     v-model="porkdn"
                                     required
                             ></v-select>
@@ -420,7 +421,7 @@
                         >
                             <v-select
                                     :items="dnList"
-                                    label="Генет и наслед б-ни "
+                                    label="Генетические и наследственные болезни "
                                     v-model="genetnasdn"
                                     required
                             ></v-select>
@@ -458,7 +459,7 @@
                         >
                             <v-select
                                     :items="tiajestList"
-                                    label="Тяжесть б-ни"
+                                    label="Тяжесть болезни"
                                     v-model="tiajest"
                                     required
                             ></v-select>
@@ -470,7 +471,7 @@
                         >
                             <v-select
                                     :items="stadijaList"
-                                    label="Стадия б-ни"
+                                    label="Стадия болезни"
                                     v-model="stadija"
                                     required
                             ></v-select>
@@ -481,7 +482,7 @@
                         >
                             <v-select
                                     :items="dnList"
-                                    label="Заб-я ОДА"
+                                    label="Заболевания ОДА"
                                     v-model="zabjadn"
                                     required
                             ></v-select>
@@ -615,9 +616,9 @@
 
             ],
             ServiceList:[
-                "Конс.",
+                "Консультация",
                 "Занятие",
-                "Группа"
+                "Групповое Занятие"
 
             ],
             finsrcList:[

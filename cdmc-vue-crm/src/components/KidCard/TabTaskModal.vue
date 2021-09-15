@@ -69,7 +69,7 @@
                         >
                             <v-text-field
                                     v-model="babycard.date"
-                                    label="Дата Рождения"
+                                    label="Дата рождения"
                                     prepend-icon="mdi-calendar"
 
                             ></v-text-field>
@@ -83,7 +83,7 @@
                             <v-text-field
                                     v-model="babycard.momtel"
 
-                                    label="Телефон Мамы"
+                                    label="Телефон мамы"
                                     required
                             ></v-text-field>
                         </v-col>
@@ -205,7 +205,7 @@
                         >
                             <v-text-field
                                     v-model="babycard.dadtel"
-                                    label="Телефон Папы"
+                                    label="Телефон папы"
                                     required
                             ></v-text-field>
 
@@ -245,7 +245,7 @@
                                     v-model="babycard.sikrange"
 
                                     :counter="10"
-                                    label="дл-ть бол-ни"
+                                    label="Длительность болезни"
                                     required
                             ></v-text-field>
                         </v-col>
@@ -268,7 +268,7 @@
                         >
                             <v-select
                                     :items="dnList"
-                                    label="Заб.н.с. (ЦНС)"
+                                    label="Заболевание (ЦНС)"
                                     v-model="zapnsdn"
                                     required
                             ></v-select>
@@ -282,7 +282,7 @@
                         >
                             <v-select
                                     :items="dnList"
-                                    label="Врожд пороки развития"
+                                    label="Врожденные пороки развития"
                                     v-model="babycard.porkdn"
                                     required
                             ></v-select>
@@ -294,7 +294,7 @@
                         >
                             <v-select
                                     :items="dnList"
-                                    label="Генет и наслед б-ни "
+                                    label="Генетические и наследственные болезни "
                                     v-model="babycard.genetnasdn"
                                     required
                             ></v-select>
@@ -332,7 +332,7 @@
                         >
                             <v-select
                                     :items="tiajestList"
-                                    label="Тяжесть б-ни"
+                                    label="Тяжесть болезни"
                                     v-model="tiajest"
                                     required
                             ></v-select>
@@ -344,7 +344,7 @@
                         >
                             <v-select
                                     :items="stadijaList"
-                                    label="Стадия б-ни"
+                                    label="Стадия болезни"
                                     v-model="stadija"
                                     required
                             ></v-select>
@@ -355,7 +355,7 @@
                         >
                             <v-select
                                     :items="dnList"
-                                    label="Заб-я ОДА"
+                                    label="Заболевания ОДА"
                                     v-model="zabjadn"
                                     required
                             ></v-select>

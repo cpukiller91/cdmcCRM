@@ -28,7 +28,7 @@
                             dark
                             @click="dialogAll = false"
                     >
-                        <v-icon>mdi-close</v-icon>
+                        <v-icon style="color: white !important;">mdi-close</v-icon>
                     </v-btn>
                     <v-toolbar-title>Карточки ребенка</v-toolbar-title>
                     <v-spacer></v-spacer>
@@ -38,7 +38,7 @@
                                 text
                                 @click.stop="resetFilter"
                         >
-                            Сбросить Фильтр
+                            <span style="color: white !important;">Сбросить Фильтр</span>
                         </v-btn>
                     </v-toolbar-items>
                 </v-toolbar>
@@ -99,7 +99,7 @@
                                     <v-text-field
 
                                             v-model="datebf"
-                                            label="Дата Рождения"
+                                            label="Дата рождения"
                                             prepend-icon="mdi-calendar"
                                             readonly
                                             v-bind="attrs"
@@ -196,7 +196,7 @@
                                         >
                                             <v-text-field
                                                     v-model="item.date"
-                                                    label="Дата Рождения"
+                                                    label="Дата рождения"
                                                     prepend-icon="mdi-calendar"
 
 
@@ -211,7 +211,7 @@
                                             <v-text-field
                                                     v-model="item.momtel"
 
-                                                    label="Телефон Мамы"
+                                                    label="Телефон мамы"
 
                                             ></v-text-field>
                                         </v-col>
@@ -326,7 +326,7 @@
                                         >
                                             <v-text-field
                                                     v-model="item.dadtel"
-                                                    label="Телефон Папы"
+                                                    label="Телефон папы"
 
                                             ></v-text-field>
 
@@ -366,7 +366,7 @@
                                                     v-model="item.sikrange"
 
                                                     :counter="10"
-                                                    label="дл-ть бол-ни"
+                                                    label="Длительность болезни"
 
                                             ></v-text-field>
                                         </v-col>
@@ -389,7 +389,7 @@
                                         >
                                             <v-select
                                                     :items="dnList"
-                                                    label="Заб.н.с. (ЦНС)"
+                                                    label="Заболевание (ЦНС)"
                                                     v-model="item.zapnsdn"
 
                                             ></v-select>
@@ -403,7 +403,7 @@
                                         >
                                             <v-select
                                                     :items="dnList"
-                                                    label="Врожд пороки развития"
+                                                    label="Врожденные пороки развития"
                                                     v-model="item.porkdn"
 
                                             ></v-select>
@@ -415,7 +415,7 @@
                                         >
                                             <v-select
                                                     :items="dnList"
-                                                    label="Генет и наслед б-ни "
+                                                    label="Генетические и наследственные болезни "
                                                     v-model="item.genetnasdn"
 
                                             ></v-select>
@@ -453,7 +453,7 @@
                                         >
                                             <v-select
                                                     :items="tiajestList"
-                                                    label="Тяжесть б-ни"
+                                                    label="Тяжесть болезни"
                                                     v-model="item.tiajest"
 
                                             ></v-select>
@@ -465,7 +465,7 @@
                                         >
                                             <v-select
                                                     :items="stadijaList"
-                                                    label="Стадия б-ни"
+                                                    label="Стадия болезни"
                                                     v-model="item.stadija"
 
                                             ></v-select>
@@ -476,7 +476,7 @@
                                         >
                                             <v-select
                                                     :items="dnList"
-                                                    label="Заб-я ОДА"
+                                                    label="Заболевания ОДА"
                                                     v-model="item.zabjadn"
 
                                             ></v-select>
@@ -619,9 +619,9 @@
 
             ],
             ServiceList:[
-                "Конс.",
+                "Консультация",
                 "Занятие",
-                "Группа"
+                "Групповое Занятие"
 
             ],
             finsrcList:[
