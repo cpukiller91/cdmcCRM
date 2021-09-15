@@ -188,10 +188,10 @@
 
         }),
         mounted(){
-            $( "#large-Modal" ).click( () => {
-                const elem = this.$refs.closeModal
-                elem.click()
-            });
+            // $( "#large-Modal" ).click( () => {
+            //     const elem = this.$refs.closeModal
+            //     elem.click()
+            // });
             // this.openModal()
             //
 
