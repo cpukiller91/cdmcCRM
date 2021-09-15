@@ -30,8 +30,10 @@
                         <!--button type="button" class="close" data-dismiss="modal" @click="closeModal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button-->
+                        <div style="float: left">
                         <button v-if="idRecord" @click="EventDelete(idRecord)" class="btn btn-danger btn-outline-danger">Удалить запись</button>
                         <button type="button" @click="closeModal" ref="closeModal" class="btn btn-default waves-effect " data-dismiss="modal">Закрыть</button>
+                        </div>
                     </div>
                     <div class="modal-body">
                         <div class="row m-b-20">
