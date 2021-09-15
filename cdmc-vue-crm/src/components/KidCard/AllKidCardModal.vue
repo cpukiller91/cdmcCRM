@@ -366,7 +366,7 @@
                                                     v-model="item.sikrange"
 
                                                     :counter="10"
-                                                    label="дл-ть бол-ни"
+                                                    label="Длительность Болезни"
 
                                             ></v-text-field>
                                         </v-col>
@@ -389,7 +389,7 @@
                                         >
                                             <v-select
                                                     :items="dnList"
-                                                    label="Заб.н.с. (ЦНС)"
+                                                    label="Заболевание (ЦНС)"
                                                     v-model="item.zapnsdn"
 
                                             ></v-select>
@@ -403,7 +403,7 @@
                                         >
                                             <v-select
                                                     :items="dnList"
-                                                    label="Врожд пороки развития"
+                                                    label="Врожденные пороки развития"
                                                     v-model="item.porkdn"
 
                                             ></v-select>
@@ -415,7 +415,7 @@
                                         >
                                             <v-select
                                                     :items="dnList"
-                                                    label="Генет и наслед б-ни "
+                                                    label="Генетические и наследственные болезни "
                                                     v-model="item.genetnasdn"
 
                                             ></v-select>
@@ -453,7 +453,7 @@
                                         >
                                             <v-select
                                                     :items="tiajestList"
-                                                    label="Тяжесть б-ни"
+                                                    label="Тяжесть болезни"
                                                     v-model="item.tiajest"
 
                                             ></v-select>
@@ -465,7 +465,7 @@
                                         >
                                             <v-select
                                                     :items="stadijaList"
-                                                    label="Стадия б-ни"
+                                                    label="Стадия болезни"
                                                     v-model="item.stadija"
 
                                             ></v-select>
@@ -476,7 +476,7 @@
                                         >
                                             <v-select
                                                     :items="dnList"
-                                                    label="Заб-я ОДА"
+                                                    label="Заболевания ОДА"
                                                     v-model="item.zabjadn"
 
                                             ></v-select>
