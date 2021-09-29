@@ -18,6 +18,7 @@
                 </v-btn>
             </template>
             <v-card>
+
                 <br/><br/><br/>
                 <v-toolbar
                         dark
@@ -36,7 +37,7 @@
                         <v-btn
 
                                 text
-                                @click.stop="saveCard"
+                                @click="saveCard"
                         >
                             <span style="color: white !important;">Сохранить</span>
                         </v-btn>
@@ -45,7 +46,80 @@
 
                 <v-divider></v-divider>
                 <v-container>
+                    <div class="row m-b-20">
+                        <div class="col-md-4">
+                            <v-select
+                                    v-model="doctorID"
+                                    :rules="requiredF"
+                                    :items="userList"
+                                    item-text="username"
+                                    item-value="id"
+                                    label="Специалист"
+                                    persistent-hint
+                                    return-object
+                                    single-line
+                            ></v-select>
+                        </div>
+                        <div class="col-md-4">
+                            <v-select
+                                    v-model="kid"
+                                    :rules="requiredF"
+                                    :items="cartList"
+                                    item-text="title"
+                                    item-value="id"
+                                    label="Ребенок"
+                                    persistent-hint
+                                    return-object
+                                    single-line
+                            ></v-select>
+                        </div>
+                        <div class="col-md-4">
+                            <v-select
+                                    v-model="typeCurent"
+                                    :rules="requiredF"
+                                    :items="typeList"
 
+                                    label="Тип приема"
+                                    persistent-hint
+                                    return-object
+                                    single-line
+                            ></v-select>
+                        </div>
+                    </div>
+
+                    <div class="row m-b-20">
+                        <div class="col-md-5">
+                            <v-date-picker v-model="EventDate" locale="ru-ru"></v-date-picker>
+                        </div>
+                        <div class="col-md-4">
+                            <v-select
+                                    v-model="EventTime"
+
+                                    :items="timeStart"
+                                    item-text="title"
+                                    item-value="id"
+                                    label="Начало"
+                                    persistent-hint
+                                    return-object
+                                    single-line
+                            ></v-select>
+                        </div>
+                        <div class="col-md-3">
+                            <v-select
+                                    v-model="durationSelectRange"
+
+                                    :items="timerDurationRange"
+                                    :rules="requiredF"
+                                    label="Длительность"
+                                    persistent-hint
+                                    return-object
+                                    single-line
+                            ></v-select>
+                        </div>
+
+
+                    </div>
+                    <v-divider></v-divider>
 
                     <v-row>
                         <v-col
@@ -54,7 +128,7 @@
                         >
                             <v-text-field
                                     v-model="kidf"
-
+                                    :rules="requiredF"
                                     label="Фамилия ребенка"
                                     required
                             ></v-text-field>
@@ -67,7 +141,7 @@
 
                             <v-text-field
                                     v-model="kidi"
-
+                                    :rules="requiredF"
                                     label="Имя ребенка"
                                     required
                             ></v-text-field>
@@ -79,6 +153,7 @@
                         >
                             <v-text-field
                                     v-model="kido"
+                                    :rules="requiredF"
                                     label="Отчество ребенка"
                                     required
                             ></v-text-field>
@@ -178,6 +253,7 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
                                             v-model="date"
+                                            :rules="requiredF"
                                             label="Дата рождения"
                                             prepend-icon="mdi-calendar"
                                             readonly
@@ -217,7 +293,7 @@
                         >
                             <v-text-field
                                     v-model="momtel"
-
+                                    :rules="requiredF"
                                     label="Телефон мамы"
                                     required
                             ></v-text-field>
@@ -512,6 +588,55 @@
 <script>
     export default {
         data: () => ({
+            requiredF:[
+                value => !!value || 'Обязательное поле.'
+            ],
+            EventDate: "",
+            EventTime: "9:00",
+            accessTab: false,
+            titleWindow: "Записать пациента",
+            idRecord:null,
+            startDATE:"",
+            typeList:[
+                "Диагностика",
+                "Консультация",
+                "Индивидуальное занятие",
+                "Групповое занятие",
+                "Консультация родителей",
+                "Прием КДЦ",
+                "Мониторинг"
+            ],
+            timerDurationRange:[30,60],
+            durationSelectRange:30,
+            timeStart:[
+                "09:00",
+                "09:30",
+                "10:00",
+                "10:30",
+                "11:00",
+                "11:30",
+                "12:00",
+                "12:30",
+                "13:00",
+                "13:30",
+                "14:00",
+                "14:30",
+                "15:00",
+                "15:30",
+                "16:00",
+                "16:30",
+                "17:00",
+                "17:30",
+                "18:00",
+                "18:30",
+                "19:00",
+            ],
+            typeCurent:"Диагностика",
+            doctorID:null,
+            kid:null,
+            timeS:null,
+
+            //------------------------------------------
 
             age:"0л0м",
             datebf:null,
@@ -682,8 +807,26 @@
             emotionalCondition: ["норма", "относительно стабильное", "нестабильное", "нарушенное подавленное ", "нарушенное возбужденное"],
 
         }),
+        computed: {
+            DROP_EVENT(){
+                return this.$store.getters.DROP_EVENT;
+            },
+            USERS_LIST_BY_KEY_ID(){
+                return this.$store.getters.USERS_LIST_BY_KEY_ID;
+            },
+            cartList(){
+                return this.$store.getters.BABYCARDS_LIST_SELECT_OPTION;
+            },
+            userList(){
+                return this.$store.getters.USERS_LIST;
+            },
+            EVENT() {
+                return this.$store.getters.EVENT;
+            }
+        },
         methods:{
             saveCard () {
+
                 var data = {
 
                     otdelenije: this.Otdelenije,
@@ -728,7 +871,16 @@
 
 
                 }
-                this.$store.dispatch("POST_AXIOS_BABYCARDS",data)
+                if(this.kidf != "" && this.kidi != "" && this.kido != ""){
+                    this.$store.dispatch("POST_AXIOS_BABYCARDS",data)
+                }else{
+                    this.kidf = null
+                    this.kidi = null
+                    this.kido = null
+                    this.date = ""
+                    //this.dialog = false
+                }
+
                 // axios.post('/babycards/', data)
                 //     .then(response => {
                 //         this.dialog=false;

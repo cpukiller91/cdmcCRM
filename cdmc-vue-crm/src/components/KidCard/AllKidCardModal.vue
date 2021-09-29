@@ -30,7 +30,7 @@
                     >
                         <v-icon style="color: white !important;">mdi-close</v-icon>
                     </v-btn>
-                    <v-toolbar-title>Карточки ребенка</v-toolbar-title>
+                    <v-toolbar-title>Карточки детей</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-toolbar-items>
                         <v-btn

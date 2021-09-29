@@ -189,7 +189,7 @@ export default{
                 let newEndDate = new Date(element.strtime).setMinutes(getEndDate+element.duration)
                 RES.push({
                     id:element.id,
-                    title: element.doctor.username ,
+                    title: element.doctor.username+" ("+element.babycard.kidf+" "+element.babycard.kidi+" "+element.babycard.kido+")" ,
                         //+ "("+element.babycard.kidf+" "+element.babycard.kidi
                         //+" "+element.babycard.kido
                     //+")" ,
