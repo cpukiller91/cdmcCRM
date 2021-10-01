@@ -91,7 +91,7 @@
                         <div class="col-md-5">
                             <v-date-picker v-model="EventDate" locale="ru-ru"></v-date-picker>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <v-select
                                     v-model="EventTime"
 
@@ -104,7 +104,17 @@
                                     single-line
                             ></v-select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
+                            <v-text-field
+                                    v-model="room"
+                                    :rules="rules"
+                                    counter
+                                    maxlength="5"
+
+                                    label="Кабинет"
+                            ></v-text-field>
+                        </div>
+                        <div class="col-md-2">
                             <v-select
                                     v-model="durationSelectRange"
 
@@ -116,8 +126,6 @@
                                     single-line
                             ></v-select>
                         </div>
-
-
                     </div>
                     <v-divider></v-divider>
 
@@ -588,6 +596,7 @@
 <script>
     export default {
         data: () => ({
+            room: null,
             requiredF:[
                 value => !!value || 'Обязательное поле.'
             ],
@@ -889,6 +898,7 @@
                 //     .catch(function (error) {
                 //         console.log(error);
                 //     })
+
                 //     .then(function () {
                 //         // always executed
                 //     });

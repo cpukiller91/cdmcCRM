@@ -81,7 +81,7 @@
                             <div class="col-md-5">
                                 <v-date-picker v-model="EventDate" locale="ru-ru"></v-date-picker>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <v-select
                                         v-model="EventTime"
 
@@ -94,7 +94,17 @@
                                         single-line
                                 ></v-select>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <v-text-field
+                                    v-model="room"
+                                    :rules="rules"
+                                    counter
+                                    maxlength="5"
+
+                                    label="Кабинет"
+                                ></v-text-field>
+                            </div>
+                            <div class="col-md-2">
                                 <v-select
                                         v-model="durationSelectRange"
 
@@ -106,8 +116,6 @@
                                         single-line
                                 ></v-select>
                             </div>
-
-
                         </div>
 
                         <tab-task-modal v-if="accessTab"></tab-task-modal>
@@ -136,6 +144,7 @@
         //     // contactsPromise: Promise // или любой другой конструктор
         // },
         data: () => ({
+            room: null,
             requiredF:[
                 value => !!value || 'Обязательное поле.'
             ],
@@ -253,6 +262,7 @@
                    this.kid = newValue.babycard
                    this.doctorID = newValue.doctor
                    this.typeCurent = newValue.typeEvent
+                   this.room = newValue.title,
                    //console.log("watch-TaskModal-EVENT",newValue,this.idRecord)
                    this.accessTab = true
                 }
@@ -305,6 +315,7 @@
                     // times:this.times,
                     strtime: this.timeS,
                     typeEvent:this.typeCurent,
+                    title:this.room,
                     //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
                     doctor:this.doctorID.id,
                     month:dayjs(this.timeS).format('MM'),
