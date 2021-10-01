@@ -60,8 +60,16 @@
                                     single-line
                             ></v-select>
                         </div>
-                        <div class="col-md-4">
-                            <v-select
+                        <div class="col-md-2">
+                            <v-text-field
+                                    v-model="room"
+                                    :rules="requiredF"
+                                    counter
+                                    maxlength="5"
+
+                                    label="Кабинет"
+                            ></v-text-field>
+                            <!--v-select
                                     v-model="kid"
                                     :rules="requiredF"
                                     :items="cartList"
@@ -71,9 +79,9 @@
                                     persistent-hint
                                     return-object
                                     single-line
-                            ></v-select>
+                            ></v-select-->
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <v-select
                                     v-model="typeCurent"
                                     :rules="requiredF"
@@ -85,13 +93,7 @@
                                     single-line
                             ></v-select>
                         </div>
-                    </div>
-
-                    <div class="row m-b-20">
-                        <div class="col-md-5">
-                            <v-date-picker v-model="EventDate" locale="ru-ru"></v-date-picker>
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <v-select
                                     v-model="EventTime"
 
@@ -105,16 +107,6 @@
                             ></v-select>
                         </div>
                         <div class="col-md-2">
-                            <v-text-field
-                                    v-model="room"
-                                    :rules="rules"
-                                    counter
-                                    maxlength="5"
-
-                                    label="Кабинет"
-                            ></v-text-field>
-                        </div>
-                        <div class="col-md-2">
                             <v-select
                                     v-model="durationSelectRange"
 
@@ -126,6 +118,18 @@
                                     single-line
                             ></v-select>
                         </div>
+                    </div>
+
+                    <div class="row m-b-20">
+                        <div class="col-md-4">
+                            <v-date-picker v-model="EventDate" locale="ru-ru"></v-date-picker>
+                        </div>
+                        <div class="col-md-8"><v-textarea
+                                label="Примечание (неявка или др.)"
+                                v-model="desc"
+                                hint="Hint text"
+                        ></v-textarea></div>
+
                     </div>
                     <v-divider></v-divider>
 
@@ -393,11 +397,7 @@
                                 cols="12"
                                 md="12"
                         >
-                            <v-textarea
-                                    label="Примечание (неявка или др.)"
-                                    v-model="desc"
-                                    hint="Hint text"
-                            ></v-textarea>
+
 
                         </v-col>
 
@@ -831,6 +831,47 @@
             },
             EVENT() {
                 return this.$store.getters.EVENT;
+            },
+            POST_STEP() {
+                return this.$store.getters.POST_STEP;
+            }
+        },
+        watch:{
+            EventTime(nv){
+                this.timeS = this.EventDate + " "+nv
+                //console.log("EventDate-T->",nv,this.timeS)
+            },
+            EventDate(nv){
+                this.timeS = nv + " "+this.EventTime
+                //console.log("EventDate-->",nv,this.timeS)
+            },
+            POST_STEP(nv){
+                var data = {
+                    //id:this.idRecord,
+                    duration:this.durationSelectRange,
+
+                    // times:this.times,
+                    strtime: this.timeS,
+                    typeEvent:this.typeCurent,
+                    title:this.room,
+                    //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
+                    doctor:this.doctorID.id,
+                    month:dayjs(this.timeS).format('MM'),
+                    dayOfMonth:dayjs(this.timeS).format('DD'),
+                    times:dayjs(this.timeS).format('YYYY'),
+                    color:this.USERS_LIST_BY_KEY_ID[this.doctorID.id].usergroup.color,
+                    babycard: nv.id,
+
+                }
+                if(nv.id!=null && this.doctorID.id!=null && this.room!=null
+                    && this.typeCurent!=null && this.EventTime!=null && this.durationSelectRange!=null){
+                    this.$store.dispatch("POST_AXIOS_EVENTS",data)
+                    // console.log("dss",
+                    //     nv,
+                    //     data
+                    // )
+                }
+
             }
         },
         methods:{
@@ -882,6 +923,7 @@
                 }
                 if(this.kidf != "" && this.kidi != "" && this.kido != ""){
                     this.$store.dispatch("POST_AXIOS_BABYCARDS",data)
+                    this.dialog = false
                 }else{
                     this.kidf = null
                     this.kidi = null
@@ -912,9 +954,14 @@
                 dateTo = new Date();
 
                 var getMonth = dateTo.getMonth() - dateFrom.getMonth() + (12 * (dateTo.getFullYear() - dateFrom.getFullYear()));
-
-                this.age = Math.floor(getMonth  / 12)+"л"+getMonth  % 12+"м" ;
-                return Math.floor(getMonth  / 12)+"л"+getMonth  % 12+"м" ;
+                var l
+                if(Math.floor(getMonth  / 12) < 4){
+                    l = "л. "
+                }else{
+                    l = "г. "
+                }
+                this.age = Math.floor(getMonth  / 12)+l+getMonth  % 12+"м" ;
+                return Math.floor(getMonth  / 12)+l+getMonth  % 12+"м" ;
             },
             resetFilter (){
                 this.kidf = null,

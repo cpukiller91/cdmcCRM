@@ -31,9 +31,12 @@ export default{
         MONTH_STATISTIC:[],
 
         STATISTIC_CHART:[],
-        STATISTIC_CHART_TABLE:[]
+        STATISTIC_CHART_TABLE:[],
+
+
     },
     mutations: {
+
         STATISTIC_CHART_TABLE(state, payload){
             state.STATISTIC_CHART_TABLE = payload
         },
@@ -299,12 +302,13 @@ export default{
             //context.state.url+filter.id
             var data = await context.dispatch("URL_CONSTRUCT_EVENTS",filter)
 
-            //console.log("POST_AXIOS_EVENTS_STORE",filter,data)
+            //console.log("POST_AXIOS_EVENTS_STEP___++++",data)
             let eventlists =  await Axios.post(data.url,data.data);
             //console.log("POST_AXIOS_EVENTS_STORE-->",eventlists.data)
             context.dispatch("GET_AXIOS_EVENTS")
-            //context.commit('EVENT_LIST', eventlists.data);
+
         },
+
         PUT_AXIOS_EVENTS: async (context, filter) => {
             //context.state.url+filter.id
             var data = await context.dispatch("URL_CONSTRUCT_EVENTS",filter)
@@ -452,6 +456,6 @@ export default{
         },
         FREE_USERS_LIST: state => {
             return state.FREE_USERS_LIST;
-        },
+        }
     }
 }

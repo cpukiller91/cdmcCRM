@@ -21,9 +21,13 @@ export default{
         url: '/babycards/',
         BABYCARDS_LIST_FILTER:[],
         BABYCARDS_LIST:[],
-        BABYCARD:[]
+        BABYCARD:[],
+        POST_STEP:[]
     },
     mutations: {
+        POST_STEP(state, payload){
+            state.POST_STEP = payload
+        },
         BABYCARDS_LIST_FILTER(state, payload){
             state.BABYCARDS_LIST_FILTER = payload
         },
@@ -99,10 +103,11 @@ export default{
             //context.state.url+filter.id
             var data = await context.dispatch("URL_CONSTRUCT_BABYCARDS",filter)
 
-            console.log("POST_AXIOS_BABYCARDS_STORE",filter,data)
+            //console.log("POST_AXIOS_BABYCARDS_STORE",filter,data)
             let eventlists =  await Axios.post(data.url,data.data);
-            console.log("POST_AXIOS_BABYCARDS_STORE-->",eventlists.data)
+            console.log("POST_STEP+++-->",eventlists.data)
             context.dispatch("GET_AXIOS_BABYCARDS")
+            context.commit('POST_STEP', eventlists.data);
             //context.commit('BABYCARDS_LIST', eventlists.data);
         },
         PUT_AXIOS_BABYCARDS: async (context, filter) => {
@@ -129,6 +134,10 @@ export default{
         }
     },
     getters: {
+
+        POST_STEP: state => {
+            return state.POST_STEP;
+        },
         BABYCARDS_LIST_FILTER: state => {
             return state.BABYCARDS_LIST_FILTER;
         },

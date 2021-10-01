@@ -97,7 +97,7 @@
                             <div class="col-md-2">
                                 <v-text-field
                                     v-model="room"
-                                    :rules="rules"
+                                    :rules="requiredF"
                                     counter
                                     maxlength="5"
 
