@@ -135,13 +135,17 @@
 
 
                     <template>
-                        <v-expansion-panels>
+                        <v-expansion-panels
+                                v-model="panelBabycardsList"
+                                multiple
+                        >
                             <v-expansion-panel
+
                                     v-for="(item,i) in babycardsList"
                                     :key="i"
                             >
                                 <v-expansion-panel-header>
-                                    {{item.kidf}} {{item.kidi}} {{item.kido}} - количество записей ( {{item.count>1?item.count:"-!-"}} )
+                                    {{item.kidf}} {{item.kidi}} {{item.kido}} - количество записей ( {{item.count>1?item.count:"--!!--"}} )
 
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
@@ -603,6 +607,7 @@
 <script>
     export default {
         data: () => ({
+            panelBabycardsList:[],
             eventNew:true,
             room: null,
             requiredF:[
@@ -911,6 +916,7 @@
                     this.kido = null,
                     this.datebf = null
                 this.findCard();
+                this.panelBabycardsList = []
             },
             findCard () {
                 var data = {
@@ -922,6 +928,8 @@
                 }
 
                 this.$store.dispatch("GET_AXIOS_BABYCARDS_LIST_FILTER",data)
+                this.panelBabycardsList = []
+
 
             },
         }
