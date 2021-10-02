@@ -78,7 +78,18 @@ export default{
             //console.log("GET_AXIOS_BABYCARDS_LIST_FILTER--===",data)
             let eventlists =  await Axios.get(data.url,{params:data.data});
             console.log("GET_AXIOS_BABYCARDS_LIST_FILTER----",eventlists.data)
-            context.commit('BABYCARDS_LIST_FILTER', eventlists.data);
+            var dataRES = []
+            eventlists.data.forEach(async element => {
+                //element.push({count:0})
+                let count = await Axios.get('/eventlists/count?babycard.id='+element.id);
+                element.count = count.data
+
+                dataRES.push(element)
+
+
+            })
+            console.log("BABYCARDS_LIST_FILTER",dataRES)
+            context.commit('BABYCARDS_LIST_FILTER', dataRES);
         },
         GET_AXIOS_BABYCARD: async (context, filter) => {
             //context.state.url+filter.id
@@ -140,17 +151,7 @@ export default{
             return state.POST_STEP;
         },
         BABYCARDS_LIST_FILTER: state => {
-            var data = []
-            state.BABYCARDS_LIST_FILTER.forEach(async element => {
-                //element.push({count:0})
-                let count = await Axios.get('/eventlists/count?babycard.id='+element.id);
-                element.count = count.data
 
-                data.push(element)
-
-
-            })
-            console.log("BABYCARDS_LIST_FILTER",data)
             //return data;
             return state.BABYCARDS_LIST_FILTER;
         },
