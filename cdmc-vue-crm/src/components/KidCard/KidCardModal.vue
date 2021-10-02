@@ -961,8 +961,8 @@
                 }else{
                     l = "л. "
                 }
-                this.age = Math.floor(getMonth  / 12)+l+getMonth  % 12+"м" ;
-                return Math.floor(getMonth  / 12)+l+getMonth  % 12+"м" ;
+                this.age = Math.floor(getMonth  / 12)+l+getMonth  % 12+"м." ;
+                return Math.floor(getMonth  / 12)+l+getMonth  % 12+"м." ;
             },
             resetFilter (){
                 this.kidf = null,
