@@ -141,7 +141,9 @@
                                     :key="i"
                             >
                                 <v-expansion-panel-header>
-                                    {{item.kidf}} {{item.kidi}} {{item.kido}} - количество записей ({{item.count}})
+                                    {{item.kidf}} {{item.kidi}} {{item.kido}} -
+
+                                    количество записей ({{item.count == 0?"---":item.count}})
 
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
