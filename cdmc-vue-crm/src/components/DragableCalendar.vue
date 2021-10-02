@@ -1,19 +1,19 @@
 <template>
     <div style="padding: 10px" class="row m-b-20">
-        <div class="col col-md-9">
+        <div class="col col-md-11">
             <FullCalendar :options="calendarOptions"/>
 
         </div>
-        <div class="col-6 col-md-3">
+        <div class="col-6 col-md-1">
             <div class="panel panel-warning">
                 <div class="panel-heading bg-warning">
-                    <div style="background-color: #2c3e50;padding: 5px">Список пользователей</div>
+                    <div style="background-color: #2c3e50;padding: 5px">Список</div>
 
                 </div>
                 <div class="panel-body">
                     <div id='external-events-listing'>
                         <ul>
-                            <li :style="'background-color: '+ doctor.usergroup.color +'!important;'" v-for="doctor in USERS_LIST" :key="doctor.id" class='fc-event  doctor'
+                            <li :style="'background-color: '+ doctor.usergroup.color +'!important;color:black'" v-for="doctor in USERS_LIST" :key="doctor.id" class='fc-event  doctor'
                                 :doctorID='doctor.id'
                                 :color='doctor.usergroup.color'>{{doctor.username}}</li>
 
