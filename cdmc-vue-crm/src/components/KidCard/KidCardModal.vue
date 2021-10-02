@@ -957,9 +957,9 @@
                 var getMonth = dateTo.getMonth() - dateFrom.getMonth() + (12 * (dateTo.getFullYear() - dateFrom.getFullYear()));
                 var l
                 if(Math.floor(getMonth  / 12) < 4){
-                    l = "л. "
-                }else{
                     l = "г. "
+                }else{
+                    l = "л. "
                 }
                 this.age = Math.floor(getMonth  / 12)+l+getMonth  % 12+"м" ;
                 return Math.floor(getMonth  / 12)+l+getMonth  % 12+"м" ;
