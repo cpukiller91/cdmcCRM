@@ -165,7 +165,6 @@
                         >
                             <v-text-field
                                     v-model="kido"
-                                    :rules="requiredF"
                                     label="Отчество ребенка"
                                     required
                             ></v-text-field>
@@ -923,7 +922,7 @@
 
 
                 }
-                if(this.kidf != "" && this.kidi != "" && this.kido != ""){
+                if(this.kidf != "" && this.kidi != ""){
                     this.$store.dispatch("POST_AXIOS_BABYCARDS",data)
                     this.dialog = false
                 }else{
