@@ -149,6 +149,93 @@
                                         <i class="icofont icofont-info-square"></i>Сохранить</button>
                                     <button class="btn btn-info btn-outline-danger" @click="dropCart(item.id)">
                                         <i class="icofont icofont-info-square"></i>Удалить</button>
+                                    <div class="row m-b-20">
+                                        <div class="col-md-4">
+                                            <v-select
+                                                    v-model="doctorID"
+                                                    :rules="requiredF"
+                                                    :items="userList"
+                                                    item-text="username"
+                                                    item-value="id"
+                                                    label="Специалист"
+                                                    persistent-hint
+                                                    return-object
+                                                    single-line
+                                            ></v-select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <v-text-field
+                                                    v-model="room"
+                                                    :rules="requiredF"
+                                                    counter
+                                                    maxlength="5"
+
+                                                    label="Кабинет"
+                                            ></v-text-field>
+                                            <!--v-select
+                                                    v-model="kid"
+                                                    :rules="requiredF"
+                                                    :items="cartList"
+                                                    item-text="title"
+                                                    item-value="id"
+                                                    label="Ребенок"
+                                                    persistent-hint
+                                                    return-object
+                                                    single-line
+                                            ></v-select-->
+                                        </div>
+                                        <div class="col-md-2">
+                                            <v-select
+                                                    v-model="typeCurent"
+                                                    :rules="requiredF"
+                                                    :items="typeList"
+
+                                                    label="Тип приема"
+                                                    persistent-hint
+                                                    return-object
+                                                    single-line
+                                            ></v-select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <v-select
+                                                    v-model="EventTime"
+
+                                                    :items="timeStart"
+                                                    item-text="title"
+                                                    item-value="id"
+                                                    label="Начало"
+                                                    persistent-hint
+                                                    return-object
+                                                    single-line
+                                            ></v-select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <v-select
+                                                    v-model="durationSelectRange"
+
+                                                    :items="timerDurationRange"
+                                                    :rules="requiredF"
+                                                    label="Длительность"
+                                                    persistent-hint
+                                                    return-object
+                                                    single-line
+                                            ></v-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row m-b-20">
+                                        <div class="col-md-4">
+                                            <v-date-picker v-model="EventDate" locale="ru-ru"></v-date-picker>
+                                        </div>
+                                        <!--div class="col-md-8"><v-textarea
+                                                label="Примечание (неявка или др.)"
+                                                v-model="desc"
+                                                hint="Hint text"
+                                        ></v-textarea></div-->
+
+                                    </div>
+                                    <v-divider></v-divider>
+
                                     <v-row>
                                         <v-col
                                                 cols="12"

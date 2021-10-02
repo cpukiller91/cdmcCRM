@@ -46,7 +46,7 @@
 
                 <v-divider></v-divider>
                 <v-container>
-                    <div class="row m-b-20">
+                    <div class="row m-b-20" v-if="eventNew">
                         <div class="col-md-4">
                             <v-select
                                     v-model="doctorID"
@@ -120,7 +120,7 @@
                         </div>
                     </div>
 
-                    <div class="row m-b-20">
+                    <div class="row m-b-20" v-if="eventNew">
                         <div class="col-md-4">
                             <v-date-picker v-model="EventDate" locale="ru-ru"></v-date-picker>
                         </div>
@@ -131,7 +131,7 @@
                         ></v-textarea></div>
 
                     </div>
-                    <v-divider></v-divider>
+                    <v-divider v-if="eventNew"></v-divider>
 
                     <v-row>
                         <v-col
@@ -596,6 +596,7 @@
 <script>
     export default {
         data: () => ({
+            eventNew:false,
             room: null,
             requiredF:[
                 value => !!value || 'Обязательное поле.'
