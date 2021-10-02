@@ -845,35 +845,35 @@
                 this.timeS = nv + " "+this.EventTime
                 //console.log("EventDate-->",nv,this.timeS)
             },
-            POST_STEP(nv){
-
-                if(nv != null && this.doctorID.id!=null && this.room!=null
-                    && this.typeCurent!=null && this.EventTime!=null && this.durationSelectRange!=null){
-                    var data = {
-                        //id:this.idRecord,
-                        duration:this.durationSelectRange,
-
-                        // times:this.times,
-                        strtime: this.timeS,
-                        typeEvent:this.typeCurent,
-                        title:this.room,
-                        //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
-                        doctor:this.doctorID.id,
-                        month:dayjs(this.timeS).format('MM'),
-                        dayOfMonth:dayjs(this.timeS).format('DD'),
-                        times:dayjs(this.timeS).format('YYYY'),
-                        color:this.USERS_LIST_BY_KEY_ID[this.doctorID.id].usergroup.color,
-                        babycard: nv.id,
-
-                    }
-                    this.$store.dispatch("POST_AXIOS_EVENTS",data)
-                    // console.log("dss",
-                    //     nv,
-                    //     data
-                    // )
-                }
-
-            }
+            // POST_STEP(nv){
+            //
+            //     if(nv != null && this.doctorID.id!=null && this.room!=null
+            //         && this.typeCurent!=null && this.EventTime!=null && this.durationSelectRange!=null){
+            //         var data = {
+            //             //id:this.idRecord,
+            //             duration:this.durationSelectRange,
+            //
+            //             // times:this.times,
+            //             strtime: this.timeS,
+            //             typeEvent:this.typeCurent,
+            //             title:this.room,
+            //             //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
+            //             doctor:this.doctorID.id,
+            //             month:dayjs(this.timeS).format('MM'),
+            //             dayOfMonth:dayjs(this.timeS).format('DD'),
+            //             times:dayjs(this.timeS).format('YYYY'),
+            //             color:this.USERS_LIST_BY_KEY_ID[this.doctorID.id].usergroup.color,
+            //             babycard: nv.id,
+            //
+            //         }
+            //         this.$store.dispatch("POST_AXIOS_EVENTS",data)
+            //         // console.log("dss",
+            //         //     nv,
+            //         //     data
+            //         // )
+            //     }
+            //
+            // }
         },
         methods:{
             saveCard () {

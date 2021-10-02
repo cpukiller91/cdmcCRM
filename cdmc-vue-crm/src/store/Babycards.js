@@ -105,9 +105,9 @@ export default{
 
             //console.log("POST_AXIOS_BABYCARDS_STORE",filter,data)
             let eventlists =  await Axios.post(data.url,data.data);
-            console.log("POST_STEP+++-->",eventlists.data)
+            //console.log("POST_STEP+++-->",eventlists.data)
             context.dispatch("GET_AXIOS_BABYCARDS")
-            context.commit('POST_STEP', eventlists.data);
+            //context.commit('POST_STEP', eventlists.data);
             //context.commit('BABYCARDS_LIST', eventlists.data);
         },
         PUT_AXIOS_BABYCARDS: async (context, filter) => {
@@ -119,6 +119,7 @@ export default{
             console.log("PUT_AXIOS_BABYCARDS_STORE",eventlists)
             //context.commit('BABYCARDS_LIST', eventlists.data);
             context.dispatch("GET_AXIOS_BABYCARDS")
+            context.commit('POST_STEP', eventlists.data);
         },
         DELETE_AXIOS_BABYCARDS: async (context, filter) => {
             //context.state.url+filter.id

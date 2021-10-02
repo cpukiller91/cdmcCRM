@@ -141,7 +141,7 @@
                                     :key="i"
                             >
                                 <v-expansion-panel-header>
-                                    {{item.kidf}} {{item.kidi}} {{item.kido}} количество записей (0- 10000000)
+                                    {{item.kidf}} {{item.kidi}} {{item.kido}} - количество записей ({{i}})
 
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
@@ -149,7 +149,8 @@
                                         <i class="icofont icofont-info-square"></i>Сохранить</button>
                                     <button class="btn btn-info btn-outline-danger" @click="dropCart(item.id)">
                                         <i class="icofont icofont-info-square"></i>Удалить</button>
-                                    <div class="row m-b-20">
+
+                                    <div class="row m-b-20" v-if="eventNew">
                                         <div class="col-md-4">
                                             <v-select
                                                     v-model="doctorID"
@@ -223,7 +224,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row m-b-20">
+                                    <div class="row m-b-20" v-if="eventNew">
                                         <div class="col-md-4">
                                             <v-date-picker v-model="EventDate" locale="ru-ru"></v-date-picker>
                                         </div>
@@ -602,7 +603,57 @@
 <script>
     export default {
         data: () => ({
+            eventNew:true,
+            room: null,
+            requiredF:[
+                value => !!value || 'Обязательное поле.'
+            ],
+            EventDate: "",
+            EventTime: "9:00",
+            accessTab: false,
+            titleWindow: "Записать пациента",
+            idRecord:null,
+            startDATE:"",
+            typeList:[
+                "Диагностика",
+                "Консультация",
+                "Индивидуальное занятие",
+                "Групповое занятие",
+                "Консультация родителей",
+                "Прием КДЦ",
+                "Мониторинг"
+            ],
+            timerDurationRange:[30,60],
+            durationSelectRange:30,
+            timeStart:[
+                "09:00",
+                "09:30",
+                "10:00",
+                "10:30",
+                "11:00",
+                "11:30",
+                "12:00",
+                "12:30",
+                "13:00",
+                "13:30",
+                "14:00",
+                "14:30",
+                "15:00",
+                "15:30",
+                "16:00",
+                "16:30",
+                "17:00",
+                "17:30",
+                "18:00",
+                "18:30",
+                "19:00",
+            ],
+            typeCurent:"Диагностика",
+            doctorID:null,
+            kid:null,
+            timeS:null,
 
+            //------------------------------------------
             age:"0л0м",
             datebf:null,
             menubf:null,
@@ -773,14 +824,60 @@
 
         }),
         computed: {
-
+            USERS_LIST_BY_KEY_ID(){
+                return this.$store.getters.USERS_LIST_BY_KEY_ID;
+            },
+            cartList(){
+                return this.$store.getters.BABYCARDS_LIST_SELECT_OPTION;
+            },
+            userList(){
+                return this.$store.getters.USERS_LIST;
+            },
+            POST_STEP() {
+                return this.$store.getters.POST_STEP;
+            },
             babycardsList(){
                 return this.$store.getters.BABYCARDS_LIST_FILTER;
             }
         },
         watch:{
-            babycardsList(vn,vo){
-                console.log("babycardsList",vn)
+            EventTime(nv){
+                this.timeS = this.EventDate + " "+nv
+                //console.log("EventDate-T->",nv,this.timeS)
+            },
+            EventDate(nv){
+                this.timeS = nv + " "+this.EventTime
+                //console.log("EventDate-->",nv,this.timeS)
+            },
+            POST_STEP(nv){
+                console.log("POST_STEP",nv)
+                if(nv != null && this.doctorID.id!=null && this.room!=null
+                    && this.typeCurent!=null && this.EventTime!=null && this.durationSelectRange!=null){
+
+                    var data = {
+                        //id:this.idRecord,
+                        duration:this.durationSelectRange,
+
+                        // times:this.times,
+                        strtime: this.timeS,
+                        typeEvent:this.typeCurent,
+                        title:this.room,
+                        //title:this.userList[dodID].username + " ("+this.cartList[kidID].title+")",
+                        doctor:this.doctorID.id,
+                        month:dayjs(this.timeS).format('MM'),
+                        dayOfMonth:dayjs(this.timeS).format('DD'),
+                        times:dayjs(this.timeS).format('YYYY'),
+                        color:this.USERS_LIST_BY_KEY_ID[this.doctorID.id].usergroup.color,
+                        babycard: nv.id,
+
+                    }
+                    this.$store.dispatch("POST_AXIOS_EVENTS",data)
+                    console.log("dss",
+                        nv,
+                        data
+                    )
+                }
+
             }
         },
         methods:{
@@ -799,8 +896,14 @@
 
                 var getMonth = dateTo.getMonth() - dateFrom.getMonth() + (12 * (dateTo.getFullYear() - dateFrom.getFullYear()));
 
-                this.age = Math.floor(getMonth  / 12)+"л"+getMonth  % 12+"м" ;
-                return Math.floor(getMonth  / 12)+"л"+getMonth  % 12+"м" ;
+                var l
+                if(Math.floor(getMonth  / 12) < 4){
+                    l = "г. "
+                }else{
+                    l = "л. "
+                }
+                this.age = Math.floor(getMonth  / 12)+l+getMonth  % 12+"м." ;
+                return Math.floor(getMonth  / 12)+l+getMonth  % 12+"м." ;
             },
             resetFilter (){
                 this.kidf = null,

@@ -304,7 +304,7 @@ export default{
 
             //console.log("POST_AXIOS_EVENTS_STEP___++++",data)
             let eventlists =  await Axios.post(data.url,data.data);
-            //console.log("POST_AXIOS_EVENTS_STORE-->",eventlists.data)
+            console.log("++++++POST_AXIOS_EVENTS_STORE-->",eventlists.data)
             context.dispatch("GET_AXIOS_EVENTS")
 
         },
