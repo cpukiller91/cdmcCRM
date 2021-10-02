@@ -889,9 +889,11 @@
             dropCart(id){
                 this.$store.dispatch("DELETE_AXIOS_BABYCARDS",{id:id })
                 console.log("dropCart",id)
+                this.panelBabycardsList = []
             },
             editCart(item){
                 this.$store.dispatch("PUT_AXIOS_BABYCARDS",item)
+                this.panelBabycardsList = []
                 console.log("editCart",item)
             },
             monthDiff(dateFrom, dateTo) {
