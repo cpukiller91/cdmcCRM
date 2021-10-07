@@ -259,8 +259,8 @@
       GET_GUNT_TASK_PROJECT_LIST(nv){
         console.log("TASK-->GET_GUNT_TASK_PROJECT_LIST",nv)
       },
-      TASK_BOARDS_LIST(){
-
+      TASK_BOARDS_LIST(nv){
+        console.log("TASK_BOARDS_LIST-->",nv)
       },
       TASK(nv){
         //console.log("TASK-->",nv)

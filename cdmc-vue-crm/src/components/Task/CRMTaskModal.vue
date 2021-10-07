@@ -424,6 +424,7 @@
 
 </template>
 <script>
+
     import axios from "axios"
     export default {
         data: () => ({
@@ -453,9 +454,9 @@
             startDate:"2021-08-24",
             durationTask:1,
             status:"",
-            statusList:["Открытый","Закрытый","Новый","В работе"],
+            statusList:["Открытый","Закрытый","В работе"],
 
-            priorityList:["Высший","Высокий","Нормальный","Низкий"],
+            priorityList:["Высший","Высокий","Нормальный"],
             priority:"",
 
             dateEndTask:"",
@@ -573,6 +574,7 @@
                 this.descriptionProject = nv.description
                 this.duration = nv.duration,
                 this.dateStartProject = dayjs(nv.startProject).format('YYYY-MM-DD'),
+
                 //this.$refs.menuStartProject.save(dayjs(nv.dateStartProject).format('YYYY-MM-DD'))
                 // this.PROJECT.startProject = dayjs(nv.startProject).format('YYYY-MM-DD')
                 // this.PROJECT.endProject = dayjs(nv.endProject).format('YYYY-MM-DD')
@@ -736,26 +738,29 @@
                 this.curentProject = ''
                 this.duration = 1,
                 this.dateStartProject = '',
+                this.titleProject = '',
+                this.descriptionProject = '',
+                this.bossProject = '',
                 this.dates[0] = dayjs(curent_date).format('YYYY-MM-DD')
                 this.dates[1] = dayjs(curent_date).format('YYYY-MM-DD')
             },
             saveProject(){
-                this.PROJECT.startProject = this.dates[0]
-                this.PROJECT.endProject = this.dates[1]
+                // this.PROJECT.startProject = this.dates[0]
+                // this.PROJECT.endProject = this.dates[1]
 
                 var data = {
-                    boss:this.PROJECT.boss,
+                    boss:this.bossProject,
 
                     //this.boss,
-                    id:this.PROJECT.id,
-                    title:this.PROJECT.title,
-                    description: this.PROJECT.description,
+                    id:this.curentProject,
+                    title:this.titleProject,
+                    description: this.descriptionProject,
                     duration: this.duration,
                     startProject: this.dateStartProject,
                     //endProject: this.PROJECT.endProject
                 }
-
-                if(this.PROJECT.id == null){
+                console.log("---->>--",data)
+                if(this.curentProject == null){
                     this.$store.dispatch("POST_AXIOS_PROJECT",data)
 
                 }else{
@@ -765,7 +770,7 @@
 
             },
             removeProject(){
-                this.$store.dispatch("DELETE_AXIOS_PROJECT",{id:this.PROJECT.id})
+                this.$store.dispatch("DELETE_AXIOS_PROJECT",{id:this.curentProject})
                 this.resetNew()
             },
             createElement(src){
