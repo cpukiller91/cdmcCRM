@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="92.53.104.150" id="b4473c18-f59d-4a6a-8942-b43437b89445" port="22" customName="CDMC" nameFormat="CUSTOM">
+        <option name="customName" value="CDMC" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>
