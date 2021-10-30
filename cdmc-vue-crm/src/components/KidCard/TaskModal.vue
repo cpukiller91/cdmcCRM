@@ -277,11 +277,13 @@
                 //console.log("EventDelete",id)
             },
             closeModal(){
+                var curent_date = new Date();
                 this.idRecord = null;
                 this.durationSelectRange = null;
-                this.timeS = null;
+                this.EventDate = dayjs(curent_date).format('YYYY-MM-DD');
+                this.EventTime = "9:00";
                 this.typeCurent = null;
-
+                this.room = ""
                 this.doctorID = null;
                 this.kid = null;
                 this.accessTab = false
@@ -299,7 +301,7 @@
 
 
             },
-            saveTask(){
+          async saveTask(){
 
                 var dodID,kidID
                 //console.log(this.idRecord)
@@ -328,13 +330,29 @@
                 //console.log("Log<<<<<<<<<<<----------------_>>>>>>>",data)
                 //return false;
 
-                if(this.idRecord == null){
-                    //console.log("new",data)
-                    this.$store.dispatch("POST_AXIOS_EVENTS",data)
-                }else{
+                var validator = await this.$store.dispatch("GET_AXIOS_EVENTS_VALIDATOR",{
+                  params:{
+                    doctor:this.doctorID.id,
+                    month:dayjs(this.timeS).format('MM'),
+                    dayOfMonth:dayjs(this.timeS).format('DD'),
+                    times:dayjs(this.timeS).format('YYYY'),
+                    strtime: this.timeS
+                  }
+                })
+                console.log("Log",validator)
+
+                  if(this.idRecord == null){
+                    if(validator == 0){
+                      this.$store.dispatch("POST_AXIOS_EVENTS",data)
+                    }else{
+                      alert("Для ("+this.USERS_LIST_BY_KEY_ID[this.doctorID.id].username+") уже есть запись")
+                      this.closeModal()
+                    }
+                  }else{
                     //console.log("edit",data)
                     this.$store.dispatch("PUT_AXIOS_EVENTS",data)
-                }
+                  }
+
 
 
                 const elem = this.$refs.closeModal

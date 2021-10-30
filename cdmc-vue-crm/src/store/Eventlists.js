@@ -33,9 +33,15 @@ export default{
         STATISTIC_CHART:[],
         STATISTIC_CHART_TABLE:[],
 
+        isLockedEvent:false
+
 
     },
     mutations: {
+
+        isLockedEvent(state, payload){
+            state.isLockedEvent = payload
+        },
 
         STATISTIC_CHART_TABLE(state, payload){
             state.STATISTIC_CHART_TABLE = payload
@@ -298,6 +304,12 @@ export default{
             context.dispatch("GET_FULLCALENDAR")
 
         },
+
+        GET_AXIOS_EVENTS_VALIDATOR: async (context, filter) => {
+            let eventlists = await Axios.get('/eventlists/count',filter);
+            return eventlists.data;
+        },
+
         POST_AXIOS_EVENTS: async (context, filter) => {
             //context.state.url+filter.id
             var data = await context.dispatch("URL_CONSTRUCT_EVENTS",filter)
