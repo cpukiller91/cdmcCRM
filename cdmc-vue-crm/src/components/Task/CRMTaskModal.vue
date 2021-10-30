@@ -451,7 +451,7 @@
 
             duration:1,
             commentTask:"",
-            startDate:"2021-08-24",
+
             durationTask:1,
             status:"",
             statusList:["Открытый","Закрытый","В работе"],
@@ -489,6 +489,9 @@
             // ]
         }),
         watch:{
+            StartDate(nv){
+              console.log("-----!StartDate",nv)
+            },
             otvetstvennij(nv){
                 console.log("-----!otvetstvennij___",nv)
             },
@@ -548,7 +551,7 @@
 
                 //this.dateEndTask = dayjs(nv.dateEndTask).format('YYYY-MM-DD'),
                 this.durationTask = nv.duration,
-                this.startDate = dayjs(nv.startDate).format('YYYY-MM-DD')
+                this.StartDate = dayjs(nv.StartDate).format('YYYY-MM-DD')
 
                 this.TaskID = nv.id
                 this.commentAccess = true
@@ -707,7 +710,7 @@
                     Priority: this.priority,
                     //
                     duration: this.durationTask,
-                    startDate: this.startDate
+                    startDate: this.StartDate
                 }
                 if(this.TaskID == null){
                     this.$store.dispatch("POST_AXIOS_BOARDS",data)
