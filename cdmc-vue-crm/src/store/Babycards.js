@@ -77,7 +77,7 @@ export default{
 
             //console.log("GET_AXIOS_BABYCARDS_LIST_FILTER--===",data)
             let eventlists =  await Axios.get(data.url,{params:data.data});
-            console.log("GET_AXIOS_BABYCARDS_LIST_FILTER----",eventlists.data)
+            //console.log("GET_AXIOS_BABYCARDS_LIST_FILTER----",eventlists.data)
             var dataRES = []
             eventlists.data.forEach(async element => {
                 //element.push({count:0})
@@ -108,6 +108,18 @@ export default{
             //console.log("GET_AXIOS_BABYCARDS_STORE",filter,typeof filter)
             let eventlists =  await Axios.get(data.url,data.data);
             console.log("GET_AXIOS_BABYCARDS_STORE",eventlists.data)
+            var sort = eventlists.data.sort(function(a, b){
+                var nameA=a.kidf.toLowerCase(), nameB=b.kidf.toLowerCase();
+                if (nameA < nameB) //sort string ascending
+                    return -1;
+                if (nameA > nameB)
+                    //console.log("GET_alphabetically_STORE",nameA,nameB)
+                    return 1;
+                return 0; //default return value (no sorting)
+            });
+            // sort.forEach(element => {
+            //     console.log(element)
+            // });
             context.commit('BABYCARDS_LIST', eventlists.data);
         },
         POST_AXIOS_BABYCARDS: async (context, filter) => {

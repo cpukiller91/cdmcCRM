@@ -188,7 +188,7 @@ export default{
 
         GET_FULLCALENDAR: async (context, data) => {
             var RES = []
-            let eventlists =  await Axios.get('/eventlists');
+            let eventlists =  await Axios.get('/eventlists?_limit=2000');
             console.log("GET_FULLCALENDAR",eventlists)
 
             eventlists.data.forEach(element => {

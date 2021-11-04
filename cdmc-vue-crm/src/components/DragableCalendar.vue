@@ -170,7 +170,7 @@
                     eventRemove: (info) =>{
                         console.log("eventRemove",info)
                     },
-                    weekends:false,
+                    weekends:true,
 
                     nowIndicator:true,
                     scrollTime:"09:00:00",

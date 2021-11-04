@@ -117,10 +117,22 @@ export default{
             var data = await context.dispatch("URL_CONSTRUCT_USERS",filter,true)
 
             //console.log("GET_US",filter)
-            let eventlists =  await Axios.get(data.url,data.data);
+            let eventlists =  await Axios.get(data.url+"",data.data);
 
-            //console.log("GET_AXIOS_USERS_STORE",eventlists.data)
-            context.commit('USERS_LIST', eventlists.data);
+            var sort = eventlists.data.sort(function(a, b){
+                var nameA=a.username.toLowerCase(), nameB=b.username.toLowerCase();
+                if (nameA < nameB) //sort string ascending
+                    return -1;
+                if (nameA > nameB)
+                    //console.log("GET_alphabetically_STORE",nameA,nameB)
+                    return 1;
+                return 0; //default return value (no sorting)
+            });
+            // sort.forEach(element => {
+            //     console.log(element)
+            // });
+            //console.log("GET_alphabetically_STORE",sort)
+            context.commit('USERS_LIST', sort);
             context.dispatch("GET_USERS_LIST_BY_KEY_ID")
         },
         POST_AXIOS_USERS: async (context, filter) => {
