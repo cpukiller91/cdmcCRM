@@ -93,6 +93,11 @@
                                         return-object
                                         single-line
                                 ></v-select>
+                              <v-textarea
+                                  rows="10"
+                                  v-model="groupUser"
+                                  label="Групповая запись"
+                              ></v-textarea>
                             </div>
                             <div class="col-md-2">
                                 <v-text-field
@@ -144,6 +149,8 @@
         //     // contactsPromise: Promise // или любой другой конструктор
         // },
         data: () => ({
+            groupUser:"",
+
             room: null,
             requiredF:[
                 value => !!value || 'Обязательное поле.'
@@ -265,6 +272,7 @@
                    this.room = newValue.title,
                    //console.log("watch-TaskModal-EVENT",newValue,this.idRecord)
                    this.accessTab = true
+                  this.groupUser = newValue.groupUser
                 }
 
             }
@@ -287,6 +295,7 @@
                 this.doctorID = null;
                 this.kid = null;
                 this.accessTab = false
+                this.groupUser = ""
                 //this.$store.dispatch("OPEN_EVENT_MODAL",false)
 
             },
@@ -315,6 +324,7 @@
                     duration:this.durationSelectRange,
 
                     // times:this.times,
+                    groupUser:this.groupUser,
                     strtime: this.timeS,
                     typeEvent:this.typeCurent,
                     title:this.room,
@@ -327,7 +337,7 @@
                     babycard:this.kid.id,
 
                 }
-                //console.log("Log<<<<<<<<<<<----------------_>>>>>>>",data)
+                console.log("Log<<<<<<<<<<<----------------_>>>>>>>",data)
                 //return false;
 
                 var validator = await this.$store.dispatch("GET_AXIOS_EVENTS_VALIDATOR",{
