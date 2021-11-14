@@ -5,7 +5,7 @@
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#babycart" role="tab">Карточка</a>
             </li>
-            <li class="nav-item">
+            <!--li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#defectolog" role="tab">Дефектолог</a>
             </li>
             <li class="nav-item">
@@ -16,7 +16,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#fam-psiholog" role="tab">Семейный Психолог</a>
-            </li>
+            </li-->
         </ul>
         <!-- Tab panes -->
         <div class="tab-content tabs card-block">
