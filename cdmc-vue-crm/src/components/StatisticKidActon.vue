@@ -150,7 +150,7 @@
             <div id="chart-user-statistic" ></div>
 
             <div id="printMe" v-if="isTable">
-                <h4>{{USERS_LIST[USERS-1].username}}</h4>
+                <h4>{{TitleTable}}</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -374,13 +374,16 @@
             },
             USERS(USERS){
                 //this.buildStatistik()
+                this.currentUserId = USERS
                 var params = {
                     "strtime_gte":this.startFilter,
                     "strtime_lte":this.endFilter,
                     "doctor_id":USERS
                 }
                 this.$store.dispatch("GET_AXIOS_STATISTIC_CHART", params)
-                //console.log("--->>",USERS, this.duration)
+                var titleUSER = this.USERS_LIST.filter(this.filterByID)
+                this.TitleTable = titleUSER[0].username
+                console.log("--->>",USERS,titleUSER[0].username)
 
 
             },
@@ -523,6 +526,9 @@
             }
         },
         data: () => ({
+            currentUserId:0,
+            TitleTable:"",
+
             menuStart:"",
             menuEndFilter:"",
             isTable:false,
@@ -553,6 +559,8 @@
 
         }),
         mounted(){
+          //console.log("USER analitics")
+
             this.$store.dispatch("GET_AXIOS_USERS")
             //this.buildStatistik()
             var curent_date = new Date();
@@ -577,6 +585,17 @@
             async print () {
                 // Pass the element id here
                 await this.$htmlToPaper('printMe');
+            },
+
+
+            filterByID(item) {
+              let invalidEntries = 0
+
+              if ( item.id == this.currentUserId ) {
+                return true
+              }
+              invalidEntries++
+              return false;
             },
             buildStatistik(){
 

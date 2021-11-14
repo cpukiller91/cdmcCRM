@@ -56,7 +56,7 @@
                                         <v-select
                                             v-model="curentProject"
                                             :items="PROJECT_LIST"
-                                            label="Проект для редактирования"
+                                            label="Вид деятельности"
                                             item-text="title"
                                             item-value="id"
 
@@ -144,7 +144,7 @@
                                                 v-model="bossProject"
                                                 item-text="username"
                                                 item-value="id"
-                                                label="Руководитель"
+                                                label="Постановщик задачи"
 
                                         ></v-select>
                                     </div>
@@ -173,7 +173,7 @@
 
                                     </div>
                                     <div class="col-sm-6">
-                                        <div style="float: right">
+                                        <div style="float: right; display: none;">
                                             <button @click="saveProject" class="btn btn-success btn-outline-success">Сохранить</button>
                                             <button @click="removeProject" class="btn btn-danger btn-outline-danger">Удалить</button>
                                         </div>
@@ -339,7 +339,7 @@
 
                                     </div>
                                     <div class="col-sm-6">
-                                        <div style="float: right">
+                                        <div style="float: right;display: none">
                                             <button @click="saveTask" class="btn btn-success btn-outline-success">Сохранить</button>
                                             <button @click="removeTask" class="btn btn-danger btn-outline-danger">Удалить</button>
                                         </div>
@@ -456,7 +456,7 @@
             status:"",
             statusList:["Открытый","Закрытый","В работе"],
 
-            priorityList:["Высший","Высокий","Нормальный"],
+            priorityList:["Высокий","Нормальный"],
             priority:"",
 
             dateEndTask:"",
