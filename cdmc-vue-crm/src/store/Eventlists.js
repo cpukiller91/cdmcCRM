@@ -191,29 +191,56 @@ export default{
             let eventlists =  await Axios.get('/eventlists?_limit=2000');
             console.log("GET_FULLCALENDAR",eventlists)
 
+            var textColor = 'black'
+
             eventlists.data.forEach(element => {
                 //new Date(element.strtime).getMinutes()
                 //console.log("END_DATE",new Date(element.strtime).setMinutes(element.duration))
                 let getEndDate = new Date(element.strtime).getMinutes()
                 let newEndDate = new Date(element.strtime).setMinutes(getEndDate+element.duration)
-                RES.push({
-                    id:element.id,
-                    title: element.title+"-"+element.doctor.username+" ("+element.babycard.kidf+" "+element.babycard.kidi+" "+element.babycard.kido +")" ,
+
+                if(element.groupUser){
+                    console.log("ID==>",element.id)
+
+                    RES.push({
+                        id:element.id,
+                        title: element.title+"-"+element.doctor.username+" ("+element.babycard.kidf+" "+element.babycard.kidi+" "+element.babycard.kido +")" ,
                         //+ "("+element.babycard.kidf+" "+element.babycard.kidi
                         //+" "+element.babycard.kido
-                    //+")" ,
-                    end:newEndDate,
-                    start: element.strtime,
-                    //date: '2021-08-16 16:00',
-                    color: element.color,     // an option!
-                    textColor: 'black',
-                    editable:true,
-                    itemSelector:".item-class",
-                    // eventMinHeight:5,
-                    // eventShortHeight:30,
-                    //durationEditable:true,
-                    duration:element.duration
-                })
+                        //+")" ,
+                        end:newEndDate,
+                        start: element.strtime,
+                        //date: '2021-08-16 16:00',
+                        color: element.color,     // an option!
+                        textColor: 'red',
+                        editable:true,
+                        itemSelector:".item-class",
+                        // eventMinHeight:5,
+                        // eventShortHeight:30,
+                        //durationEditable:true,
+                        duration:element.duration
+                    })
+                }else{
+                    RES.push({
+                        id:element.id,
+                        title: element.title+"-"+element.doctor.username+" ("+element.babycard.kidf+" "+element.babycard.kidi+" "+element.babycard.kido +")" ,
+                        //+ "("+element.babycard.kidf+" "+element.babycard.kidi
+                        //+" "+element.babycard.kido
+                        //+")" ,
+                        end:newEndDate,
+                        start: element.strtime,
+                        //date: '2021-08-16 16:00',
+                        color: element.color,     // an option!
+                        textColor: 'black',
+                        editable:true,
+                        itemSelector:".item-class",
+                        // eventMinHeight:5,
+                        // eventShortHeight:30,
+                        //durationEditable:true,
+                        duration:element.duration
+                    })
+                }
+
                 //console.log("-1-1->",element);
                 //this.createElement(element)
             })
