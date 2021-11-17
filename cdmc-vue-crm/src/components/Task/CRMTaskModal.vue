@@ -402,7 +402,7 @@
                                                 </div>
                                                 {{COMMENTS.comment}}
                                                 <div v-for="Files in COMMENTS.AttachedFiles" :key="Files.id">
-                                                    <a target="_blank" :href="'https://admin.cdcmc.ru' + Files.url">{{Files.name}}</a>
+                                                    <a target="_blank" :href="'https://admin.cdcmc.ru' + Files.url">{{COMMENTS.published_at}}</a>
                                                 </div>
                                             </v-expansion-panel-content>
                                         </v-expansion-panel>
