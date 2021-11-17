@@ -489,6 +489,9 @@
             // ]
         }),
         watch:{
+            dateStartProject(nv){
+              console.log("-----!dateStartProject!----",nv)
+            },
             StartDate(nv){
               console.log("-----!StartDate",nv)
             },
@@ -750,7 +753,9 @@
             saveProject(){
                 // this.PROJECT.startProject = this.dates[0]
                 // this.PROJECT.endProject = this.dates[1]
-
+                var date = new Date(this.dateStartProject);
+                //date.setDate(date.getDate());
+                let nvDAte = dayjs(date).format('YYYY-MM-DDTHH:mm')
                 var data = {
                     boss:this.bossProject,
 
@@ -759,7 +764,8 @@
                     title:this.titleProject,
                     description: this.descriptionProject,
                     duration: this.duration,
-                    startProject: this.dateStartProject,
+                    startProject: nvDAte,
+                        //dayjs(this.dateStartProject).format('YYYY-MM-DDTHH:mm'),
                     //endProject: this.PROJECT.endProject
                 }
                 console.log("---->>--",data)
