@@ -541,7 +541,9 @@
             },
             TASK(nv){
                 console.log("TASK-CRM->",nv)
-
+                var date = new Date(nv.startDate);
+                //date.setDate(date.getDate());
+                let nvDAte = dayjs(date).format('YYYY-MM-DD')
                 this.taskName = nv.title,
                 this.taskProject = nv.project,
 
@@ -554,7 +556,7 @@
 
                 //this.dateEndTask = dayjs(nv.dateEndTask).format('YYYY-MM-DD'),
                 this.durationTask = nv.duration,
-                this.StartDate = dayjs(nv.StartDate).format('YYYY-MM-DD')
+                this.StartDate = nvDAte
 
                 this.TaskID = nv.id
                 this.commentAccess = true
@@ -698,6 +700,9 @@
                 $("#closeModalTask").click()
             },
             saveTask(){
+              var date = new Date(this.StartDate);
+              //date.setDate(date.getDate());
+              let nvDAte = dayjs(date).format('YYYY-MM-DDTHH:mm')
                 var data = {
                     title: this.taskName,
                     AttachedFiles:[],
@@ -713,7 +718,7 @@
                     Priority: this.priority,
                     //
                     duration: this.durationTask,
-                    startDate: this.StartDate
+                    startDate: nvDAte
                 }
                 if(this.TaskID == null){
                     this.$store.dispatch("POST_AXIOS_BOARDS",data)
