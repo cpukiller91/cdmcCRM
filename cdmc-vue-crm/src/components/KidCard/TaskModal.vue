@@ -342,20 +342,21 @@
 
                 var validator = await this.$store.dispatch("GET_AXIOS_EVENTS_VALIDATOR",{
                   params:{
-                    doctor:this.doctorID.id,
+                    babycard:this.kid.id,
+                    // doctor:this.doctorID.id,
                     month:dayjs(this.timeS).format('MM'),
                     dayOfMonth:dayjs(this.timeS).format('DD'),
                     times:dayjs(this.timeS).format('YYYY'),
                     strtime: this.timeS
                   }
                 })
-                console.log("Log",validator)
+                console.log("Log validator",validator)
 
                   if(this.idRecord == null){
                     if(validator == 0){
                       this.$store.dispatch("POST_AXIOS_EVENTS",data)
                     }else{
-                      alert("Для ("+this.USERS_LIST_BY_KEY_ID[this.doctorID.id].username+") уже есть запись")
+                      alert("Такая запись уже существует")
                       this.closeModal()
                     }
                   }else{
